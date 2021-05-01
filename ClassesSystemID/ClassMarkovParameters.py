@@ -16,6 +16,7 @@ from SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmObserverFull import
 from SystemIDAlgorithms.GetMarkovParametersFromObserverMarkovParameters import getMarkovParametersFromObserverMarkovParameters
 from SystemIDAlgorithms.GetObserverGainMarkovParametersFromObserverMarkovParameters import getObserverGainMarkovParametersFromObserverMarkovParameters
 from SystemIDAlgorithms.GetTimeVaryingHankelMatrix import getTimeVaryingHankelMatrix
+from SystemIDAlgorithms.GetMarkovParametersFromFrequencyResponseFunctions import getMarkovParametersFromFrequencyRepsonseFunctions
 
 
 class OKIDObserver:
@@ -47,6 +48,11 @@ class OKID:
 class OKIDFull:
     def __init__(self, input_signal, output_signal):
         self.markov_parameters = observerKalmanIdentificationAlgorithmFull(input_signal, output_signal)
+
+
+class FrequencyResponseFunction:
+    def __init__(self, experiments):
+        self.DFT_u, self.DFT_y, self.Suu, self.Suy, self.Syu, self.Syy, self.Suu_averaged, self.Suy_averaged, self.Syu_averaged, self.Syy_averaged, self.transfer_function1, self.transfer_function2, self.markov_parameters1, self.markov_parameters2 = getMarkovParametersFromFrequencyRepsonseFunctions(experiments)
 
 
 class TVOKIDObserver:

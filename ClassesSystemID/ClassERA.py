@@ -30,8 +30,8 @@ class ERAFromInitialConditionResponse:
 
 
 class ERADC:
-    def __init__(self, markov_parameters, tau, state_dimension):
-        self.A, self.B, self.C, self.D, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq = eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, tau, state_dimension)
+    def __init__(self, markov_parameters, state_dimension, **kwargs):
+        self.A, self.B, self.C, self.D, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq, self.MAC, self.MSV = eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs)
 
 
 
