@@ -14,9 +14,11 @@ from scipy.linalg import expm
 
 
 class AutomobileSystemDynamics:
-    def __init__(self, dt, mass, moment_inertia, spring_constant1, spring_constant2, damping_coefficient1, damping_coefficient2, distance1, distance2, force_coefficient1, force_coefficient2, measurements1, measurements2):
+    def __init__(self, dt, mass, moment_inertia, spring_constant1, spring_constant2, damping_coefficient1, damping_coefficient2, distance1, distance2, measurements1, measurements2, input1, input2):
         self.state_dimension = 4
-        self.input_dimension = 2
+        self.input_dimension = 1
+        if input1 and input2:
+            self.input_dimension +=1
         self.output_dimension = len(measurements1) + len(measurements2)
         self.dt = dt
         self.frequency = 1 / dt
@@ -28,8 +30,6 @@ class AutomobileSystemDynamics:
         self.damping_coefficient2 = damping_coefficient2
         self.distance1 = distance1
         self.distance2 = distance2
-        self.force_coefficient1 = force_coefficient1
-        self.force_coefficient2 = force_coefficient2
         self.measurements1 = measurements1
         self.measurements2 = measurements2
         self.total_measurements = []
@@ -55,8 +55,14 @@ class AutomobileSystemDynamics:
         self.Ad = expm(self.Ac * self.dt)
 
         self.B2 = np.zeros([int(self.state_dimension / 2), self.input_dimension])
-        self.B2[0, 0] = self.force_coefficient1
-        self.B2[1, 1] = self.force_coefficient2
+        if input1 and input2:
+            self.B2[0, 0] = 1
+            self.B2[1, 1] = 1
+        else:
+            if input1:
+                self.B2[0, 0] = 1
+            if input2:
+                self.B2[1, 0] = 1
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
         self.Bc[2:4, 0:2] = np.matmul(inv(self.M), self.B2)
         self.Bd = np.matmul(np.matmul((self.Ad - np.eye(self.state_dimension)), inv(self.Ac)), self.Bc)
