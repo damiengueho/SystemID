@@ -12,22 +12,28 @@ import numpy as np
 from numpy import linalg as LA
 from scipy.linalg import fractional_matrix_power as matpow
 
+from SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
-def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, tau, state_dimension):
+
+
+
+def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs):
 
     # Sizes
-    p = int(np.floor((len(markov_parameters)-1)/(2*(1+tau))))
-    xi = p
-    gamma = 1 + 2 * xi * tau
-    if markov_parameters[0].shape == ():
-        (output_dimension, input_dimension) = (1, 1)
-    else:
-        (output_dimension, input_dimension) = markov_parameters[0].shape
+    p = int(kwargs.get('p', int(np.floor(np.sqrt((len(markov_parameters) - 1) / 4)))))
+    q = int(kwargs.get('q', p))
+    xi = int(kwargs.get('xi', p))
+    zeta = int(kwargs.get('zeta', p))
+    tau = int(kwargs.get('tau', p))
+    gamma = 1 + (xi + zeta) * tau
+
+    # Dimensions
+    (output_dimension, input_dimension) = markov_parameters[0].shape
 
     # Hankel matrices
-    H = np.zeros([p * output_dimension, p * input_dimension, gamma + 1])
+    H = np.zeros([p * output_dimension, q * input_dimension, gamma + 1])
     for i in range(p):
-        for j in range(p):
+        for j in range(q):
             for k in range(gamma + 1):
                 H[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension, k] = markov_parameters[i + j + 1 + k]
 
@@ -37,17 +43,34 @@ def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, tau, s
         R[:, :, i] = np.matmul(H[:, :, i], np.transpose(H[:, :, 0]))
 
     # Building Block Correlation Hankel Matrices
-    H0 = np.zeros([(xi + 1) * p * output_dimension, (xi + 1) * p * output_dimension])
-    H1 = np.zeros([(xi + 1) * p * output_dimension, (xi + 1) * p * output_dimension])
+    H0 = np.zeros([(xi + 1) * p * output_dimension, (zeta + 1) * p * output_dimension])
+    H1 = np.zeros([(xi + 1) * p * output_dimension, (zeta + 1) * p * output_dimension])
     for i in range(xi + 1):
-        for j in range(xi + 1):
+        for j in range(zeta + 1):
             H0[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = R[:, :, (i + j) * tau]
             H1[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = R[:, :, (i + j) * tau + 1]
 
     # SVD H(0)
-    print(H0.shape)
     (R, sigma, St) = LA.svd(H0, full_matrices=True)
     Sigma = np.diag(sigma)
+
+    # MAC and MSV
+    mac_and_msv = kwargs.get('mac_and_msv', False)
+    if mac_and_msv:
+        pm, qr = H0.shape
+        n = min(pm, qr)
+        Rn = R[:, 0:n]
+        Snt = St[0:n, :]
+        Sigman = Sigma[0:n, 0:n]
+        Op = np.matmul(Rn, LA.sqrtm(Sigman))
+        Rq = np.matmul(LA.sqrtm(Sigman), Snt)
+        A_id = np.matmul(LA.pinv(Op), np.matmul(H1, LA.pinv(Rq)))
+        B_id = Rq[:, 0:input_dimension]
+        C_id = Op[0:output_dimension, :]
+        MAC, MSV = getMACandMSV(A_id, B_id, C_id, Rq, p)
+    else:
+        MAC = []
+        MSV = []
 
     # Matrices Rn, Sn, Sigman
     Rn = R[:, 0:state_dimension]
@@ -74,4 +97,4 @@ def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, tau, s
     def D(tk):
         return D_id
 
-    return A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq
+    return A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV

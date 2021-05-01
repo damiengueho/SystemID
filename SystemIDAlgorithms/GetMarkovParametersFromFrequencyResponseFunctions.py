@@ -26,8 +26,8 @@ def getMarkovParametersFromFrequencyRepsonseFunctions(experiments):
     half_number_steps = number_steps
 
     # Individual DFTs
-    U = np.zeros([input_dimension, half_number_steps, number_experiments], dtype=complex)
-    Y = np.zeros([output_dimension, half_number_steps, number_experiments], dtype=complex)
+    DFT_u = np.zeros([input_dimension, half_number_steps, number_experiments], dtype=complex)
+    DFT_y = np.zeros([output_dimension, half_number_steps, number_experiments], dtype=complex)
 
     # Individual Spectral Densities
     Suu = np.zeros([input_dimension, input_dimension, half_number_steps, number_experiments], dtype=complex)
@@ -43,19 +43,19 @@ def getMarkovParametersFromFrequencyRepsonseFunctions(experiments):
 
     for l in range(number_experiments):
         for i in range(input_dimension):
-            U[i, :, l] = (np.fft.fft(experiments.input_signals[l].data[i, 0:number_steps]))[0: half_number_steps]
+            DFT_u[i, :, l] = (np.fft.fft(experiments.input_signals[l].data[i, 0:number_steps]))[0: half_number_steps]
         for j in range(output_dimension):
-            Y[j, :, l] = (np.fft.fft(experiments.output_signals[l].data[j, 0:number_steps]))[0: half_number_steps]
+            DFT_y[j, :, l] = (np.fft.fft(experiments.output_signals[l].data[j, 0:number_steps]))[0: half_number_steps]
         for i1 in range(input_dimension):
             for i2 in range(input_dimension):
-                Suu[i1, i2, :, l] = np.multiply(U[i1, :, l], np.conj(U[i2, :, l]))
+                Suu[i1, i2, :, l] = np.multiply(DFT_u[i1, :, l], np.conj(DFT_u[i2, :, l]))
         for i in range(input_dimension):
             for j in range(output_dimension):
-                Suy[i, j, :, l] = np.multiply(U[i, :, l], np.conj(Y[j, :, l]))
-                Syu[j, i, :, l] = np.multiply(Y[j, :, l], np.conj(U[i, :, l]))
+                Suy[i, j, :, l] = np.multiply(DFT_u[i, :, l], np.conj(DFT_y[j, :, l]))
+                Syu[j, i, :, l] = np.multiply(DFT_y[j, :, l], np.conj(DFT_u[i, :, l]))
         for j1 in range(output_dimension):
             for j2 in range(output_dimension):
-                Syy[j1, j2, :, l] = np.multiply(Y[j1, :, l], np.conj(Y[j2, :, l]))
+                Syy[j1, j2, :, l] = np.multiply(DFT_y[j1, :, l], np.conj(DFT_y[j2, :, l]))
 
         Suu_averaged = Suu_averaged + Suu[:, :, :, l] / number_experiments
         Suy_averaged = Suy_averaged + Suy[:, :, :, l] / number_experiments
@@ -84,4 +84,4 @@ def getMarkovParametersFromFrequencyRepsonseFunctions(experiments):
         markov_parameters1.append(h1[:, :, k])
         markov_parameters2.append(h2[:, :, k])
 
-    return U, Y, Suu, Suy, Syu, Syy, Suu_averaged, Suy_averaged, Syu_averaged, Syy_averaged, transfer_function1, transfer_function2, h1, h2, markov_parameters1, markov_parameters2
+    return DFT_u, DFT_y, Suu, Suy, Syu, Syy, Suu_averaged, Suy_averaged, Syu_averaged, Syy_averaged, transfer_function1, transfer_function2, markov_parameters1, markov_parameters2

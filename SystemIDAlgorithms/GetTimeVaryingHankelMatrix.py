@@ -32,13 +32,6 @@ def getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q,
     hki_observer2 = np.zeros([(number_steps - 1) * output_dimension, (number_steps - 1) * output_dimension])
     D = np.zeros([output_dimension, input_dimension, number_steps])
 
-    # Store values
-    sv = []
-    E1 = np.zeros(number_steps)
-    E2 = np.zeros(number_steps)
-    E3 = np.zeros(number_steps)
-    Vh = np.zeros([input_dimension + deadbeat_order * (input_dimension + output_dimension), input_dimension + deadbeat_order * (input_dimension + output_dimension), 80])
-
     # Populate Y matrix
     for k in range(q):
         for i in range(p + 1):
@@ -47,13 +40,7 @@ def getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q,
 
     # TVOKID
     for k in range(number_steps):
-        Mk, s, e1, e2, e3, V = timeVaryingObserverKalmanIdentificationAlgorithmObserver(forced_experiments, p + 1, q, deadbeat_order, k)
-        # if k > 9 and k < 90:
-        #     Vh[:, :, k-10] = V
-        sv.append(s)
-        E1[k] = e1
-        E2[k] = e2
-        E3[k] = e3
+        Mk, V = timeVaryingObserverKalmanIdentificationAlgorithmObserver(forced_experiments, p + 1, q, deadbeat_order, k)
         D[:, :, k] = Mk[:, 0:input_dimension]
         for j in range(min(max(p + 1 + q - 1, deadbeat_order), k)):
             h_observer = Mk[:, input_dimension + j * (input_dimension + output_dimension):input_dimension + (j + 1) * (input_dimension + output_dimension)]
@@ -65,7 +52,7 @@ def getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q,
     # Get Markov Parameters from Observer Markov Parameters
     hki = getTVMarkovParametersFromTVObserverMarkovParameters(D, hki_observer1, hki_observer2, p + 1, q)
 
-    return Y, hki, D, hki_observer1, hki_observer2, sv, E1, E2, E3, Vh
+    return Y, hki, D, hki_observer1, hki_observer2
 
 
 

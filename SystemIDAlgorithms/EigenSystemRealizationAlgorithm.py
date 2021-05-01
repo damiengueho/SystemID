@@ -16,18 +16,18 @@ from SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 def eigenSystemRealizationAlgorithm(markov_parameters, state_dimension, **kwargs):
 
-    # Sizes
+    # Size of Hankel Matrix
     p = kwargs.get('p', int(np.floor((len(markov_parameters) - 1) / 2)))
-    if markov_parameters[0].shape == ():
-        (output_dimension, input_dimension) = (1, 1)
-    else:
-        (output_dimension, input_dimension) = markov_parameters[0].shape
+    q = kwargs.get('q', p)
+
+    # Dimensions
+    (output_dimension, input_dimension) = markov_parameters[0].shape
 
     # Hankel matrices H(0) and H(1)
-    H0 = np.zeros([p * output_dimension, p * input_dimension])
-    H1 = np.zeros([p * output_dimension, p * input_dimension])
+    H0 = np.zeros([p * output_dimension, q * input_dimension])
+    H1 = np.zeros([p * output_dimension, q * input_dimension])
     for i in range(p):
-        for j in range(p):
+        for j in range(q):
             H0[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension] = markov_parameters[i + j + 1]
             H1[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension] = markov_parameters[i + j + 2]
 
