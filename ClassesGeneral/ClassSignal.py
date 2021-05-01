@@ -16,15 +16,14 @@ from SystemIDAlgorithms.Propagation import propagation
 
 
 class Signal:
-    def __init__(self, dimension, name):
+    def __init__(self, dimension):
         self.dimension = dimension
-        self.name = name
 
 
 
 class DiscreteSignal(Signal):
-    def __init__(self, dimension, name, total_time, frequency, **kwargs):
-        super().__init__(dimension, name)
+    def __init__(self, dimension, total_time, frequency, **kwargs):
+        super().__init__(dimension)
         self.total_time = total_time
         self.frequency = frequency
         self.dt = 1/frequency
@@ -74,8 +73,8 @@ class DiscreteSignal(Signal):
 
 
 class ContinuousSignal(Signal):
-    def __init__(self, dimension, name, **kwargs):
-        super().__init__(dimension, name)
+    def __init__(self, dimension, **kwargs):
+        super().__init__(dimension)
         self.signal_type = 'Continuous'
         self.signal_shape = kwargs.get('signal_shape', 'Zero')
 
@@ -121,13 +120,10 @@ class ContinuousSignal(Signal):
 
 
 class OutputSignal(DiscreteSignal):
-    def __init__(self, signal, system, name, **kwargs):
+    def __init__(self, signal, system, **kwargs):
         if signal.signal_type == 'Discrete':
-            state_propagation = kwargs.get('state_propagation', False)
-            signal_input_history = kwargs.get('signal_input_history', False)
-            signal_output_history = kwargs.get('signal_output_history', False)
-            data = propagation(signal, system, state_propagation=state_propagation, signal_input_history=signal_input_history, signal_output_history=signal_output_history)
-            super().__init__(system.output_dimension, name, signal.total_time, signal.frequency, signal_shape='External', data=data[0])
+            data = propagation(signal, system)
+            super().__init__(system.output_dimension, signal.total_time, signal.frequency, signal_shape='External', data=data[0])
             self.state = data[1]
         if signal.signal_type == 'Continuous':
             tspan = kwargs.get('tspan', np.array([0, 0]))
@@ -135,15 +131,27 @@ class OutputSignal(DiscreteSignal):
             number_steps = len(tspan)
             frequency = int(round((number_steps - 1) / total_time))
             data = propagation(signal, system, tspan=tspan)
-            super().__init__(system.output_dimension, name, total_time, frequency, signal_shape='External', data=data[0])
+            super().__init__(system.output_dimension, total_time, frequency, signal_shape='External', data=data[0])
             self.state = data[1]
 
 
 
 def subtract2Signals(signal1, signal2):
-    return DiscreteSignal(signal1.dimension, signal1.name + ' - ' + signal2.name, signal1.total_time, signal1.frequency, signal_shape='External', data=signal1.data-signal2.data)
+    return DiscreteSignal(signal1.dimension, signal1.total_time, signal1.frequency, signal_shape='External', data=signal1.data-signal2.data)
 
 
 
-def add2Signals(signal1, signal2):
-    return DiscreteSignal(signal1.dimension, signal1.name + ' + ' + signal2.name, signal1.total_time, signal1.frequency, signal_shape='External', data=signal1.data+signal2.data)
+def addSignals(signals):
+    for s in signals:
+        data = data + s.data
+    return DiscreteSignal(signals[0].dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=data)
+
+
+#
+# def stackSignals(signals):
+#     return DiscreteSignal(signal1.dimension + signal2.dimension, signal1.name + ' + ' + signal2.name, signal1.total_time, signal1.frequency, signal_shape='External', data=np.concatenate((signal1.data, signal2.data), axis=0))
+#
+
+
+def concatenateSignals(signals):
+    return DiscreteSignal(signals[0].dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=np.concatenate(signals, axis=1))

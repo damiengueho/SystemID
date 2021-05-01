@@ -28,7 +28,7 @@ class Experiments:
             self.frequency = systems[0].frequency
             self.output_signals = []
             for i in range(self.number_experiments):
-                self.output_signals.append(OutputSignal(input_signals[i], systems[i], 'Output ' + input_signals[i].name))
+                self.output_signals.append(OutputSignal(input_signals[i], systems[i]))
 
         if input_signals[0].signal_type == 'Continuous':
             self.systems = systems
@@ -40,4 +40,4 @@ class Experiments:
             self.output_signals = []
             self.tspan = kwargs.get('tspan', np.array([0, 0]))
             for i in range(self.number_experiments):
-                self.output_signals.append(OutputSignal(input_signals[i], systems[i], 'Output ' + input_signals[i].name, tspan=self.tspan))
+                self.output_signals.append(OutputSignal(input_signals[i], systems[i], tspan=self.tspan))

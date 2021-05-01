@@ -51,4 +51,4 @@ class OKIDFull:
 
 class TVOKIDObserver:
     def __init__(self, forced_experiments, free_decay_experiments, p, q, deadbeat_order):
-        self.Y, self.hki, self.D, self.hki_observer1, self.hki_observer2, self.sv, self.E1, self.E2, self.E3, self.Vh = getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q, deadbeat_order)
+        self.Y, self.hki, self.D, self.hki_observer1, self.hki_observer2 = getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q, deadbeat_order)
