@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -49,4 +49,4 @@ class TVERA:
 
 class TVERAFromInitialConditionResponse:
     def __init__(self, free_decay_experiments, full_experiment, state_dimension, p):
-        self.A, self.B, self.C, self.D, self.x0, self.Ok, self.Ok1, self.Sigma = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, full_experiment, state_dimension, p)
+        self.A, self.B, self.C, self.D, self.x0, self.Ok, self.Ok1, self.Sigma, self.A_id, self.B_id, self.C_id, self.D_id = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, full_experiment, state_dimension, p)
