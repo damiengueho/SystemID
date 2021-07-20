@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -31,9 +31,9 @@ class DuffingOscillatorDynamics:
         self.alpha = alpha
         self.beta = beta
         self.tspan = kwargs.get('tspan', np.array([0, 1, 2, 3]))
-        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 'No nominal trajectory', 3, 1))
+        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 3, 1))
         self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x.data, 'cubic')
-        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 'No nominal input', 3, 1))
+        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 3, 1))
         self.nominal_u_interpolated = interp1d(self.tspan, self.nominal_u.data, 'cubic')
         self.dt = kwargs.get('dt', 0)
 
@@ -44,7 +44,7 @@ class DuffingOscillatorDynamics:
         return dxdt
 
     def G(self, x, t, u):
-        return x
+        return np.array([x[0], x[0] + x[1]])
 
     def Ac(self, t):
         Ac = np.zeros([self.state_dimension, self.state_dimension])
