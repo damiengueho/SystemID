@@ -16,10 +16,11 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 from SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
 
 
-def timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state_dimension, p, q, **kwargs):
+def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation(Y, hki, D, full_experiment, state_dimension, p, q, xi, zeta, tau, **kwargs):
 
     # Dimensions and number of steps
     output_dimension, input_dimension, number_steps = D.shape
+    gamma = p * output_dimension
 
 
     # Frequency
@@ -51,16 +52,26 @@ def timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state
 
 
     # First Hpq1
-    Hpq1 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
+    Hpqq = np.zeros([(p + 1) * output_dimension, q * input_dimension])
     for i in range(p + 1):
-        Hpq1[i * output_dimension:(i + 1) * output_dimension, :] = hki[(q + i - 1) * output_dimension:(q + i) * output_dimension, i * input_dimension:(i + q) * input_dimension]
+        Hpqq[i * output_dimension:(i + 1) * output_dimension, :] = hki[(q + i - 1) * output_dimension:(q + i) * output_dimension, i * input_dimension:(q + i) * input_dimension]
 
 
     # Calculating next A, B, C
     for k in range(q, number_steps - p - 1):
+        Hpq1 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
+        for i in range(p + 1):
+            Hpq1[i * output_dimension:(i + 1) * output_dimension, :] = hki[(k + i - 1) * output_dimension:(k + i) * output_dimension, i * input_dimension:(q + i) * input_dimension]
+
         Hpq2 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
         for i in range(p + 1):
-            Hpq2[i * output_dimension:(i + 1) * output_dimension, :] = hki[(k + 1 + i - 1) * output_dimension:(k + 1 + i) * output_dimension, i * input_dimension:(i + q) * input_dimension]
+            Hpq2[i * output_dimension:(i + 1) * output_dimension, :] = hki[(k + 1 + i - 1) * output_dimension:(k + 1 + i) * output_dimension, i * input_dimension:(q + i) * input_dimension]
+
+        # Generalized data correlation matrices
+        Rk = np.zeros([gamma, gamma, (xi + zeta - 2) * tau])
+        for i in range((xi + zeta - 2) * tau):
+            Rk[:, :, i] = np.matmul(Hpq1, Hpqq.T)
+        Rk2 = np.matmul(Hpq2, Hpqq.T)
 
         # SVD Hpq1
         (R1, sigma1, St1) = LA.svd(Hpq1, full_matrices=True)

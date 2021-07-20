@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -88,13 +88,35 @@ def propagation(signal, system, **kwargs):
             integration_step = kwargs.get('integration_step', 0.001)
             sol = integrate(dynamics, x0, tspan, integration_step, args=(signal.u, ))
         else:
-            sol = odeint(dynamics, x0, tspan, rtol=1e-13, atol=1e-13)
+            sol = odeint(dynamics, x0, tspan, args=(signal.u, ), rtol=1e-13, atol=1e-13)
 
         x = sol.T
         y = np.zeros([output_dimension, tspan.shape[0]])
         i = 0
         for t in tspan:
-            y[:, i] = np.matmul(C(t), x[:, i]) + np.matmul(D(t), u(t))
+            y[:, i] = np.matmul(C(t), x[:, i]) + np.matmul(D(t), signal.u(t))
+            i += 1
+
+
+    if system_type == 'Continuous Bilinear':
+        tspan = kwargs.get('tspan', np.zeros(1))
+        (A, N, B, C, D) = system.A, system.N, system.B, system.C, system.D
+
+        def dynamics(x, t, u):
+            return np.matmul(A(t), x) + np.matmul(N(t), np.kron(u(t), x)) + np.matmul(B(t), u(t))
+
+        fixed_step_size = kwargs.get('fixed_step_size', False)
+        if fixed_step_size:
+            integration_step = kwargs.get('integration_step', 0.001)
+            sol = integrate(dynamics, x0, tspan, integration_step, args=(signal.u, ))
+        else:
+            sol = odeint(dynamics, x0, tspan, args=(signal.u, ), rtol=1e-13, atol=1e-13)
+
+        x = sol.T
+        y = np.zeros([output_dimension, tspan.shape[0]])
+        i = 0
+        for t in tspan:
+            y[:, i] = np.matmul(C(t), x[:, i]) + np.matmul(D(t), signal.u(t))
             i += 1
 
 

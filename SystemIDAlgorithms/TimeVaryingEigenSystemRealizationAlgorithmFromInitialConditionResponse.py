@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -104,4 +104,4 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
     x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
 
 
-    return A, B, C, D, x0, Ok, Ok1, Sigma
+    return A, B, C, D, x0, Ok, Ok1, Sigma, A_id, B_id, C_id, D_id

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -18,7 +18,7 @@ from SystemIDAlgorithms.GetTVMarkovParametersFromTVObserverMarkovParameters impo
 def getTimeVaryingHankelMatrix(forced_experiments, free_decay_experiments, p, q, deadbeat_order):
 
     # Dimensions
-    input_dimension = free_decay_experiments.input_dimension
+    input_dimension = forced_experiments.input_dimension
     output_dimension = free_decay_experiments.output_dimension
     number_free_decay_experiments = free_decay_experiments.number_experiments
     number_steps = free_decay_experiments.output_signals[0].number_steps
