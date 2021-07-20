@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -45,6 +45,17 @@ class ContinuousLinearSystem(System):
         super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
         self.system_type = 'Continuous Linear'
         self.A = A
+        self.B = B
+        self.C = C
+        self.D = D
+
+
+class ContinuousBilinearSystem(System):
+    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, A, N, B, C, D):
+        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+        self.system_type = 'Continuous Bilinear'
+        self.A = A
+        self.N = N
         self.B = B
         self.C = C
         self.D = D

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 10
-Date: April 2021
+Version: 11
+Date: July 2021
 Python: 3.7.7
 """
 
@@ -114,7 +114,7 @@ class ContinuousSignal(Signal):
             self.u = kwargs.get('u', zero)
         else:
             def zero(t):
-                return np.outer(np.zeros(self.dimension), t)
+                return np.zeros(self.dimension) * t
             self.u = zero
 
 
@@ -126,7 +126,7 @@ class OutputSignal(DiscreteSignal):
             super().__init__(system.output_dimension, signal.total_time, signal.frequency, signal_shape='External', data=data[0])
             self.state = data[1]
         if signal.signal_type == 'Continuous':
-            tspan = kwargs.get('tspan', np.array([0, 0]))
+            tspan = kwargs.get('tspan', np.array([0, 1]))
             total_time = tspan[-1]
             number_steps = len(tspan)
             frequency = int(round((number_steps - 1) / total_time))
@@ -142,15 +142,26 @@ def subtract2Signals(signal1, signal2):
 
 
 def addSignals(signals):
-    for s in signals:
-        data = data + s.data
-    return DiscreteSignal(signals[0].dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=data)
+    if len(signals) < 1:
+        return []
+    elif len(signals) == 1:
+        return DiscreteSignal(signals[0].dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=signals[0].data)
+    else:
+        data = signals[0].data
+        for s in signals[1:]:
+            data = data + s.data
+        return DiscreteSignal(signals[0].dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=data)
 
 
-#
-# def stackSignals(signals):
-#     return DiscreteSignal(signal1.dimension + signal2.dimension, signal1.name + ' + ' + signal2.name, signal1.total_time, signal1.frequency, signal_shape='External', data=np.concatenate((signal1.data, signal2.data), axis=0))
-#
+
+def stackSignals(signals):
+    dimension = signals[0].dimension
+    data = signals[0].data
+    for signal in signals[1:]:
+        dimension += signal.dimension
+        data = np.concatenate((data, signal.data), axis=0)
+    return DiscreteSignal(dimension, signals[0].total_time, signals[0].frequency, signal_shape='External', data=data)
+
 
 
 def concatenateSignals(signals):
