@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -96,8 +96,8 @@ class PanelFlutterDynamics:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -189,8 +189,8 @@ class PanelFlutterDynamics2:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -210,10 +210,10 @@ class PanelFlutterDynamics3:
         self.output_dimension = 4
         self.RT = RT
         self.tspan = kwargs.get('tspan', np.array([0, 1, 2, 3]))
-        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 'No nominal trajectory', 3, 1))
-        self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x.data, 'cubic')
-        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 'No nominal input', 3, 1))
-        self.nominal_u_interpolated = interp1d(self.tspan, self.nominal_u.data, 'cubic')
+        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 3, 1))
+        self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x.data, 'cubic', bounds_error=False, fill_value="extrapolate")
+        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 3, 1))
+        self.nominal_u_interpolated = interp1d(self.tspan, self.nominal_u.data, 'cubic', bounds_error=False, fill_value="extrapolate")
         self.dt = kwargs.get('dt', 0)
 
     def F(self, x, t, u):
@@ -234,7 +234,7 @@ class PanelFlutterDynamics3:
         Ac[2, 0] = -np.pi**4 + 10*np.pi**2*self.RT(t) - 15*np.pi**4*self.nominal_x_interpolated(t)[0]**3/2 - 10*np.pi**4*self.nominal_x_interpolated(t)[1]**2
         Ac[2, 1] = 8*self.nominal_u_interpolated(t)[0]/3 - 20*np.pi**4*self.nominal_x_interpolated(t)[0]*self.nominal_x_interpolated(t)[1]
         Ac[2, 2] = -self.nominal_u_interpolated(t)[1]
-        Ac[3, 0] = -8*self.nominal_u_interpolated(t)/3 - 20*np.pi**4*self.nominal_x_interpolated(t)[0]*self.nominal_x_interpolated(t)[1]
+        Ac[3, 0] = -8*self.nominal_u_interpolated(t)[0]/3 - 20*np.pi**4*self.nominal_x_interpolated(t)[0]*self.nominal_x_interpolated(t)[1]
         Ac[3, 1] = -16*np.pi**4 + 40*np.pi**2*self.RT(t) - 10*np.pi**4*self.nominal_x_interpolated(t)[0]**2 - 120*np.pi**4*self.nominal_x_interpolated(t)[1]**2
         Ac[3, 3] = -self.nominal_u_interpolated(t)[1]
         return Ac

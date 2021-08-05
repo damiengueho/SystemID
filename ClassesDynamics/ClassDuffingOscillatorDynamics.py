@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -44,7 +44,7 @@ class DuffingOscillatorDynamics:
         return dxdt
 
     def G(self, x, t, u):
-        return np.array([x[0], x[0] + x[1]])
+        return x
 
     def Ac(self, t):
         Ac = np.zeros([self.state_dimension, self.state_dimension])
