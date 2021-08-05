@@ -14,7 +14,7 @@ from scipy.linalg import expm
 
 
 class MassSpringDamperDynamics:
-    def __init__(self, dt, mass, spring_constant, damping_coefficient, force_coefficient, measurements):
+    def __init__(self, dt, mass, spring_constant, damping_coefficient, measurements):
         self.state_dimension = 2
         self.input_dimension = 1
         self.output_dimension = len(measurements)
@@ -23,7 +23,6 @@ class MassSpringDamperDynamics:
         self.mass = mass
         self.spring_constant = spring_constant
         self.damping_coefficient = damping_coefficient
-        self.force_coefficient = force_coefficient
         self.measurements = measurements
         self.total_measurements = []
         self.units = []
@@ -40,10 +39,8 @@ class MassSpringDamperDynamics:
         self.Ac[1:2, 1:2] = np.matmul(-inv(self.M), self.Z)
         self.Ad = expm(self.Ac * self.dt)
 
-        self.B2 = np.zeros([int(self.state_dimension / 2), self.input_dimension])
-        self.B2[0, 0] = self.force_coefficient
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
-        self.Bc[1:2, 0:1] = np.matmul(inv(self.M), self.B2)
+        self.Bc[1:2, 0:1] = inv(self.M)
         self.Bd = np.matmul(np.matmul((self.Ad - np.eye(self.state_dimension)), inv(self.Ac)), self.Bc)
 
         self.Cd = np.zeros([self.output_dimension, self.state_dimension])
