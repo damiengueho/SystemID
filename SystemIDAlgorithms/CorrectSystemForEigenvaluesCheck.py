@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -17,6 +17,31 @@ from ClassesGeneral.ClassSystem import DiscreteLinearSystem
 
 
 def correctSystemForEigenvaluesCheck(system, number_steps, p):
+    """
+    Purpose:
+        Correct the system matrices :math:`A_k` of a system with a matrix multiplication on the left by :math:`{\\boldsymbol{O}_k^{(p)}}^\dagger \\boldsymbol{O}_{k+1}^{(p)}`.
+
+    Parameters:
+        - **system** (``DiscreteLinearSystem``): the system to be corrected
+        - **number_steps** (``int``): number of steps
+        - **p** (``int``): p
+
+    Returns:
+        - **corrected_system** (``DiscreteLinearSystem``): the corrected system
+
+    Imports:
+        - ``import numpy as np``
+        - ``import scipy.linalg as LA``
+        - ``from SystemIDAlgorithms.GetObservabilityMatrix import getObservabilityMatrix``
+        - ``from ClassesGeneral.ClassSystem import DiscreteLinearSystem``
+
+    Description:
+        A useful description.ergergd
+
+    See Also:
+        :mod:`SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix`
+        :mod:`ClassesGeneral.ClassSystem.DiscreteLinearSystem`
+    """
 
     # Dimension and parameters
     state_dimension, _ = system.A(0).shape

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -12,8 +12,11 @@ import numpy as np
 from numpy import linalg as LA
 from scipy.linalg import fractional_matrix_power as matpow
 
+from SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
+from ClassesGeneral.ClassSignal import DiscreteSignal
 
-def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs):
+
+def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
 
     # Number of Signals
     number_signals = len(output_signals)
@@ -60,7 +63,7 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
     Op = np.matmul(Rn, matpow(Sigman, 1 / 2))
     Rq = np.matmul(matpow(Sigman, 1 / 2), Snt)
     A_id = np.matmul(LA.pinv(Op), np.matmul(H1, LA.pinv(Rq)))
-    x0 = Rq[:, 0:number_signals]
+    X0 = Rq[:, 0:number_signals]
     C_id = Op[0:output_dimension, :]
 
 
@@ -77,4 +80,7 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
         return(np.zeros([output_dimension, input_dimension]))
 
 
-    return A, B, C, D, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq
+    x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
+
+
+    return A, B, C, D, X0, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq

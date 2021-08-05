@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 12
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -321,8 +321,8 @@ def sparseApproximation1stOrder(signals, input_signals, x0s_testing, input_signa
 # Author: Damien GUEHO
 # Copyright: Copyright (C) 2021 Damien GUEHO
 # License: Public Domain
-# Version: 11
-# Date: July 2021
+# Version: 12
+# Date: August 2021
 # Python: 3.7.7
 # """
 #
