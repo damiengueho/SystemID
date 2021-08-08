@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
@@ -33,22 +33,53 @@ def propagation(signal, system, **kwargs):
 
         u = signal.data
 
+        observer = kwargs.get('observer', False)
+        if observer:
+            K = system.K
+            reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
+
+        process_noise = kwargs.get('process_noise', False)
+        process_noise_signal = kwargs.get('process_noise_signal')
+        measurement_noise = kwargs.get('measurement_noise', False)
+        measurement_noise_signal = kwargs.get('measurement_noise_signal')
+
         x = np.zeros([state_dimension, number_steps + 1])
         x[:, 0] = x0
         y = np.zeros([output_dimension, number_steps])
         count_init_states = 1
 
         for i in range(number_steps):
-            y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
+            if measurement_noise:
+                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
+            else:
+                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
             if number_initial_states > 1:
                 if i + 1 == initial_states[count_init_states][1]:
                     x[:, i + 1] = initial_states[count_init_states][0]
                     if count_init_states < number_initial_states - 1:
                         count_init_states += 1
                 else:
-                    x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i])
+                    if observer:
+                        if process_noise:
+                            x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+                        else:
+                            x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+                    else:
+                        if process_noise:
+                            x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+                        else:
+                            x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i])
             else:
-                x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i])
+                if observer:
+                    if process_noise:
+                        x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+                    else:
+                        x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+                else:
+                    if process_noise:
+                        x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+                    else:
+                        x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i])
 
 
     if system_type == 'Discrete Nonlinear':
@@ -58,22 +89,53 @@ def propagation(signal, system, **kwargs):
 
         u = signal.data
 
+        observer = kwargs.get('observer', False)
+        if observer:
+            K = system.K
+            reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
+
+        process_noise = kwargs.get('process_noise', False)
+        process_noise_signal = kwargs.get('process_noise_signal')
+        measurement_noise = kwargs.get('measurement_noise', False)
+        measurement_noise_signal = kwargs.get('measurement_noise_signal')
+
         x = np.zeros([state_dimension, number_steps + 1])
         x[:, 0] = x0
         y = np.zeros([output_dimension, number_steps])
         count_init_states = 1
 
         for i in range(number_steps):
-            y[:, i] = G(x[:, i], i * dt, u[:, i])
+            if measurement_noise:
+                y[:, i] = G(x[:, i], i * dt, u[:, i]) + measurement_noise_signal.u(i * dt)
+            else:
+                y[:, i] = G(x[:, i], i * dt, u[:, i])
             if number_initial_states > 1:
                 if i + 1 == initial_states[count_init_states][1]:
                     x[:, i + 1] = initial_states[count_init_states][0]
                     if count_init_states < number_initial_states - 1:
                         count_init_states += 1
                 else:
-                    x[:, i + 1] = F(x[:, i], i * dt, u[:, i])
+                    if observer:
+                        if process_noise:
+                            x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal(i * dt)
+                        else:
+                            x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+                    else:
+                        if process_noise:
+                            x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + process_noise_signal(i * dt)
+                        else:
+                            x[:, i + 1] = F(x[:, i], i * dt, u[:, i])
             else:
-                x[:, i + 1] = F(x[:, i], i * dt, u[:, i])
+                if observer:
+                    if process_noise:
+                        x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal(i * dt)
+                    else:
+                        x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+                else:
+                    if process_noise:
+                        x[:, i + 1] = F(x[:, i], i * dt, u[:, i]) + process_noise_signal(i * dt)
+                    else:
+                        x[:, i + 1] = F(x[:, i], i * dt, u[:, i])
 
 
     if system_type == 'Continuous Linear':

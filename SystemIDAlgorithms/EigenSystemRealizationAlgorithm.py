@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
@@ -18,7 +18,9 @@ def eigenSystemRealizationAlgorithm(markov_parameters, state_dimension, **kwargs
 
     # Size of Hankel Matrix
     p = kwargs.get('p', int(np.floor((len(markov_parameters) - 1) / 2)))
+    p = min(p, int(np.floor((len(markov_parameters) - 1) / 2)))
     q = kwargs.get('q', p)
+    q = min(q, int(np.floor((len(markov_parameters) - 1) / 2)))
 
     # Dimensions
     (output_dimension, input_dimension) = markov_parameters[0].shape

@@ -2,15 +2,15 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
 
 
 import numpy as np
-from numpy.linalg import inv, matrix_power
-from scipy.linalg import expm, eig
+from numpy.linalg import inv
+from scipy.linalg import expm
 
 
 class ThreeMassSpringDamperDynamics:
@@ -40,24 +40,20 @@ class ThreeMassSpringDamperDynamics:
         self.M[0, 0] = self.mass1
         self.M[1, 1] = self.mass2
         self.M[2, 2] = self.mass3
-        self.K[0, 0] = self.spring_constant1 + self.spring_constant3
-        self.K[0, 1] = -self.spring_constant1
-        self.K[0, 2] = -self.spring_constant3
-        self.K[1, 0] = -self.spring_constant1
-        self.K[1, 1] = self.spring_constant1 + self.spring_constant2
-        self.K[1, 2] = -self.spring_constant2
-        self.K[2, 0] = -self.spring_constant3
-        self.K[2, 1] = -self.spring_constant2
-        self.K[2, 2] = self.spring_constant2 + self.spring_constant3
-        self.Z[0, 0] = self.damping_coefficient1 + self.damping_coefficient3
-        self.Z[0, 1] = -self.damping_coefficient1
-        self.Z[0, 2] = -self.damping_coefficient3
-        self.Z[1, 0] = -self.damping_coefficient1
-        self.Z[1, 1] = self.damping_coefficient1 + self.damping_coefficient2
-        self.Z[1, 2] = -self.damping_coefficient2
-        self.Z[2, 0] = -self.damping_coefficient3
-        self.Z[2, 1] = -self.damping_coefficient2
-        self.Z[2, 2] = self.damping_coefficient2 + self.damping_coefficient3
+        self.K[0, 0] = self.spring_constant1 + self.spring_constant2
+        self.K[0, 1] = -self.spring_constant2
+        self.K[1, 0] = -self.spring_constant2
+        self.K[1, 1] = self.spring_constant2 + self.spring_constant3
+        self.K[1, 2] = -self.spring_constant3
+        self.K[2, 1] = -self.spring_constant3
+        self.K[2, 2] = self.spring_constant3
+        self.Z[0, 0] = self.damping_coefficient1 + self.damping_coefficient2
+        self.Z[0, 1] = -self.damping_coefficient2
+        self.Z[1, 0] = -self.damping_coefficient2
+        self.Z[1, 1] = self.damping_coefficient2 + self.damping_coefficient3
+        self.Z[1, 2] = -self.damping_coefficient3
+        self.Z[2, 1] = -self.damping_coefficient3
+        self.Z[2, 2] = self.damping_coefficient3
 
         self.Ac = np.zeros([self.state_dimension, self.state_dimension])
         self.Ac[0:3, 3:6] = np.eye(3)
@@ -67,22 +63,23 @@ class ThreeMassSpringDamperDynamics:
 
         n2 = int(self.state_dimension / 2)
         self.B2 = np.zeros([n2, self.input_dimension])
+        self.initial_condition_response = True
         i = 0
         if 'mass1' in self.inputs:
             self.B2[0, i] = 1
+            self.initial_condition_response = False
             i += 1
         if 'mass2' in self.inputs:
             self.B2[1, i] = 1
+            self.initial_condition_response = False
             i += 1
         if 'mass3' in self.inputs:
             self.B2[2, i] = 1
+            self.initial_condition_response = False
             i += 1
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
         self.Bc[3:6, 0:3] = np.matmul(inv(self.M), self.B2)
-        self.Bd = np.eye(6) * self.dt
-        for i in range(1, 100):
-            self.Bd = self.Bd + matrix_power(self.Ac, i)*self.dt**(i+1)/np.math.factorial(i+1)
-        self.Bd = np.matmul(self.Bd, self.Bc)
+        self.Bd = np.matmul(np.matmul((self.Ad - np.eye(self.state_dimension)), inv(self.Ac)), self.Bc)
 
         self.Cd = np.zeros([self.output_dimension, self.state_dimension])
         self.Cp = np.zeros([self.output_dimension, int(self.state_dimension / 2)])

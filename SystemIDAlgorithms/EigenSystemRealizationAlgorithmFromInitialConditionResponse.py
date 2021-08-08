@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
@@ -14,6 +14,7 @@ from scipy.linalg import fractional_matrix_power as matpow
 
 from SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
 from ClassesGeneral.ClassSignal import DiscreteSignal
+from SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
 def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
@@ -37,22 +38,43 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
 
     # Sizes
     p = kwargs.get('p', int(np.floor((len(markov_parameters) - 1) / 2)))
+    p = min(p, int(np.floor((len(markov_parameters) - 1) / 2)))
+    q = kwargs.get('q', p)
+    q = min(q, int(np.floor((len(markov_parameters) - 1) / 2)))
     if markov_parameters[0].shape == ():
         (output_dimension, number_signals) = (1, 1)
     else:
         (output_dimension, number_signals) = markov_parameters[0].shape
 
     # Hankel matrices H(0) and H(1)
-    H0 = np.zeros([p * output_dimension, p * number_signals])
-    H1 = np.zeros([p * output_dimension, p * number_signals])
+    H0 = np.zeros([p * output_dimension, q * number_signals])
+    H1 = np.zeros([p * output_dimension, q * number_signals])
     for i in range(p):
-        for j in range(p):
+        for j in range(q):
             H0[i * output_dimension:(i + 1) * output_dimension, j * number_signals:(j + 1) * number_signals] = markov_parameters[i + j]
             H1[i * output_dimension:(i + 1) * output_dimension, j * number_signals:(j + 1) * number_signals] = markov_parameters[i + j + 1]
 
     # SVD H(0)
     (R, sigma, St) = LA.svd(H0, full_matrices=True)
     Sigma = np.diag(sigma)
+
+    # MAC and MSV
+    mac_and_msv = kwargs.get('mac_and_msv', False)
+    if mac_and_msv:
+        pm, qr = H0.shape
+        n = min(pm, qr)
+        Rn = R[:, 0:n]
+        Snt = St[0:n, :]
+        Sigman = Sigma[0:n, 0:n]
+        Op = np.matmul(Rn, LA.sqrtm(Sigman))
+        Rq = np.matmul(LA.sqrtm(Sigman), Snt)
+        A_id = np.matmul(LA.pinv(Op), np.matmul(H1, LA.pinv(Rq)))
+        B_id = Rq[:, 0:input_dimension]
+        C_id = Op[0:output_dimension, :]
+        MAC, MSV = getMACandMSV(A_id, B_id, C_id, Rq, p)
+    else:
+        MAC = []
+        MSV = []
 
     # Matrices Rn, Sn, Sigman
     Rn = R[:, 0:state_dimension]
@@ -83,4 +105,4 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
     x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
 
 
-    return A, B, C, D, X0, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq
+    return A, B, C, D, X0, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV

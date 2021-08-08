@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 14
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -52,12 +52,15 @@ class TwoMassSpringDamperDynamics:
 
         n2 = int(self.state_dimension / 2)
         self.B2 = np.zeros([n2, self.input_dimension])
+        self.initial_condition_response = True
         i = 0
         if 'mass1' in self.inputs:
             self.B2[0, i] = 1
+            self.initial_condition_response = False
             i += 1
         if 'mass2' in self.inputs:
             self.B2[1, i] = 1
+            self.initial_condition_response = False
             i += 1
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
         self.Bc[2:4, 0:2] = np.matmul(inv(self.M), self.B2)

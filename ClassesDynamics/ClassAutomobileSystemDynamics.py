@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 11
-Date: July 2021
+Version: 14
+Date: August 2021
 Python: 3.7.7
 """
 
@@ -28,6 +28,7 @@ class AutomobileSystemDynamics:
         self.damping_coefficient2 = damping_coefficient2
         self.distance1 = distance1
         self.distance2 = distance2
+        self.inputs = inputs
         self.measurements1 = measurements1
         self.measurements2 = measurements2
         self.total_measurements = []
@@ -53,12 +54,15 @@ class AutomobileSystemDynamics:
 
         n2 = int(self.state_dimension / 2)
         self.B2 = np.zeros([n2, self.input_dimension])
+        self.initial_condition_response = True
         i = 0
-        if 'mass1' in self.inputs:
+        if 'CG' in self.inputs:
             self.B2[0, i] = 1
+            self.initial_condition_response = False
             i += 1
-        if 'mass2' in self.inputs:
+        if 'Torque' in self.inputs:
             self.B2[1, i] = 1
+            self.initial_condition_response = False
             i += 1
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
         self.Bc[2:4, 0:2] = np.matmul(inv(self.M), self.B2)
@@ -69,30 +73,30 @@ class AutomobileSystemDynamics:
         self.Cv = np.zeros([self.output_dimension, int(self.state_dimension / 2)])
         self.Ca = np.zeros([self.output_dimension, int(self.state_dimension / 2)])
         i = 0
-        if 'position' in self.measurements1:
+        if 'position CG' in self.measurements1:
             self.Cp[i, 0] = 1
             i += 1
-            self.total_measurements.append('Position 1')
-        if 'position' in self.measurements2:
+            self.total_measurements.append('Position CG')
+        if 'angular position CG' in self.measurements2:
             self.Cp[i, 1] = 1
             i += 1
-            self.total_measurements.append('Position 2')
-        if 'velocity' in self.measurements1:
+            self.total_measurements.append('Angular position CG')
+        if 'velocity CG' in self.measurements1:
             self.Cv[i, 0] = 1
             i += 1
-            self.total_measurements.append('Velocity 1')
-        if 'velocity' in self.measurements2:
+            self.total_measurements.append('Velocity CG')
+        if 'angular velocity CG' in self.measurements2:
             self.Cv[i, 1] = 1
             i += 1
-            self.total_measurements.append('Velocity 2')
-        if 'acceleration' in self.measurements1:
+            self.total_measurements.append('Angular velocity CG')
+        if 'acceleration CG' in self.measurements1:
             self.Ca[i, 0] = 1
             i += 1
-            self.total_measurements.append('Acceleration 1')
-        if 'acceleration' in self.measurements2:
+            self.total_measurements.append('Acceleration CG')
+        if 'angular acceleration CG' in self.measurements2:
             self.Ca[i, 1] = 1
             i += 1
-            self.total_measurements.append('Acceleration 2')
+            self.total_measurements.append('Angular acceleration CG')
         self.Cd[:, 0:int(self.state_dimension / 2)] = self.Cp - np.matmul(self.Ca, np.matmul(inv(self.M), self.K))
         self.Cd[:, int(self.state_dimension / 2): self.state_dimension] = self.Cv - np.matmul(self.Ca, np.matmul(inv(self.M), self.Z))
 

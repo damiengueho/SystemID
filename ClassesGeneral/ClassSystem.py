@@ -2,10 +2,13 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
+
+
+import numpy as np
 
 
 class System:
@@ -19,7 +22,7 @@ class System:
 
 
 class DiscreteLinearSystem(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A, B, C, D):
+    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A, B, C, D, **kwargs):
         super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
         self.frequency = frequency
         self.dt = 1 / frequency
@@ -28,16 +31,18 @@ class DiscreteLinearSystem(System):
         self.B = B
         self.C = C
         self.D = D
+        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
 
 
 class DiscreteNonlinearSystem(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, F, G):
+    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, F, G, **kwargs):
         super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
         self.frequency = frequency
         self.dt = 1 / frequency
         self.system_type = 'Discrete Nonlinear'
         self.F = F
         self.G = G
+        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
 
 
 class ContinuousLinearSystem(System):

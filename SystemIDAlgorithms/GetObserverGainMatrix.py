@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
@@ -28,6 +28,9 @@ def getObserverGainMatrix(A, C, observer_gain_markov_parameters, tk, dt, number_
         Yo[i * output_dimension:(i + 1) * output_dimension, :] = observer_gain_markov_parameters[tk + i + 1]
 
     # Observer Gain matrix
-    G = np.matmul(LA.pinv(O), Yo)
+    G_mat = np.matmul(LA.pinv(O), Yo)
+
+    def G(t):
+        return G_mat
 
     return G, O, Yo

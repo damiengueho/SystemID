@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 12
+Version: 14
 Date: August 2021
 Python: 3.7.7
 """
@@ -25,7 +25,7 @@ class ERA:
 
 class ERAFromInitialConditionResponse:
     def __init__(self, output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
-        self.A, self.B, self.C, self.D, self.X0, self.x0, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs)
+        self.A, self.B, self.C, self.D, self.X0, self.x0, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq, self.MAC, self.MSV = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs)
 
 
 
