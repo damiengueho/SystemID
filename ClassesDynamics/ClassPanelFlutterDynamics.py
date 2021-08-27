@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 14
+Version: 15
 Date: August 2021
 Python: 3.7.7
 """
@@ -96,7 +96,7 @@ class PanelFlutterDynamics:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 14
+Version: 15
 Date: August 2021
 Python: 3.7.7
 """
@@ -189,7 +189,7 @@ class PanelFlutterDynamics2:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 14
+Version: 15
 Date: August 2021
 Python: 3.7.7
 """

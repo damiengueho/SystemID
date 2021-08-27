@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 14
+Version: 15
 Date: August 2021
 Python: 3.7.7
 """
@@ -10,6 +10,7 @@ Python: 3.7.7
 
 from SystemIDAlgorithms.EigenSystemRealizationAlgorithm import eigenSystemRealizationAlgorithm
 from SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse import eigenSystemRealizationAlgorithmFromInitialConditionResponse
+from SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse import eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
 from SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation import eigenSystemRealizationAlgorithmWithDataCorrelation
 from SystemIDAlgorithms.DynamicModeDecompositionAlgorithm import dynamicModeDecompositionAlgorithm
 from SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithm import timeVaryingEigenSystemRealizationAlgorithm
@@ -32,6 +33,12 @@ class ERAFromInitialConditionResponse:
 class ERADC:
     def __init__(self, markov_parameters, state_dimension, **kwargs):
         self.A, self.B, self.C, self.D, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq, self.MAC, self.MSV = eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs)
+
+
+
+class ERADCFromInitialConditionResponse:
+    def __init__(self, output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
+        self.A, self.B, self.C, self.D, self.X0, self.x0, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq, self.MAC, self.MSV = eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs)
 
 
 

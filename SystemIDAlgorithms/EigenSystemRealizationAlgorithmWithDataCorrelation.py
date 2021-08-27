@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 14
+Version: 15
 Date: August 2021
 Python: 3.7.7
 """
@@ -20,11 +20,17 @@ from SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs):
 
     # Sizes
-    p = int(kwargs.get('p', int(np.floor(np.sqrt((len(markov_parameters) - 1) / 4)))))
+    min_size = int(np.floor(np.sqrt((len(markov_parameters) - 1) / 4)))
+    p = int(kwargs.get('p', min_size))
+    p = min(p, min_size)
     q = int(kwargs.get('q', p))
+    q = min(q, min_size)
     xi = int(kwargs.get('xi', p))
+    xi = min(xi, min_size)
     zeta = int(kwargs.get('zeta', p))
+    zeta = min(zeta, min_size)
     tau = int(kwargs.get('tau', p))
+    tau = min(tau, min_size)
     gamma = 1 + (xi + zeta) * tau
 
     # Dimensions
