@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 15
-Date: August 2021
+Version: 16
+Date: September 2021
 Python: 3.7.7
 """
 
@@ -16,7 +16,7 @@ from scipy.linalg import expm
 class TwoMassSpringDamperDynamics:
     def __init__(self, dt, mass1, mass2, spring_constant1, spring_constant2, damping_coefficient1, damping_coefficient2, inputs, measurements1, measurements2):
         self.state_dimension = 4
-        self.input_dimension = min(1, len(inputs))
+        self.input_dimension = max(1, len(inputs))
         self.output_dimension = len(measurements1) + len(measurements2)
         self.dt = dt
         self.frequency = 1 / dt

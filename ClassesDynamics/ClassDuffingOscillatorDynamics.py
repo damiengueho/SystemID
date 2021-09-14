@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 15
-Date: August 2021
+Version: 16
+Date: September 2021
 Python: 3.7.7
 """
 
@@ -40,21 +40,45 @@ class DuffingOscillatorDynamics:
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
         dxdt[0] = x[1]
-        dxdt[1] = -self.delta(t) * x[1] - self.alpha(t) * x[0] - self.beta(t) * x[0] ** 3 + u(t)
+        dxdt[1] = -self.delta(t) * x[1] - self.alpha(t) * x[0] - self.beta(t) * x[0] ** 3
         return dxdt
 
     def G(self, x, t, u):
         return x
 
-    def Ac(self, t):
-        Ac = np.zeros([self.state_dimension, self.state_dimension])
-        Ac[0, 1] = 1
-        Ac[1, 0] = -self.alpha(t) - 3 * self.beta(t) * self.nominal_x_interpolated(t)[0] ** 2
-        Ac[1, 1] = -self.delta(t)
-        return Ac
+
+
+    def Ac1(self, t):
+        Ac1 = np.zeros([self.state_dimension, self.state_dimension])
+        Ac1[0, 1] = 1
+        Ac1[1, 0] = -self.alpha(t) - 3 * self.beta(t) * self.nominal_x_interpolated(t)[0] ** 2
+        Ac1[1, 1] = -self.delta(t)
+        return Ac1
+
+    def Ac2(self, t):
+        Ac2 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension])
+        Ac2[1, 0, 0] = - 6 * self.beta(t) * self.nominal_x_interpolated(t)[0]
+        return Ac2
+
+    def Ac3(self, t):
+        Ac3 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension])
+        Ac3[1, 0, 0, 0] = - 6 * self.beta(t)
+        return Ac3
+
+    def F2(self, x, t, u):
+        x2 = np.tensordot(x, x, axes=0)
+        dxdt = np.matmul(self.Ac1(t), x) + np.tensordot(self.Ac2(t), x2) / 2
+        return dxdt
+
+    def F3(self, x, t, u):
+        x2 = np.tensordot(x, x, axes=0)
+        x3 = np.tensordot(x2, x, axes=0)
+        dxdt =  np.matmul(self.Ac1(t), x) + np.tensordot(self.Ac2(t), x2) / 2 + np.tensordot(self.Ac3(t), x3, axes=((1, 2, 3), (0, 1, 2))) / 6
+        return dxdt
+
 
     def dPhi(self, Phi, t):
-        return np.matmul(self.Ac(t), Phi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2)
+        return np.matmul(self.Ac1(t), Phi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2)
 
     def A(self, tk):
         A = odeint(self.dPhi, np.eye(self.state_dimension).reshape(self.state_dimension**2), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)
@@ -66,7 +90,7 @@ class DuffingOscillatorDynamics:
         return Bc
 
     def dPsi(self, Psi, t):
-        return np.matmul(self.Ac(t), Psi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2) + np.eye(self.state_dimension).reshape(self.state_dimension**2)
+        return np.matmul(self.Ac1(t), Psi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2) + np.eye(self.state_dimension).reshape(self.state_dimension**2)
 
     def B(self, tk):
         B = odeint(self.dPsi, np.zeros([self.state_dimension, self.state_dimension]).reshape(self.state_dimension**2), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)

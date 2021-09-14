@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 15
-Date: August 2021
+Version: 16
+Date: September 2021
 Python: 3.7.7
 """
 
@@ -40,4 +40,4 @@ class Experiments:
             self.output_signals = []
             self.tspan = kwargs.get('tspan', np.array([0, 0]))
             for i in range(self.number_experiments):
-                self.output_signals.append(OutputSignal(input_signals[i], systems[i], tspan=self.tspan, **kwargs))
+                self.output_signals.append(OutputSignal(input_signals[i], systems[i], **kwargs))
