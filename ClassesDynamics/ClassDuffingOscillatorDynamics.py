@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 16
-Date: September 2021
+Version: 17
+Date: October 2021
 Python: 3.7.7
 """
 
@@ -14,6 +14,9 @@ from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
 from ClassesGeneral.ClassSignal import DiscreteSignal
+from SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation import higherOrderStateTransitionTensorsPropagation
+from SystemIDAlgorithms.Propagation import propagation
+from ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 
 
 class DuffingOscillatorDynamics:
@@ -30,12 +33,18 @@ class DuffingOscillatorDynamics:
         self.delta = delta
         self.alpha = alpha
         self.beta = beta
-        self.tspan = kwargs.get('tspan', np.array([0, 1, 2, 3]))
-        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 3, 1))
-        self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x.data, 'cubic')
-        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 3, 1))
-        self.nominal_u_interpolated = interp1d(self.tspan, self.nominal_u.data, 'cubic')
-        self.dt = kwargs.get('dt', 0)
+
+        self.nominal = kwargs.get('nominal', False)
+        if self.nominal:
+            self.initial_states = kwargs.get('initial_states', np.zeros(self.state_dimension))
+            def zero(t):
+                return np.zeros(self.input_dimension)
+            self.nominal_u = kwargs.get('nominal_u', zero)
+            self.nominal_system = ContinuousNonlinearSystem(self.state_dimension, self.input_dimension, self.output_dimension, self.initial_states, 'Nominal System', self.F, self.G)
+            self.dt = kwargs.get('dt', 0)
+            self.tspan = kwargs.get('tspan', np.array([0, 1]))
+            _, self.nominal_x = propagation(self.nominal_u, self.nominal_system, tspan=self.tspan)
+            self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x, 'cubic')
 
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
@@ -45,8 +54,6 @@ class DuffingOscillatorDynamics:
 
     def G(self, x, t, u):
         return x
-
-
 
     def Ac1(self, t):
         Ac1 = np.zeros([self.state_dimension, self.state_dimension])
@@ -65,24 +72,21 @@ class DuffingOscillatorDynamics:
         Ac3[1, 0, 0, 0] = - 6 * self.beta(t)
         return Ac3
 
-    def F2(self, x, t, u):
-        x2 = np.tensordot(x, x, axes=0)
-        dxdt = np.matmul(self.Ac1(t), x) + np.tensordot(self.Ac2(t), x2) / 2
-        return dxdt
-
-    def F3(self, x, t, u):
-        x2 = np.tensordot(x, x, axes=0)
-        x3 = np.tensordot(x2, x, axes=0)
-        dxdt =  np.matmul(self.Ac1(t), x) + np.tensordot(self.Ac2(t), x2) / 2 + np.tensordot(self.Ac3(t), x3, axes=((1, 2, 3), (0, 1, 2))) / 6
-        return dxdt
-
-
-    def dPhi(self, Phi, t):
-        return np.matmul(self.Ac1(t), Phi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2)
+    def Ac4(self, t):
+        Ac4 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension])
+        return Ac4
 
     def A(self, tk):
-        A = odeint(self.dPhi, np.eye(self.state_dimension).reshape(self.state_dimension**2), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)
-        return A[-1, :].reshape(self.state_dimension, self.state_dimension)
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1], tk, self.dt)
+
+    def A2(self, tk):
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2], tk, self.dt)
+
+    def A3(self, tk):
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3], tk, self.dt)
+
+    def A4(self, tk):
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3, self.Ac4], tk, self.dt)
 
     def Bc(self, t):
         Bc = np.zeros([self.state_dimension, self.input_dimension])

@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#functions-for-system-identification">Functions for System Identification</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#correctsystemforeigenvaluescheck"><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#correctsystemforeigenvaluescheck2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weightingsequencedescription"><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#functions-for-sparse-approximations">Functions for Sparse Approximations</a></li>
@@ -229,37 +229,34 @@
 <p><br />
 <br /></p>
 </div>
-<div class="section" id="correctsystemforeigenvaluescheck2">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck2</span></code><a class="headerlink" href="#correctsystemforeigenvaluescheck2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="weightingsequencedescription">
+<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code><a class="headerlink" href="#weightingsequencedescription" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">corrected_system</span> <span class="pre">=</span> <span class="pre">correctSystemForEigenvaluesCheck(system,</span> <span class="pre">number_steps,</span> <span class="pre">p)</span></span></dt>
+<span class="sig-name descname"><span class="pre">output_signal</span> <span class="pre">=</span> <span class="pre">weightingSequenceDescription(input_signal,</span> <span class="pre">markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-0"></span><dl class="simple">
-<dt>Purpose:</dt><dd><p>Correct the system matrices <span class="math notranslate nohighlight">\(A_k\)</span> of a system with a matrix multiplication on the left by <span class="math notranslate nohighlight">\({\boldsymbol{O}_k^{(p)}}^\dagger \boldsymbol{O}_{k+1}^{(p)}\)</span>.</p>
+<span class="target" id="module-SystemIDAlgorithms.WeightingSequenceDescription.weightingSequenceDescription"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute the weighting sequence description <span class="math notranslate nohighlight">\(\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\boldsymbol{u}_{k-i}\)</span> of a system using the system markov parameters.</p>
 </dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>system</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteLinearSystem</span></code>): the system to be corrected</p></li>
-<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): number of steps</p></li>
-<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): p</p></li>
+<li><p><strong>input_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the input signal</p></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">[np.array]</span></code>): list of markov parameters (weights) to use</p></li>
+<li><p><strong>**kwargs</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): observer</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li><p><strong>corrected_system</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteLinearSystem</span></code>): the corrected system</p></li>
+<li><p><strong>output_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the output signal</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">SystemIDAlgorithms.GetObservabilityMatrix</span> <span class="pre">import</span> <span class="pre">getObservabilityMatrix</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">ClassesGeneral.ClassSystem</span> <span class="pre">import</span> <span class="pre">DiscreteLinearSystem</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">ClassesGeneral.ClassSignal</span> <span class="pre">import</span> <span class="pre">DiscreteSignal</span></code></p></li>
 </ul>
 </dd>
-<dt>Description:</dt><dd><p>A useful description.ergergd</p>
+<dt>Description:</dt><dd><p>Use matrix multiplication. Inverse of OKID.</p>
 </dd>
-<dt>See Also:</dt><dd><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix</span></code>
-<code class="xref py py-mod docutils literal notranslate"><span class="pre">ClassesGeneral.ClassSystem.DiscreteLinearSystem</span></code></p>
+<dt>See Also:</dt><dd><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ClassesGeneral.ClassSignal.DiscreteSignal</span></code></p>
 </dd>
 </dl>
 </div>

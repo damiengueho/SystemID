@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 16
-Date: September 2021
+Version: 17
+Date: October 2021
 Python: 3.7.7
 """
 
@@ -14,6 +14,28 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 
 
 def weightingSequenceDescription(input_signal, markov_parameters, **kwargs):
+    """
+    Purpose:
+        Compute the weighting sequence description :math:`\\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\\boldsymbol{u}_{k-i}` of a system using the system markov parameters.
+
+    Parameters:
+        - **input_signal** (``DiscreteSignal``): the input signal
+        - **markov_parameters** (``[np.array]``): list of markov parameters (weights) to use
+        - ****kwargs** (``bool``): observer
+
+    Returns:
+        - **output_signal** (``DiscreteSignal``): the output signal
+
+    Imports:
+        - ``import numpy as np``
+        - ``from ClassesGeneral.ClassSignal import DiscreteSignal``
+
+    Description:
+        Use matrix multiplication. Inverse of OKID.
+
+    See Also:
+        :mod:`ClassesGeneral.ClassSignal.DiscreteSignal`
+    """
 
     # Observer
     observer = kwargs.get('observer', False)

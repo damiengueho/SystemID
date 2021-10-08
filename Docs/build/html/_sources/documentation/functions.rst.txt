@@ -17,10 +17,10 @@ Functions for System Identification
    |br|
    |br|
 
-:mod:`correctSystemForEigenvaluesCheck2`
-----------------------------------------
-.. py:function:: corrected_system = correctSystemForEigenvaluesCheck(system, number_steps, p)
-.. automodule:: SystemIDAlgorithms.CorrectSystemForEigenvaluesCheck.correctSystemForEigenvaluesCheck
+:mod:`weightingSequenceDescription`
+---------------------------------------
+.. py:function:: output_signal = weightingSequenceDescription(input_signal, markov_parameters, **kwargs)
+.. automodule:: SystemIDAlgorithms.WeightingSequenceDescription.weightingSequenceDescription
 
 
 Functions for Sparse Approximations

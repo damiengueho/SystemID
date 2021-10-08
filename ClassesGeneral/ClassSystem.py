@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 16
-Date: September 2021
+Version: 17
+Date: October 2021
 Python: 3.7.7
 """
 
@@ -28,6 +28,45 @@ class DiscreteLinearSystem(System):
         self.dt = 1 / frequency
         self.system_type = 'Discrete Linear'
         self.A = A
+        self.B = B
+        self.C = C
+        self.D = D
+        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
+
+
+class DiscreteLinearSystemOrder2(System):
+    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A2, B, C, D, **kwargs):
+        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+        self.frequency = frequency
+        self.dt = 1 / frequency
+        self.system_type = 'Discrete Linear Order 2'
+        self.A2 = A2
+        self.B = B
+        self.C = C
+        self.D = D
+        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
+
+
+class DiscreteLinearSystemOrder3(System):
+    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A3, B, C, D, **kwargs):
+        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+        self.frequency = frequency
+        self.dt = 1 / frequency
+        self.system_type = 'Discrete Linear Order 3'
+        self.A3 = A3
+        self.B = B
+        self.C = C
+        self.D = D
+        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
+
+
+class DiscreteLinearSystemOrder4(System):
+    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A4, B, C, D, **kwargs):
+        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+        self.frequency = frequency
+        self.dt = 1 / frequency
+        self.system_type = 'Discrete Linear Order 4'
+        self.A4 = A4
         self.B = B
         self.C = C
         self.D = D
