@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -49,8 +49,8 @@ class DMD:
 
 
 class TVERA:
-    def __init__(self, Y, hki, D, full_experiment, state_dimension, p, q, **kwargs):
-        self.A, self.B, self.C, self.D, self.x0, self.xq, self.Ok, self.Ok1, self.sigma = timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state_dimension, p, q, **kwargs)
+    def __init__(self, free_decay_experiments, hki, D, full_experiment, state_dimension, p, q, **kwargs):
+        self.A, self.B, self.C, self.D, self.x0, self.xq, self.Ok, self.Ok1, self.sigma = timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, full_experiment, state_dimension, p, q, **kwargs)
 
 
 

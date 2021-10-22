@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -105,7 +105,7 @@ def propagation(signal, system, **kwargs):
         count_init_states = 1
 
         for i in range(number_steps):
-            At1, At2 = A2(i * dt)
+            At1, At2 = A2(round(i * dt, 2))
             if measurement_noise:
                 y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
             else:
@@ -137,6 +137,7 @@ def propagation(signal, system, **kwargs):
                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
                     else:
                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i])
+                        print('x[:, i + 1]', x[:, i + 1])
 
 
     if system_type == 'Discrete Linear Order 3':

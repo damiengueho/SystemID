@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -16,10 +16,19 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 from SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
 
 
-def timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state_dimension, p, q, **kwargs):
+def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, full_experiment, state_dimension, p, q, **kwargs):
 
     # Dimensions and number of steps
     output_dimension, input_dimension, number_steps = D.shape
+
+    # Compute free reponse experiments Y matrices
+    number_free_decay_experiments = free_decay_experiments.number_experiments
+    free_decay_outputs = free_decay_experiments.output_signals
+    Y = np.zeros([(p + 1) * output_dimension, number_free_decay_experiments, q])
+    for k in range(q):
+        for i in range(p + 1):
+            for j in range(number_free_decay_experiments):
+                Y[i * output_dimension:(i + 1) * output_dimension, j, k] = free_decay_outputs[j].data[:, i + k]
 
 
     # Frequency
@@ -53,14 +62,18 @@ def timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state
     # First Hpq1
     Hpq1 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
     for i in range(p + 1):
-        Hpq1[i * output_dimension:(i + 1) * output_dimension, :] = hki[(q + i - 1) * output_dimension:(q + i) * output_dimension, i * input_dimension:(i + q) * input_dimension]
+        for j in range(q):
+            Hpq1[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension] = hki[(q + i - 1) * output_dimension:(q + i) * output_dimension, (q - 1 - j) * input_dimension:(q - j) * input_dimension]
+
+    print(Hpq1)
 
 
     # Calculating next A, B, C
     for k in range(q, number_steps - p - 1):
         Hpq2 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
         for i in range(p + 1):
-            Hpq2[i * output_dimension:(i + 1) * output_dimension, :] = hki[(k + 1 + i - 1) * output_dimension:(k + 1 + i) * output_dimension, i * input_dimension:(i + q) * input_dimension]
+            for j in range(q):
+                Hpq2[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension] = hki[(k + 1 + i - 1) * output_dimension:(k + 1 + i) * output_dimension, (k + 1 - 1 - j) * input_dimension:(k + 1 - j) * input_dimension]
 
         # SVD Hpq1
         (R1, sigma1, St1) = LA.svd(Hpq1, full_matrices=True)
@@ -131,9 +144,7 @@ def timeVaryingEigenSystemRealizationAlgorithm(Y, hki, D, full_experiment, state
         Ok1[:, :, k] = O2
 
         # Calculating corresponding Hp1
-        Hp1 = np.zeros([p * output_dimension, input_dimension])
-        for i in range(p):
-            Hp1[i * output_dimension:(i + 1) * output_dimension, :] = hki[(k + i) * output_dimension:(k + i + 1) * output_dimension, i * input_dimension:(i + 1) * input_dimension]
+        Hp1 = hki[k * output_dimension:(k + p) * output_dimension, k*input_dimension:(k + 1) * input_dimension]
 
 
         # Identified matrices

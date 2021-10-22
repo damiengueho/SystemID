@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -14,17 +14,17 @@ import scipy.linalg as LA
 from SystemIDAlgorithms.GetObservabilityMatrix import getObservabilityMatrix
 
 
-def getObserverGainMatrix(A, C, observer_gain_markov_parameters, tk, dt, number_steps):
+def getObserverGainMatrix(A, C, observer_gain_markov_parameters, tk, dt, order):
 
     # Dimensions
     output_dimension, _ = C(tk).shape
 
     # Compute observability matrix
-    O = getObservabilityMatrix(A, C, number_steps, tk, dt)
+    O = getObservabilityMatrix(A, C, order, tk, dt)
 
     # Compute matrix of observer gain markov parameters
-    Yo = np.zeros([output_dimension * number_steps, output_dimension])
-    for i in range(number_steps):
+    Yo = np.zeros([output_dimension * order, output_dimension])
+    for i in range(order):
         Yo[i * output_dimension:(i + 1) * output_dimension, :] = observer_gain_markov_parameters[tk + i + 1]
 
     # Observer Gain matrix

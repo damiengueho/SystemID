@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -12,27 +12,27 @@ import numpy as np
 from scipy.integrate import odeint
 
 
-def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
+def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt, F, x_tk, u):
 
     ## Order of the expansion and dimension of the system
     order = len(sensitivities)
-    dimension, _ = sensitivities[0](0).shape
+    state_dimension = x_tk.shape[0]
 
 
     ## Initialization
-    Phi1 = np.eye(dimension)
+    Phi1 = np.eye(state_dimension)
     Ac1 = sensitivities[0]
 
     if order > 1:
-        Phi2 = np.zeros([dimension, dimension, dimension])
+        Phi2 = np.zeros([state_dimension, state_dimension, state_dimension])
         Ac2 = sensitivities[1]
 
         if order > 2:
-            Phi3 = np.zeros([dimension, dimension, dimension, dimension])
+            Phi3 = np.zeros([state_dimension, state_dimension, state_dimension, state_dimension])
             Ac3 = sensitivities[2]
 
             if order > 3:
-                Phi4 = np.zeros([dimension, dimension, dimension, dimension, dimension])
+                Phi4 = np.zeros([state_dimension, state_dimension, state_dimension, state_dimension, state_dimension])
                 Ac4 = sensitivities[3]
 
 
@@ -40,11 +40,13 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
     if order == 1:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi.reshape(dimension, dimension)
-            return np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0])).reshape(dimension ** 2)
+            x = Phi[0:state_dimension]
+            dxdt = F(x, t, u)
+            Phi1_tensor = Phi[state_dimension:].reshape(state_dimension, state_dimension)
+            return np.concatenate((dxdt, np.tensordot(Ac1(x, t, u), Phi1_tensor, axes=([1], [0])).reshape(state_dimension ** 2)))
 
-        A1_vec = odeint(dPhi, Phi1.reshape(dimension**2), np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A1_vec[-1, :].reshape(dimension, dimension)
+        A_vec = odeint(dPhi, np.concatenate((x_tk, Phi1.reshape(state_dimension**2))), np.array([tk, tk + dt]), rtol=1e-12, atol=1e-12)
+        A1_tensor = A_vec[-1, state_dimension:].reshape(state_dimension, state_dimension)
 
         return A1_tensor
 
@@ -52,15 +54,17 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
     if order == 2:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi[0:dimension ** 2].reshape(dimension, dimension)
-            Phi2_tensor = Phi[dimension ** 2:].reshape(dimension, dimension, dimension)
-            dPhi1_tensor = np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0]))
-            dPhi2_tensor = np.tensordot(Ac1(t), Phi2_tensor, axes=([1], [0])) + np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
-            return np.concatenate((dPhi1_tensor.reshape(dimension ** 2), dPhi2_tensor.reshape(dimension ** 3)))
+            x = Phi[0:state_dimension]
+            dxdt = F(x, t, u)
+            Phi1_tensor = Phi[state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+            Phi2_tensor = Phi[state_dimension + state_dimension ** 2:].reshape(state_dimension, state_dimension, state_dimension)
+            dPhi1_tensor = np.tensordot(Ac1(x, t, u), Phi1_tensor, axes=([1], [0]))
+            dPhi2_tensor = np.tensordot(Ac1(x, t, u), Phi2_tensor, axes=([1], [0])) + np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
+            return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3)))))
 
-        A_vec = odeint(dPhi, np.concatenate((Phi1.reshape(dimension ** 2), Phi2.reshape(dimension ** 3))), np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A_vec[-1, 0:dimension ** 2].reshape(dimension, dimension)
-        A2_tensor = A_vec[-1, dimension ** 2:].reshape(dimension, dimension, dimension)
+        A_vec = odeint(dPhi, np.concatenate((x_tk, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3))))), np.array([tk, tk + dt]), rtol=1e-12, atol=1e-12)
+        A1_tensor = A_vec[-1, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+        A2_tensor = A_vec[-1, state_dimension + state_dimension ** 2:].reshape(state_dimension, state_dimension, state_dimension)
 
         return A1_tensor, A2_tensor
 
@@ -68,9 +72,9 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
     if order == 3:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi[0:dimension ** 2].reshape(dimension, dimension)
-            Phi2_tensor = Phi[dimension ** 2:dimension ** 2 + dimension ** 3].reshape(dimension, dimension, dimension)
-            Phi3_tensor = Phi[dimension ** 2 + dimension ** 3:].reshape(dimension, dimension, dimension, dimension)
+            Phi1_tensor = Phi[0:state_dimension ** 2].reshape(state_dimension, state_dimension)
+            Phi2_tensor = Phi[state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+            Phi3_tensor = Phi[state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
             dPhi1_tensor = np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0]))
             dPhi2_tensor = np.tensordot(Ac1(t), Phi2_tensor, axes=([1], [0])) + \
                            np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
@@ -80,12 +84,12 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
                            np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 3, 1, 2]) + \
                            np.tensordot(Ac3(t), np.tensordot(Phi1_tensor, np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=0), axes=([1, 2, 3], [0, 2, 4]))
 
-            return np.concatenate((dPhi1_tensor.reshape(dimension ** 2), dPhi2_tensor.reshape(dimension ** 3), dPhi3_tensor.reshape(dimension ** 4)))
+            return np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4)))
 
-        A_vec = odeint(dPhi, np.concatenate((Phi1.reshape(dimension ** 2), Phi2.reshape(dimension ** 3), Phi3.reshape(dimension ** 4))), np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A_vec[-1, 0:dimension ** 2].reshape(dimension, dimension)
-        A2_tensor = A_vec[-1, dimension ** 2:dimension ** 2 + dimension ** 3].reshape(dimension, dimension, dimension)
-        A3_tensor = A_vec[-1, dimension ** 2 + dimension ** 3:].reshape(dimension, dimension, dimension, dimension)
+        A_vec = odeint(dPhi, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4))), np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
+        A1_tensor = A_vec[-1, 0:state_dimension ** 2].reshape(state_dimension, state_dimension)
+        A2_tensor = A_vec[-1, state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+        A3_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
 
         return A1_tensor, A2_tensor, A3_tensor
 
@@ -93,10 +97,10 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
     if order == 4:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi[0:dimension ** 2].reshape(dimension, dimension)
-            Phi2_tensor = Phi[dimension ** 2:dimension ** 2 + dimension ** 3].reshape(dimension, dimension, dimension)
-            Phi3_tensor = Phi[dimension ** 2 + dimension ** 3:dimension ** 2 + dimension ** 3 + dimension ** 4].reshape(dimension, dimension, dimension, dimension)
-            Phi4_tensor = Phi[dimension ** 2 + dimension ** 3 + dimension ** 4:].reshape(dimension, dimension, dimension, dimension, dimension)
+            Phi1_tensor = Phi[0:state_dimension ** 2].reshape(state_dimension, state_dimension)
+            Phi2_tensor = Phi[state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+            Phi3_tensor = Phi[state_dimension ** 2 + state_dimension ** 3:state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+            Phi4_tensor = Phi[state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
 
             dPhi1_tensor = np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0]))
 
@@ -125,14 +129,14 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt):
                            np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi2_tensor, axes=0), axes=([1, 2, 3], [0, 2, 4])) + \
                            np.tensordot(Ac4(t), np.tensordot(np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3, 4], [0, 2, 4, 6]))
 
-            return np.concatenate((dPhi1_tensor.reshape(dimension ** 2), dPhi2_tensor.reshape(dimension ** 3), dPhi3_tensor.reshape(dimension ** 4), dPhi4_tensor.reshape(dimension ** 5)))
+            return np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4), dPhi4_tensor.reshape(state_dimension ** 5)))
 
-        Phi0 = np.concatenate((Phi1.reshape(dimension ** 2), Phi2.reshape(dimension ** 3), Phi3.reshape(dimension ** 4), Phi4.reshape(dimension ** 5)))
+        Phi0 = np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4), Phi4.reshape(state_dimension ** 5)))
         A_vec = odeint(dPhi, Phi0, np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A_vec[-1, 0:dimension ** 2].reshape(dimension, dimension)
-        A2_tensor = A_vec[-1, dimension ** 2:dimension ** 2 + dimension ** 3].reshape(dimension, dimension, dimension)
-        A3_tensor = A_vec[-1, dimension ** 2 + dimension ** 3:dimension ** 2 + dimension ** 3 + dimension ** 4].reshape(dimension, dimension, dimension, dimension)
-        A4_tensor = A_vec[-1, dimension ** 2 + dimension ** 3 + dimension ** 4:].reshape(dimension, dimension, dimension, dimension, dimension)
+        A1_tensor = A_vec[-1, 0:state_dimension ** 2].reshape(state_dimension, state_dimension)
+        A2_tensor = A_vec[-1, state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+        A3_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3:state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+        A4_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
 
     return A1_tensor, A2_tensor, A3_tensor, A4_tensor
 

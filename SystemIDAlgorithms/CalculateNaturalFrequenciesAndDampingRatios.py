@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -11,8 +11,6 @@ Python: 3.7.7
 import numpy as np
 from scipy import linalg as LA
 
-from ClassesGeneral.ClassSignal import DiscreteSignal
-
 
 def calculateNaturalFrequenciesAndDampingRatios(systems):
 
@@ -20,9 +18,9 @@ def calculateNaturalFrequenciesAndDampingRatios(systems):
     damping_ratios = []
 
     for system in systems:
-        state_dimension = system.state_dimension
         dt = system.dt
-        natural_frequencies.append(np.flip(np.imag(np.diag(LA.logm(np.diag(LA.eig(system.A(0))[0])) / dt)))[::2])
+        all_natural_frequencies = np.imag(np.diag(LA.logm(np.diag(LA.eig(system.A(0))[0])) / dt))
+        natural_frequencies.append(all_natural_frequencies[all_natural_frequencies >= 0])
         damping_ratios.append(np.real(np.flip(np.diag(LA.logm(np.diag(LA.eig(system.A(0))[0])) / dt)))[::2])
 
     return natural_frequencies, damping_ratios

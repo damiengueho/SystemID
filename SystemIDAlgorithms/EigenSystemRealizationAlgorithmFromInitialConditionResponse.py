@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -40,8 +40,11 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
     min_size = int(np.floor((len(markov_parameters) - 1) / 2))
     p = kwargs.get('p', min_size)
     p = min(p, min_size)
+    print('p in ERA =', p)
     q = kwargs.get('q', p)
     q = min(q, min_size)
+    print('q in ERA =', q)
+    print('min_size =', min_size)
     if markov_parameters[0].shape == ():
         (output_dimension, number_signals) = (1, 1)
     else:

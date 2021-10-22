@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -32,18 +32,18 @@ class DiscreteSignal(Signal):
         self.signal_shape = kwargs.get('signal_shape', 'Zero')
 
         if self.signal_shape == 'Pulse':
-            self.time_step = kwargs.get('time_step', 0)
+            self.time_step = min(max(kwargs.get('time_step', 0), 0), self.number_steps - 1)
             self.magnitude_pulse = kwargs.get('magnitude_pulse', np.ones(self.dimension))
             self.data = np.zeros([self.dimension, self.number_steps])
             self.data[:, self.time_step] = self.magnitude_pulse
         elif self.signal_shape == 'Step':
-            self.time_step = kwargs.get('time_step', 0)
+            self.time_step = min(max(kwargs.get('time_step', 0), 0), self.number_steps - 1)
             self.magnitude_step = kwargs.get('magnitude_step', np.ones(self.dimension))
             self.data = np.zeros([self.dimension, self.number_steps])
             self.data[:, self.time_step:] = np.outer(self.magnitude_step, np.ones(self.number_steps - self.time_step))
         elif self.signal_shape == 'Ramp':
-            self.time_step_start = kwargs.get('time_step_start', 0)
-            self.time_step_end = kwargs.get('time_step_end', self.number_steps - 1)
+            self.time_step_start = min(max(kwargs.get('time_step_start', 0), 0), self.number_steps - 1)
+            self.time_step_end = max(min(kwargs.get('time_step_end', self.number_steps - 1), self.number_steps - 1), 0)
             self.magnitude_max = kwargs.get('magnitude_max', np.ones(self.dimension))
             self.data = np.zeros([self.dimension, self.number_steps])
             self.data[:, self.time_step_start:self.time_step_end + 1] = np.linspace(np.zeros(self.dimension), self.magnitude_max, self.time_step_end - self.time_step_start + 1).T

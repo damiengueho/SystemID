@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 17
+Version: 18
 Date: October 2021
 Python: 3.7.7
 """
@@ -44,7 +44,6 @@ class DuffingOscillatorDynamics:
             self.dt = kwargs.get('dt', 0)
             self.tspan = kwargs.get('tspan', np.array([0, 1]))
             _, self.nominal_x = propagation(self.nominal_u, self.nominal_system, tspan=self.tspan)
-            self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x, 'cubic')
 
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
@@ -55,32 +54,33 @@ class DuffingOscillatorDynamics:
     def G(self, x, t, u):
         return x
 
-    def Ac1(self, t):
+    def Ac1(self, x, t, u):
         Ac1 = np.zeros([self.state_dimension, self.state_dimension])
         Ac1[0, 1] = 1
-        Ac1[1, 0] = -self.alpha(t) - 3 * self.beta(t) * self.nominal_x_interpolated(t)[0] ** 2
+        Ac1[1, 0] = -self.alpha(t) - 3 * self.beta(t) * x[0] ** 2
         Ac1[1, 1] = -self.delta(t)
         return Ac1
 
-    def Ac2(self, t):
+    def Ac2(self, x, t, u):
         Ac2 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension])
-        Ac2[1, 0, 0] = - 6 * self.beta(t) * self.nominal_x_interpolated(t)[0]
+        Ac2[1, 0, 0] = - 6 * self.beta(t) * x[0]
         return Ac2
 
-    def Ac3(self, t):
+    def Ac3(self, x, t, u):
         Ac3 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension])
         Ac3[1, 0, 0, 0] = - 6 * self.beta(t)
         return Ac3
 
-    def Ac4(self, t):
+    def Ac4(self, x, t, u):
         Ac4 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension])
         return Ac4
 
     def A(self, tk):
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1], tk, self.dt)
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1], tk, self.dt, self.F, self.nominal_x[:, int(round(tk / self.dt))], self.nominal_u)
 
     def A2(self, tk):
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2], tk, self.dt)
+        print(int(round(tk / self.dt)))
+        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2], tk, self.dt, self.F, self.nominal_x[:, int(round(tk / self.dt))], self.nominal_u)
 
     def A3(self, tk):
         return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3], tk, self.dt)
@@ -88,17 +88,21 @@ class DuffingOscillatorDynamics:
     def A4(self, tk):
         return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3, self.Ac4], tk, self.dt)
 
-    def Bc(self, t):
-        Bc = np.zeros([self.state_dimension, self.input_dimension])
-        Bc[1, 0] = 1
-        return Bc
 
-    def dPsi(self, Psi, t):
-        return np.matmul(self.Ac1(t), Psi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2) + np.eye(self.state_dimension).reshape(self.state_dimension**2)
+    ## Do B
+
+    # def Bc(self, t):
+    #     Bc = np.zeros([self.state_dimension, self.input_dimension])
+    #     Bc[1, 0] = 1
+    #     return Bc
+    #
+    # def dPsi(self, Psi, x, t, u):
+    #     return np.matmul(self.Ac1(x, t, u), Psi.reshape(self.state_dimension, self.state_dimension)).reshape(self.state_dimension**2) + np.eye(self.state_dimension).reshape(self.state_dimension**2)
 
     def B(self, tk):
-        B = odeint(self.dPsi, np.zeros([self.state_dimension, self.state_dimension]).reshape(self.state_dimension**2), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)
-        return np.matmul(B[-1, :].reshape(self.state_dimension, self.state_dimension), self.Bc(tk))
+        # B = odeint(self.dPsi, np.zeros([self.state_dimension, self.state_dimension]).reshape(self.state_dimension**2), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)
+        # return np.matmul(B[-1, :].reshape(self.state_dimension, self.state_dimension), self.Bc(tk))
+        return np.zeros([self.state_dimension, self.input_dimension])
 
     def C(self, tk):
         C = np.eye(self.state_dimension)
