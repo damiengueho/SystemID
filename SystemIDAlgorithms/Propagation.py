@@ -82,177 +82,177 @@ def propagation(signal, system, **kwargs):
                         x[:, i + 1] = np.matmul(A(i * dt), x[:, i]) + np.matmul(B(i * dt), u[:, i])
 
 
-    if system_type == 'Discrete Linear Order 2':
-        dt = system.dt
-        number_steps = signal.number_steps
-        A2, B, C, D = system.A2, system.B, system.C, system.D
-
-        u = signal.data
-
-        observer = kwargs.get('observer', False)
-        if observer:
-            K = system.K
-            reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
-
-        process_noise = kwargs.get('process_noise', False)
-        process_noise_signal = kwargs.get('process_noise_signal')
-        measurement_noise = kwargs.get('measurement_noise', False)
-        measurement_noise_signal = kwargs.get('measurement_noise_signal')
-
-        x = np.zeros([state_dimension, number_steps + 1])
-        x[:, 0] = x0
-        y = np.zeros([output_dimension, number_steps])
-        count_init_states = 1
-
-        for i in range(number_steps):
-            At1, At2 = A2(round(i * dt, 2))
-            if measurement_noise:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
-            else:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
-            if number_initial_states > 1:
-                if i + 1 == initial_states[count_init_states][1]:
-                    x[:, i + 1] = initial_states[count_init_states][0]
-                    if count_init_states < number_initial_states - 1:
-                        count_init_states += 1
-                else:
-                    if observer:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                    else:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i])
-            else:
-                if observer:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                else:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i])
-                        print('x[:, i + 1]', x[:, i + 1])
-
-
-    if system_type == 'Discrete Linear Order 3':
-        dt = system.dt
-        number_steps = signal.number_steps
-        A3, B, C, D = system.A3, system.B, system.C, system.D
-
-        u = signal.data
-
-        observer = kwargs.get('observer', False)
-        if observer:
-            K = system.K
-            reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
-
-        process_noise = kwargs.get('process_noise', False)
-        process_noise_signal = kwargs.get('process_noise_signal')
-        measurement_noise = kwargs.get('measurement_noise', False)
-        measurement_noise_signal = kwargs.get('measurement_noise_signal')
-
-        x = np.zeros([state_dimension, number_steps + 1])
-        x[:, 0] = x0
-        y = np.zeros([output_dimension, number_steps])
-        count_init_states = 1
-
-        for i in range(number_steps):
-            At1, At2, At3 = A3(i * dt)
-            if measurement_noise:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
-            else:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
-            if number_initial_states > 1:
-                if i + 1 == initial_states[count_init_states][1]:
-                    x[:, i + 1] = initial_states[count_init_states][0]
-                    if count_init_states < number_initial_states - 1:
-                        count_init_states += 1
-                else:
-                    if observer:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                    else:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i])
-            else:
-                if observer:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                else:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i])
-
-
-    if system_type == 'Discrete Linear Order 4':
-        dt = system.dt
-        number_steps = signal.number_steps
-        A4, B, C, D = system.A4, system.B, system.C, system.D
-
-        u = signal.data
-
-        observer = kwargs.get('observer', False)
-        if observer:
-            K = system.K
-            reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
-
-        process_noise = kwargs.get('process_noise', False)
-        process_noise_signal = kwargs.get('process_noise_signal')
-        measurement_noise = kwargs.get('measurement_noise', False)
-        measurement_noise_signal = kwargs.get('measurement_noise_signal')
-
-        x = np.zeros([state_dimension, number_steps + 1])
-        x[:, 0] = x0
-        y = np.zeros([output_dimension, number_steps])
-        count_init_states = 1
-
-        for i in range(number_steps):
-            At1, At2, At3, At4 = A4(i * dt)
-            if measurement_noise:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
-            else:
-                y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
-            if number_initial_states > 1:
-                if i + 1 == initial_states[count_init_states][1]:
-                    x[:, i + 1] = initial_states[count_init_states][0]
-                    if count_init_states < number_initial_states - 1:
-                        count_init_states += 1
-                else:
-                    if observer:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                    else:
-                        if process_noise:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                        else:
-                            x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i])
-            else:
-                if observer:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
-                else:
-                    if process_noise:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
-                    else:
-                        x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i])
-
+    # if system_type == 'Continuous Order 2':
+    #     dt = system.dt
+    #     number_steps = signal.number_steps
+    #     Acs, F, G = system.Acs, system.F, system.G
+    #
+    #     u = signal.u
+    #
+    #     observer = kwargs.get('observer', False)
+    #     if observer:
+    #         K = system.K
+    #         reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
+    #
+    #     process_noise = kwargs.get('process_noise', False)
+    #     process_noise_signal = kwargs.get('process_noise_signal')
+    #     measurement_noise = kwargs.get('measurement_noise', False)
+    #     measurement_noise_signal = kwargs.get('measurement_noise_signal')
+    #
+    #     x = np.zeros([state_dimension, number_steps + 1])
+    #     x[:, 0] = x0
+    #     y = np.zeros([output_dimension, number_steps])
+    #     count_init_states = 1
+    #
+    #     higherOrderStateTransitionTensorsPropagation(Acs, F, u, x0, tspan)
+    #
+    #     for i in range(number_steps):
+    #         if measurement_noise:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
+    #         else:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
+    #         if number_initial_states > 1:
+    #             if i + 1 == initial_states[count_init_states][1]:
+    #                 x[:, i + 1] = initial_states[count_init_states][0]
+    #                 if count_init_states < number_initial_states - 1:
+    #                     count_init_states += 1
+    #             else:
+    #                 if observer:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #                 else:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i])
+    #         else:
+    #             if observer:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #             else:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + np.matmul(B(i * dt), u[:, i])
+    #
+    #
+    # if system_type == 'Discrete Linear Order 3':
+    #     dt = system.dt
+    #     number_steps = signal.number_steps
+    #     A3, B, C, D = system.A3, system.B, system.C, system.D
+    #
+    #     u = signal.data
+    #
+    #     observer = kwargs.get('observer', False)
+    #     if observer:
+    #         K = system.K
+    #         reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
+    #
+    #     process_noise = kwargs.get('process_noise', False)
+    #     process_noise_signal = kwargs.get('process_noise_signal')
+    #     measurement_noise = kwargs.get('measurement_noise', False)
+    #     measurement_noise_signal = kwargs.get('measurement_noise_signal')
+    #
+    #     x = np.zeros([state_dimension, number_steps + 1])
+    #     x[:, 0] = x0
+    #     y = np.zeros([output_dimension, number_steps])
+    #     count_init_states = 1
+    #
+    #     for i in range(number_steps):
+    #         At1, At2, At3 = A3(i * dt)
+    #         if measurement_noise:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
+    #         else:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
+    #         if number_initial_states > 1:
+    #             if i + 1 == initial_states[count_init_states][1]:
+    #                 x[:, i + 1] = initial_states[count_init_states][0]
+    #                 if count_init_states < number_initial_states - 1:
+    #                     count_init_states += 1
+    #             else:
+    #                 if observer:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #                 else:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i])
+    #         else:
+    #             if observer:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #             else:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + np.matmul(B(i * dt), u[:, i])
+    #
+    #
+    # if system_type == 'Discrete Linear Order 4':
+    #     dt = system.dt
+    #     number_steps = signal.number_steps
+    #     A4, B, C, D = system.A4, system.B, system.C, system.D
+    #
+    #     u = signal.data
+    #
+    #     observer = kwargs.get('observer', False)
+    #     if observer:
+    #         K = system.K
+    #         reference_output_signal = kwargs.get('reference_output_signal', np.zeros([output_dimension, number_steps]))
+    #
+    #     process_noise = kwargs.get('process_noise', False)
+    #     process_noise_signal = kwargs.get('process_noise_signal')
+    #     measurement_noise = kwargs.get('measurement_noise', False)
+    #     measurement_noise_signal = kwargs.get('measurement_noise_signal')
+    #
+    #     x = np.zeros([state_dimension, number_steps + 1])
+    #     x[:, 0] = x0
+    #     y = np.zeros([output_dimension, number_steps])
+    #     count_init_states = 1
+    #
+    #     for i in range(number_steps):
+    #         At1, At2, At3, At4 = A4(i * dt)
+    #         if measurement_noise:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i * dt), u[:, i]) + measurement_noise_signal.data[:, i]
+    #         else:
+    #             y[:, i] = np.matmul(C(i * dt), x[:, i]) + np.matmul(D(i*dt), u[:, i])
+    #         if number_initial_states > 1:
+    #             if i + 1 == initial_states[count_init_states][1]:
+    #                 x[:, i + 1] = initial_states[count_init_states][0]
+    #                 if count_init_states < number_initial_states - 1:
+    #                     count_init_states += 1
+    #             else:
+    #                 if observer:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #                 else:
+    #                     if process_noise:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                     else:
+    #                         x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i])
+    #         else:
+    #             if observer:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i])) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + np.matmul(K(i * dt), (y[:, i] - reference_output_signal.data[:, i]))
+    #             else:
+    #                 if process_noise:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.outer(x[:, i], x[:, i]), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.outer(x[:, i], x[:, i]), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i]) + process_noise_signal.data[:, i]
+    #                 else:
+    #                     x[:, i + 1] = np.matmul(At1, x[:, i]) + (1 / 2) * np.tensordot(At2, np.tensordot(x[:, i], x[:, i], axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(At3, np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(At4, np.tensordot(np.tensordot(np.tensordot(x[:, i], x[:, i], axes=0), x[:, i], axes=0), x[:, i], axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3])) + np.matmul(B(i * dt), u[:, i])
+    #
 
 
     if system_type == 'Discrete Nonlinear':
@@ -372,6 +372,47 @@ def propagation(signal, system, **kwargs):
         for t in tspan:
             y[:, i] = G(x[:, i], t, signal.u(t))
             i += 1
+
+
+    if system_type == 'Continuous Nonlinear Higher Order Expansion':
+        tspan = kwargs.get('tspan', np.zeros(1))
+        number_steps = len(tspan)
+
+        G = system.G
+
+        x = np.zeros([state_dimension, number_steps])
+        x[:, 0] = x0
+        y = np.zeros([output_dimension, number_steps])
+
+        if system.order == 1:
+            for i in range(number_steps):
+                A1 = system.A_vec[i, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+                x[:, i] = np.matmul(A1, x0)
+                y[:, i] = G(x[:, i], tspan[i], signal.u(tspan[i]))
+
+        if system.order == 2:
+            for i in range(number_steps):
+                A1 = system.A_vec[i, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+                A2 = system.A_vec[i, state_dimension + state_dimension ** 2:].reshape(state_dimension, state_dimension, state_dimension)
+                x[:, i] = np.matmul(A1, x0) + (1 / 2) * np.tensordot(A2, np.tensordot(x0, x0, axes=0), axes=([1, 2], [0, 1]))
+                y[:, i] = G(x[:, i], tspan[i], signal.u(tspan[i]))
+
+        if system.order == 3:
+            for i in range(number_steps):
+                A1 = system.A_vec[i, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+                A2 = system.A_vec[i, state_dimension + state_dimension ** 2:state_dimension + state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+                A3 = system.A_vec[i, state_dimension + state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+                x[:, i] = np.matmul(A1, x0) + (1 / 2) * np.tensordot(A2, np.tensordot(x0, x0, axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(A3, np.tensordot(np.tensordot(x0, x0, axes=0), x0, axes=0), axes=([1, 2, 3], [0, 1, 2]))
+                y[:, i] = G(x[:, i], tspan[i], signal.u(tspan[i]))
+
+        if system.order == 4:
+            for i in range(number_steps):
+                A1 = system.A_vec[i, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+                A2 = system.A_vec[i, state_dimension + state_dimension ** 2:state_dimension + state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+                A3 = system.A_vec[i, state_dimension + state_dimension ** 2 + state_dimension ** 3:state_dimension + state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+                A4 = system.A_vec[i, state_dimension + state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
+                x[:, i] = np.matmul(A1, x0) + (1 / 2) * np.tensordot(A2, np.tensordot(x0, x0, axes=0), axes=([1, 2], [0, 1])) + (1 / 6) * np.tensordot(A3, np.tensordot(np.tensordot(x0, x0, axes=0), x0, axes=0), axes=([1, 2, 3], [0, 1, 2])) + (1 / 24) * np.tensordot(A4, np.tensordot(np.tensordot(np.tensordot(x0, x0, axes=0), x0, axes=0), x0, axes=0), axes=([1, 2, 3, 4], [0, 1, 2, 3]))
+                y[:, i] = G(x[:, i], tspan[i], signal.u(tspan[i]))
 
 
     return (y, x)

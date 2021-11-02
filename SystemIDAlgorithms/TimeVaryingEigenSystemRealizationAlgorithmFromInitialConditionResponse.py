@@ -16,7 +16,7 @@ from SystemIDAlgorithms.IdentificationInitialCondition import identificationInit
 
 
 
-def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, full_experiment, state_dimension, p):
+def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p):
 
     # Dimensions and number of steps
     input_dimension = free_decay_experiments.input_dimension
@@ -101,7 +101,7 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
         return D_id[:, :, int(round(tk * frequency))]
 
     # Get x0
-    x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
+    # x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
 
 
-    return A, B, C, D, x0, Ok, Ok1, Sigma, A_id, B_id, C_id, D_id
+    return A, B, C, D, Ok, Ok1, Sigma, A_id, B_id, C_id, D_id

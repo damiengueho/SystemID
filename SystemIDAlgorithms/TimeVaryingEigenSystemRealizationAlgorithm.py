@@ -16,12 +16,12 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 from SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
 
 
-def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, full_experiment, state_dimension, p, q, **kwargs):
+def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, state_dimension, p, q, **kwargs):
 
     # Dimensions and number of steps
     output_dimension, input_dimension, number_steps = D.shape
 
-    # Compute free reponse experiments Y matrices
+    # Compute free response experiments Y matrices
     number_free_decay_experiments = free_decay_experiments.number_experiments
     free_decay_outputs = free_decay_experiments.output_signals
     Y = np.zeros([(p + 1) * output_dimension, number_free_decay_experiments, q])
@@ -32,7 +32,7 @@ def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, f
 
 
     # Frequency
-    frequency = full_experiment.input_signals[0].frequency
+    frequency = free_decay_experiments.input_signals[0].frequency
 
 
     # Applying Transformation to the first q time steps
@@ -174,18 +174,18 @@ def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, f
         return D_id[:, :, int(round(tk * frequency))]
 
 
-    # Get x0
-    x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
+    # # Get x0
+    # x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
+    #
+    #
+    # # Get xq
+    # full_experiment_input_q = DiscreteSignal(full_experiment.input_signals[0].dimension,
+    #                                          full_experiment.input_signals[0].total_time - q * full_experiment.input_signals[0].dt,
+    #                                          full_experiment.input_signals[0].frequency, signal_shape='External', data=full_experiment.input_signals[0].data[:, q:])
+    # full_experiment_output_q = DiscreteSignal(full_experiment.output_signals[0].dimension,
+    #                                          full_experiment.output_signals[0].total_time - q * full_experiment.output_signals[0].dt,
+    #                                          full_experiment.output_signals[0].frequency, signal_shape='External', data=full_experiment.output_signals[0].data[:, q:])
+    # xq = identificationInitialCondition(full_experiment_input_q, full_experiment_output_q, A, B, C, D, q * full_experiment.input_signals[0].dt, q)
 
 
-    # Get xq
-    full_experiment_input_q = DiscreteSignal(full_experiment.input_signals[0].dimension,
-                                             full_experiment.input_signals[0].total_time - q * full_experiment.input_signals[0].dt,
-                                             full_experiment.input_signals[0].frequency, signal_shape='External', data=full_experiment.input_signals[0].data[:, q:])
-    full_experiment_output_q = DiscreteSignal(full_experiment.output_signals[0].dimension,
-                                             full_experiment.output_signals[0].total_time - q * full_experiment.output_signals[0].dt,
-                                             full_experiment.output_signals[0].frequency, signal_shape='External', data=full_experiment.output_signals[0].data[:, q:])
-    xq = identificationInitialCondition(full_experiment_input_q, full_experiment_output_q, A, B, C, D, q * full_experiment.input_signals[0].dt, q)
-
-
-    return A, B, C, D, x0, xq, Ok, Ok1, sigma
+    return A, B, C, D, Ok, Ok1, sigma

@@ -19,14 +19,13 @@ from SystemIDAlgorithms.Propagation import propagation
 from ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 
 
-class LorenzSystemDynamics:
-    def __init__(self, sigma, rho, beta, **kwargs):
-        self.state_dimension = 3
+class CircularRestricedThreeBodyProblemDynamics:
+    def __init__(self, omega, mu, **kwargs):
+        self.state_dimension = 6
         self.input_dimension = 3
-        self.output_dimension = 3
-        self.sigma = sigma
-        self.rho = rho
-        self.beta = beta
+        self.output_dimension = 6
+        self.omega = omega
+        self.mu = mu
 
         self.nominal = kwargs.get('nominal', False)
         if self.nominal:
@@ -43,10 +42,15 @@ class LorenzSystemDynamics:
 
 
     def F(self, x, t, u):
-        dxdt = np.zeros(3)
-        dxdt[0] = self.sigma(t) * (x[1] - x[0])
-        dxdt[1] = x[0] * (self.rho(t) - x[2]) - x[1]
-        dxdt[2] = x[0] * x[1] - self.beta(t) * x[2]
+        dxdt = np.zeros(self.state_dimension)
+        r1 = np.norm(np.array([x[0] + self.mu(t), x[1], x[2]]))
+        r2 = np.norm(np.array([x[0] + self.mu(t) - 1, x[1], x[2]]))
+        dxdt[0] = x[3]
+        dxdt[1] = x[4]
+        dxdt[2] = x[5]
+        dxdt[3] = 2 * x[4] * self.omega(t) + x[0] * self.omega(t) ** 2 - (1 - self.mu(t)) * (x[0] + self.mu(t)) / (r1 ** 3) - self.mu(t) * (x[0] - 1 + self.mu(t)) / (r2 ** 3)
+        dxdt[4] = -2 * x[3] * self.omega(t) + x[1] * self.omega(t) ** 2 - (1 - self.mu(t)) * x[1] / (r1 ** 3) - self.mu(t) * x[1] / (r2 ** 3)
+        dxdt[5] = - (1 - self.mu(t)) * x[2] / (r1 ** 3) - self.mu(t) * x[2] / (r2 ** 3)
         return dxdt
 
     def G(self, x, t, u):

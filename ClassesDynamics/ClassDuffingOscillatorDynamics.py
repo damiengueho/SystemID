@@ -35,6 +35,7 @@ class DuffingOscillatorDynamics:
         self.beta = beta
 
         self.nominal = kwargs.get('nominal', False)
+
         if self.nominal:
             self.initial_states = kwargs.get('initial_states', np.zeros(self.state_dimension))
             def zero(t):
@@ -44,6 +45,7 @@ class DuffingOscillatorDynamics:
             self.dt = kwargs.get('dt', 0)
             self.tspan = kwargs.get('tspan', np.array([0, 1]))
             _, self.nominal_x = propagation(self.nominal_u, self.nominal_system, tspan=self.tspan)
+
 
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
@@ -61,6 +63,13 @@ class DuffingOscillatorDynamics:
         Ac1[1, 1] = -self.delta(t)
         return Ac1
 
+    # def dPhi(self, Phi, t, x, u):
+    #     return np.matmul(self.Ac1(x, t, u), Phi.reshape(2, 2)).reshape(4)
+    #
+    # def A(self, tk):
+    #     A = odeint(self.dPhi, np.eye(2).reshape(4), np.array([tk, tk + self.dt]), rtol=1e-13, atol=1e-13)
+    #     return A[-1, :].reshape(2, 2)
+
     def Ac2(self, x, t, u):
         Ac2 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension])
         Ac2[1, 0, 0] = - 6 * self.beta(t) * x[0]
@@ -74,19 +83,6 @@ class DuffingOscillatorDynamics:
     def Ac4(self, x, t, u):
         Ac4 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension, self.state_dimension])
         return Ac4
-
-    def A(self, tk):
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1], tk, self.dt, self.F, self.nominal_x[:, int(round(tk / self.dt))], self.nominal_u)
-
-    def A2(self, tk):
-        print(int(round(tk / self.dt)))
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2], tk, self.dt, self.F, self.nominal_x[:, int(round(tk / self.dt))], self.nominal_u)
-
-    def A3(self, tk):
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3], tk, self.dt)
-
-    def A4(self, tk):
-        return higherOrderStateTransitionTensorsPropagation([self.Ac1, self.Ac2, self.Ac3, self.Ac4], tk, self.dt)
 
 
     ## Do B

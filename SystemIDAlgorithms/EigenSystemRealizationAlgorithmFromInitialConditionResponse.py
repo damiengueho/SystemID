@@ -17,7 +17,7 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 from SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
-def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
+def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs):
 
     # Number of Signals
     number_signals = len(output_signals)
@@ -106,7 +106,7 @@ def eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, 
         return np.zeros([output_dimension, input_dimension])
 
 
-    x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
+    # x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
 
 
-    return A, B, C, D, X0, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV
+    return A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV

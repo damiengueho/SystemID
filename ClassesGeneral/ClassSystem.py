@@ -11,6 +11,10 @@ Python: 3.7.7
 import numpy as np
 
 
+from SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation import higherOrderStateTransitionTensorsPropagation
+
+
+
 class System:
     def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name):
         self.state_dimension = state_dimension
@@ -28,45 +32,6 @@ class DiscreteLinearSystem(System):
         self.dt = 1 / frequency
         self.system_type = 'Discrete Linear'
         self.A = A
-        self.B = B
-        self.C = C
-        self.D = D
-        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
-
-
-class DiscreteLinearSystemOrder2(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A2, B, C, D, **kwargs):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
-        self.frequency = frequency
-        self.dt = 1 / frequency
-        self.system_type = 'Discrete Linear Order 2'
-        self.A2 = A2
-        self.B = B
-        self.C = C
-        self.D = D
-        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
-
-
-class DiscreteLinearSystemOrder3(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A3, B, C, D, **kwargs):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
-        self.frequency = frequency
-        self.dt = 1 / frequency
-        self.system_type = 'Discrete Linear Order 3'
-        self.A3 = A3
-        self.B = B
-        self.C = C
-        self.D = D
-        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
-
-
-class DiscreteLinearSystemOrder4(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A4, B, C, D, **kwargs):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
-        self.frequency = frequency
-        self.dt = 1 / frequency
-        self.system_type = 'Discrete Linear Order 4'
-        self.A4 = A4
         self.B = B
         self.C = C
         self.D = D
@@ -111,3 +76,20 @@ class ContinuousNonlinearSystem(System):
         self.system_type = 'Continuous Nonlinear'
         self.F = F
         self.G = G
+
+
+class ContinuousNonlinearSystemHigherOrderExpansion(System):
+    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, F, G, Acs, x0_nominal, u_nominal, tspan):
+        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+        self.system_type = 'Continuous Nonlinear Higher Order Expansion'
+        self.F = F
+        self.G = G
+        self.Acs = Acs
+        self.x0_nominal = x0_nominal
+        self.u_nominal = u_nominal
+        self.tspan = tspan
+        self.number_steps = len(self.tspan)
+
+        self.order = len(self.Acs)
+
+        self.A_vec = higherOrderStateTransitionTensorsPropagation(Acs, F, u_nominal, x0_nominal, tspan)

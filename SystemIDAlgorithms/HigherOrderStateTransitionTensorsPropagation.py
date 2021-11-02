@@ -12,11 +12,12 @@ import numpy as np
 from scipy.integrate import odeint
 
 
-def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt, F, x_tk, u):
+def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan):
 
     ## Order of the expansion and dimension of the system
     order = len(sensitivities)
-    state_dimension = x_tk.shape[0]
+    state_dimension = x0.shape[0]
+    number_steps = len(tspan)
 
 
     ## Initialization
@@ -45,10 +46,9 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt, F, x_tk,
             Phi1_tensor = Phi[state_dimension:].reshape(state_dimension, state_dimension)
             return np.concatenate((dxdt, np.tensordot(Ac1(x, t, u), Phi1_tensor, axes=([1], [0])).reshape(state_dimension ** 2)))
 
-        A_vec = odeint(dPhi, np.concatenate((x_tk, Phi1.reshape(state_dimension**2))), np.array([tk, tk + dt]), rtol=1e-12, atol=1e-12)
-        A1_tensor = A_vec[-1, state_dimension:].reshape(state_dimension, state_dimension)
+        A_vec = odeint(dPhi, np.concatenate((x0, Phi1.reshape(state_dimension**2))), tspan, rtol=1e-13, atol=1e-13)
 
-        return A1_tensor
+        return A_vec
 
 
     if order == 2:
@@ -62,83 +62,78 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, tk, dt, F, x_tk,
             dPhi2_tensor = np.tensordot(Ac1(x, t, u), Phi2_tensor, axes=([1], [0])) + np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
             return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3)))))
 
-        A_vec = odeint(dPhi, np.concatenate((x_tk, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3))))), np.array([tk, tk + dt]), rtol=1e-12, atol=1e-12)
-        A1_tensor = A_vec[-1, state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
-        A2_tensor = A_vec[-1, state_dimension + state_dimension ** 2:].reshape(state_dimension, state_dimension, state_dimension)
+        A_vec = odeint(dPhi, np.concatenate((x0, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3))))), tspan, rtol=1e-13, atol=1e-13)
 
-        return A1_tensor, A2_tensor
+        return A_vec
 
 
     if order == 3:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi[0:state_dimension ** 2].reshape(state_dimension, state_dimension)
-            Phi2_tensor = Phi[state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
-            Phi3_tensor = Phi[state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
-            dPhi1_tensor = np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0]))
-            dPhi2_tensor = np.tensordot(Ac1(t), Phi2_tensor, axes=([1], [0])) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
-            dPhi3_tensor = np.tensordot(Ac1(t), Phi3_tensor, axes=([1], [0])) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 2, 3, 1]) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 3, 1, 2]) + \
-                           np.tensordot(Ac3(t), np.tensordot(Phi1_tensor, np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=0), axes=([1, 2, 3], [0, 2, 4]))
+            x = Phi[0:state_dimension]
+            dxdt = F(x, t, u)
+            Phi1_tensor = Phi[state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+            Phi2_tensor = Phi[state_dimension + state_dimension ** 2:state_dimension + state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+            Phi3_tensor = Phi[state_dimension + state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+            dPhi1_tensor = np.tensordot(Ac1(x, t, u), Phi1_tensor, axes=([1], [0]))
+            dPhi2_tensor = np.tensordot(Ac1(x, t, u), Phi2_tensor, axes=([1], [0])) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
+            dPhi3_tensor = np.tensordot(Ac1(x, t, u), Phi3_tensor, axes=([1], [0])) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 2, 3, 1]) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 3, 1, 2]) + \
+                           np.tensordot(Ac3(x, t, u), np.tensordot(Phi1_tensor, np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=0), axes=([1, 2, 3], [0, 2, 4]))
 
-            return np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4)))
+            return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4)))))
 
-        A_vec = odeint(dPhi, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4))), np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A_vec[-1, 0:state_dimension ** 2].reshape(state_dimension, state_dimension)
-        A2_tensor = A_vec[-1, state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
-        A3_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3:].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+        A_vec = odeint(dPhi, np.concatenate((x0, np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4))))), tspan, rtol=1e-13, atol=1e-13)
 
-        return A1_tensor, A2_tensor, A3_tensor
+        return A_vec
 
 
     if order == 4:
 
         def dPhi(Phi, t):
-            Phi1_tensor = Phi[0:state_dimension ** 2].reshape(state_dimension, state_dimension)
-            Phi2_tensor = Phi[state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
-            Phi3_tensor = Phi[state_dimension ** 2 + state_dimension ** 3:state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
-            Phi4_tensor = Phi[state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
+            x = Phi[0:state_dimension]
+            dxdt = F(x, t, u)
+            Phi1_tensor = Phi[state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
+            Phi2_tensor = Phi[state_dimension + state_dimension ** 2:state_dimension + state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
+            Phi3_tensor = Phi[state_dimension + state_dimension ** 2 + state_dimension ** 3:state_dimension + state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
+            Phi4_tensor = Phi[state_dimension + state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
 
-            dPhi1_tensor = np.tensordot(Ac1(t), Phi1_tensor, axes=([1], [0]))
+            dPhi1_tensor = np.tensordot(Ac1(x, t, u), Phi1_tensor, axes=([1], [0]))
 
-            dPhi2_tensor = np.tensordot(Ac1(t), Phi2_tensor, axes=([1], [0])) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
+            dPhi2_tensor = np.tensordot(Ac1(x, t, u), Phi2_tensor, axes=([1], [0])) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 2]))
 
-            dPhi3_tensor = np.tensordot(Ac1(t), Phi3_tensor, axes=([1], [0])) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 2]) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 2])) + \
-                           np.tensordot(Ac3(t), np.tensordot(Phi1_tensor, np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=0), axes=([1, 2, 3], [0, 2, 4]))
+            dPhi3_tensor = np.tensordot(Ac1(x, t, u), Phi3_tensor, axes=([1], [0])) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 2]) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 2])) + \
+                           np.tensordot(Ac3(x, t, u), np.tensordot(Phi1_tensor, np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), axes=0), axes=([1, 2, 3], [0, 2, 4]))
 
-            dPhi4_tensor = np.tensordot(Ac1(t), Phi4_tensor, axes=([1], [0])) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])), axes=[0, 1, 2, 4, 3]) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])), axes=[0, 1, 4, 2, 3]) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 2, 4]) + \
-                           np.transpose(np.tensordot(Ac2(t), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 4, 2]) + \
-                           np.tensordot(Ac2(t), np.tensordot(Phi1_tensor, Phi3_tensor, axes=0), axes=([1, 2], [0, 2])) + \
-                           np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])) + \
-                           np.transpose(np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])), axes=[0, 1, 3, 2, 4]) + \
-                           np.transpose(np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])), axes=[0, 1, 3, 4, 2]) + \
-                           np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 2, 5])) + \
-                           np.transpose(np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 2, 5])), axes=[0, 1, 2, 4, 3]) + \
-                           np.tensordot(Ac3(t), np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi2_tensor, axes=0), axes=([1, 2, 3], [0, 2, 4])) + \
-                           np.tensordot(Ac4(t), np.tensordot(np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3, 4], [0, 2, 4, 6]))
+            dPhi4_tensor = np.tensordot(Ac1(x, t, u), Phi4_tensor, axes=([1], [0])) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])), axes=[0, 1, 2, 4, 3]) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi3_tensor, Phi1_tensor, axes=0), axes=([1, 2], [0, 4])), axes=[0, 1, 4, 2, 3]) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 2, 4]) + \
+                           np.transpose(np.tensordot(Ac2(x, t, u), np.tensordot(Phi2_tensor, Phi2_tensor, axes=0), axes=([1, 2], [0, 3])), axes=[0, 1, 3, 4, 2]) + \
+                           np.tensordot(Ac2(x, t, u), np.tensordot(Phi1_tensor, Phi3_tensor, axes=0), axes=([1, 2], [0, 2])) + \
+                           np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])) + \
+                           np.transpose(np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])), axes=[0, 1, 3, 2, 4]) + \
+                           np.transpose(np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi2_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 3, 5])), axes=[0, 1, 3, 4, 2]) + \
+                           np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 2, 5])) + \
+                           np.transpose(np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi1_tensor, Phi2_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3], [0, 2, 5])), axes=[0, 1, 2, 4, 3]) + \
+                           np.tensordot(Ac3(x, t, u), np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi2_tensor, axes=0), axes=([1, 2, 3], [0, 2, 4])) + \
+                           np.tensordot(Ac4(x, t, u), np.tensordot(np.tensordot(np.tensordot(Phi1_tensor, Phi1_tensor, axes=0), Phi1_tensor, axes=0), Phi1_tensor, axes=0), axes=([1, 2, 3, 4], [0, 2, 4, 6]))
 
-            return np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4), dPhi4_tensor.reshape(state_dimension ** 5)))
+            return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4), dPhi4_tensor.reshape(state_dimension ** 5)))))
 
         Phi0 = np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4), Phi4.reshape(state_dimension ** 5)))
-        A_vec = odeint(dPhi, Phi0, np.array([tk, tk + dt]), rtol=1e-13, atol=1e-13)
-        A1_tensor = A_vec[-1, 0:state_dimension ** 2].reshape(state_dimension, state_dimension)
-        A2_tensor = A_vec[-1, state_dimension ** 2:state_dimension ** 2 + state_dimension ** 3].reshape(state_dimension, state_dimension, state_dimension)
-        A3_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3:state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4].reshape(state_dimension, state_dimension, state_dimension, state_dimension)
-        A4_tensor = A_vec[-1, state_dimension ** 2 + state_dimension ** 3 + state_dimension ** 4:].reshape(state_dimension, state_dimension, state_dimension, state_dimension, state_dimension)
+        A_vec = odeint(dPhi, np.concatenate((x0, Phi0)), tspan, rtol=1e-13, atol=1e-13)
 
-    return A1_tensor, A2_tensor, A3_tensor, A4_tensor
+    return A_vec
 
 
 

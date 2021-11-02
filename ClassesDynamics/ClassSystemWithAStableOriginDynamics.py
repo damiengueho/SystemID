@@ -51,3 +51,4 @@ class SystemWithAStableOriginDynamics:
 
     def D(self, tk):
         return 0.1 * np.eye(2)
+        # return np.zeros([2, 2])
