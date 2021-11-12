@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 18
-Date: October 2021
+Version: 19
+Date: November 2021
 Python: 3.7.7
 """
 
@@ -20,7 +20,7 @@ def weightingSequenceDescription(input_signal, markov_parameters, **kwargs):
 
     Parameters:
         - **input_signal** (``DiscreteSignal``): the input signal
-        - **markov_parameters** (``[np.array]``): list of markov parameters (weights) to use
+        - **markov_parameters** (``list``): list of markov parameters (weights) to use
         - ****kwargs** (``bool``): observer
 
     Returns:

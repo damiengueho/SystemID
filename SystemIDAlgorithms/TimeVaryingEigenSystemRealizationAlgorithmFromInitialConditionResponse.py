@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 18
-Date: October 2021
+Version: 19
+Date: November 2021
 Python: 3.7.7
 """
 
@@ -78,6 +78,10 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
         O2 = np.matmul(Rn2, LA.sqrtm(Sigman2))
         X2 = np.matmul(LA.sqrtm(Sigman2), Snt2)
 
+        # ICs
+        if k == 0:
+            X0 = X1
+
         # Store observability matrices
         Ok[:, :, k] = O1
         Ok1[:, :, k] = O2
@@ -104,4 +108,4 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
     # x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
 
 
-    return A, B, C, D, Ok, Ok1, Sigma, A_id, B_id, C_id, D_id
+    return A, B, C, D, Ok, Ok1, Sigma, X0

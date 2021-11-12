@@ -83,3 +83,15 @@ html_theme_options = {
 latex_engine = 'xelatex'
 latex_elements = {
     'fontenc': '\\usepackage[OT1]{fontenc}'}
+latex_elements['preamble'] = '\\usepackage{amsmath}\n'
+
+
+numfig = True
+math_numfig = True
+numfig_secnum_depth = 2
+math_eqref_format = "Eq.{number}"
+
+
+
+def setup(app):
+    app.add_css_file('css/custom.css')

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 18
-Date: October 2021
+Version: 19
+Date: November 2021
 Python: 3.7.7
 """
 
@@ -20,11 +20,10 @@ from ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 
 
 class CircularRestricedThreeBodyProblemDynamics:
-    def __init__(self, omega, mu, **kwargs):
+    def __init__(self, mu, **kwargs):
         self.state_dimension = 6
         self.input_dimension = 3
         self.output_dimension = 6
-        self.omega = omega
         self.mu = mu
 
         self.nominal = kwargs.get('nominal', False)
@@ -48,8 +47,8 @@ class CircularRestricedThreeBodyProblemDynamics:
         dxdt[0] = x[3]
         dxdt[1] = x[4]
         dxdt[2] = x[5]
-        dxdt[3] = 2 * x[4] * self.omega(t) + x[0] * self.omega(t) ** 2 - (1 - self.mu(t)) * (x[0] + self.mu(t)) / (r1 ** 3) - self.mu(t) * (x[0] - 1 + self.mu(t)) / (r2 ** 3)
-        dxdt[4] = -2 * x[3] * self.omega(t) + x[1] * self.omega(t) ** 2 - (1 - self.mu(t)) * x[1] / (r1 ** 3) - self.mu(t) * x[1] / (r2 ** 3)
+        dxdt[3] = 2 * x[4] + x[0] - (1 - self.mu(t)) * (x[0] + self.mu(t)) / (r1 ** 3) - self.mu(t) * (x[0] - 1 + self.mu(t)) / (r2 ** 3)
+        dxdt[4] = -2 * x[3] + x[1] - (1 - self.mu(t)) * x[1] / (r1 ** 3) - self.mu(t) * x[1] / (r2 ** 3)
         dxdt[5] = - (1 - self.mu(t)) * x[2] / (r1 ** 3) - self.mu(t) * x[2] / (r2 ** 3)
         return dxdt
 
@@ -58,14 +57,24 @@ class CircularRestricedThreeBodyProblemDynamics:
 
     def Ac1(self, x, t, u):
         Ac1 = np.zeros([self.state_dimension, self.state_dimension])
-        Ac1[0, 0] = -self.sigma(t)
-        Ac1[0, 1] = self.sigma(t)
-        Ac1[1, 0] = self.rho(t)
-        Ac1[1, 1] = -1
-        Ac1[1, 2] = -x[0]
-        Ac1[2, 0] = x[1]
-        Ac1[2, 1] = x[0]
-        Ac1[2, 2] = -self.beta(t)
+        r1 = np.norm(np.array([x[0] + self.mu(t), x[1], x[2]]))
+        r2 = np.norm(np.array([x[0] + self.mu(t) - 1, x[1], x[2]]))
+        Ac1[0, 3] = 1
+        Ac1[1, 4] = 1
+        Ac1[2, 5] = 1
+        Ac1[3, 0] = (self.mu(t) - 1)/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) - self.mu(t)/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) - (3*abs(x[0] + self.mu(t))*np.sign(x[0] + self.mu(t))*(x[0] + self.mu(t))*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) + (3*self.mu(t)*abs(x[0] + self.mu(t) - 1)*np.sign(x[0] + self.mu(t) - 1)*(x[0] + self.mu(t) - 1))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) + 1
+        Ac1[3, 1] = (3*self.mu(t)*abs(x[1])*np.sign(x[1])*(x[0] + self.mu(t) - 1))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*abs(x[1])*np.sign(x[1])*(x[0] + self.mu(t))*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[3, 2] = (3*self.mu(t)*abs(x[2])*np.sign(x[2])*(x[0] + self.mu(t) - 1))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*abs(x[2])*np.sign(x[2])*(x[0] + self.mu(t))*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[3, 4] = 2
+        Ac1[4, 0] = (3*x[1]*self.mu(t)*abs(x[0] + self.mu(t) - 1)*np.sign(x[0] + self.mu(t) - 1))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[1]*abs(x[0] + self.mu(t))*np.sign(x[0] + self.mu(t))*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[4, 1] = (self.mu(t) - 1)/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) - self.mu(t)/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) + (3*x[1]*self.mu(t)*abs(x[1])*np.sign(x[1]))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[1]*abs(x[1])*np.sign(x[1])*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) + 1
+        Ac1[4, 2] = (3*x[1]*self.mu(t)*abs(x[2])*np.sign(x[2]))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[1]*abs(x[2])*np.sign(x[2])*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[4, 3] = -2
+        Ac1[5, 0] = (3*x[2]*self.mu(t)*abs(x[0] + self.mu(t) - 1)*np.sign(x[0] + self.mu(t) - 1))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[2]*abs(x[0] + self.mu(t))*np.sign(x[0] + self.mu(t))*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[5, 1] = (3*x[2]*self.mu(t)*abs(x[1])*np.sign(x[1]))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[2]*abs(x[1])*np.sign(x[1])*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+        Ac1[5, 2] = (self.mu(t) - 1)/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) - self.mu(t)/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(3/2) + (3*x[2]*self.mu(t)*abs(x[2])*np.sign(x[2]))/(abs(x[0] + self.mu(t) - 1)**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2) - (3*x[2]*abs(x[2])*np.sign(x[2])*(self.mu(t) - 1))/(abs(x[0] + self.mu(t))**2 + abs(x[1])**2 + abs(x[2])**2)**(5/2)
+
+
         return Ac1
 
     def Ac2(self, x, t, u):

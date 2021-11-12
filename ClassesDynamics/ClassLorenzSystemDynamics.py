@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 18
-Date: October 2021
+Version: 19
+Date: November 2021
 Python: 3.7.7
 """
 
@@ -56,7 +56,7 @@ class LorenzSystemDynamics:
         Ac1 = np.zeros([self.state_dimension, self.state_dimension])
         Ac1[0, 0] = -self.sigma(t)
         Ac1[0, 1] = self.sigma(t)
-        Ac1[1, 0] = self.rho(t)
+        Ac1[1, 0] = self.rho(t) - x[2]
         Ac1[1, 1] = -1
         Ac1[1, 2] = -x[0]
         Ac1[2, 0] = x[1]
@@ -66,6 +66,7 @@ class LorenzSystemDynamics:
 
     def Ac2(self, x, t, u):
         Ac2 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension])
+        Ac2[1, 0, 2] = -1
         Ac2[1, 2, 0] = -1
         Ac2[2, 0, 1] = 1
         Ac2[2, 1, 0] = 1
