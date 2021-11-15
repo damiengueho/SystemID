@@ -1,0 +1,23 @@
+Getting Started
+====================================
+
+Requirements
+############
+**systemID** requires a number of Python packages, notably:
+
+
+Installation
+############
+The easiest and fastest way to get the package up and running is to install **systemID** using pip:
+::
+
+    $ pip install systemID
+
+Problems and Suggestions
+########################
+If for any reason you get an unexpected error message or an incorrect result, or you want to let the developers know about your use case, please open a new issue in the issue tracker and we will try to answer promptly.
+
+
+
+
+

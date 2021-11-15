@@ -16,7 +16,7 @@ from ClassesGeneral.ClassSignal import DiscreteSignal
 def weightingSequenceDescription(input_signal, markov_parameters, **kwargs):
     """
     Purpose:
-        Compute the weighting sequence description :math:`\\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\\boldsymbol{u}_{k-i}` of a system using the system markov parameters.
+        Compute the weighting sequence description :math:`\\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\\boldsymbol{u}_{k-i}` of a linear system using the system markov parameters.
 
     Parameters:
         - **input_signal** (``DiscreteSignal``): the input signal
