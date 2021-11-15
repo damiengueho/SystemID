@@ -94,6 +94,7 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan)
     if order == 4:
 
         def dPhi(Phi, t):
+            print(t)
             x = Phi[0:state_dimension]
             dxdt = F(x, t, u)
             Phi1_tensor = Phi[state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
@@ -131,7 +132,7 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan)
             return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4), dPhi4_tensor.reshape(state_dimension ** 5)))))
 
         Phi0 = np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4), Phi4.reshape(state_dimension ** 5)))
-        A_vec = odeint(dPhi, np.concatenate((x0, Phi0)), tspan, rtol=1e-13, atol=1e-13)
+        A_vec = odeint(dPhi, np.concatenate((x0, Phi0)), tspan, rtol=1e-12, atol=1e-12)
 
     return A_vec
 
