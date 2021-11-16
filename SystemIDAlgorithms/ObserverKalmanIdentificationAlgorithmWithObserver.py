@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 19
+Version: 20
 Date: November 2021
 Python: 3.7.7
 """
@@ -85,7 +85,7 @@ def observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signa
             Notice that if :math:`d = l` and :math:`d' = 0`, this formulation is identical to the one above.
 
         See Also:
-            - :mod:`observerKalmanIdentificationAlgorithm`
+            - :py:mod:`~SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithm.observerKalmanIdentificationAlgorithm`
 
         """
 

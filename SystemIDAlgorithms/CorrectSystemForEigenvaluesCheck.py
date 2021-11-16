@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 19
+Version: 20
 Date: November 2021
 Python: 3.7.7
 """
@@ -39,8 +39,8 @@ def correctSystemForEigenvaluesCheck(system, number_steps, p):
         A useful description.ergergd
 
     See Also:
-        :mod:`SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix`
-        :mod:`ClassesGeneral.ClassSystem.DiscreteLinearSystem`
+        - :py:mod:`~SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix`
+        - :py:mod:`~ClassesGeneral.ClassSystem.DiscreteLinearSystem`
     """
 
     # Dimension and parameters

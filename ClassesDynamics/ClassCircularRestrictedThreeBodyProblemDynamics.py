@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 19
+Version: 20
 Date: November 2021
 Python: 3.7.7
 """
@@ -10,8 +10,7 @@ Python: 3.7.7
 
 
 import numpy as np
-from scipy.integrate import odeint
-from scipy.interpolate import interp1d
+import scipy.linalg as LA
 
 from ClassesGeneral.ClassSignal import DiscreteSignal
 from SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation import higherOrderStateTransitionTensorsPropagation
@@ -42,8 +41,8 @@ class CircularRestricedThreeBodyProblemDynamics:
 
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
-        r1 = np.norm(np.array([x[0] + self.mu(t), x[1], x[2]]))
-        r2 = np.norm(np.array([x[0] + self.mu(t) - 1, x[1], x[2]]))
+        r1 = LA.norm(np.array([x[0] + self.mu(t), x[1], x[2]]))
+        r2 = LA.norm(np.array([x[0] + self.mu(t) - 1, x[1], x[2]]))
         dxdt[0] = x[3]
         dxdt[1] = x[4]
         dxdt[2] = x[5]
@@ -57,8 +56,6 @@ class CircularRestricedThreeBodyProblemDynamics:
 
     def Ac1(self, x, t, u):
         Ac1 = np.zeros([self.state_dimension, self.state_dimension])
-        r1 = np.norm(np.array([x[0] + self.mu(t), x[1], x[2]]))
-        r2 = np.norm(np.array([x[0] + self.mu(t) - 1, x[1], x[2]]))
         Ac1[0, 3] = 1
         Ac1[1, 4] = 1
         Ac1[2, 5] = 1
@@ -79,9 +76,6 @@ class CircularRestricedThreeBodyProblemDynamics:
 
     def Ac2(self, x, t, u):
         Ac2 = np.zeros([self.state_dimension, self.state_dimension, self.state_dimension])
-        Ac2[1, 2, 0] = -1
-        Ac2[2, 0, 1] = 1
-        Ac2[2, 1, 0] = 1
         return Ac2
 
     def Ac3(self, x, t, u):

@@ -2,7 +2,7 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 19
+Version: 20
 Date: November 2021
 Python: 3.7.7
 """
@@ -94,7 +94,6 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan)
     if order == 4:
 
         def dPhi(Phi, t):
-            print(t)
             x = Phi[0:state_dimension]
             dxdt = F(x, t, u)
             Phi1_tensor = Phi[state_dimension:state_dimension + state_dimension ** 2].reshape(state_dimension, state_dimension)
