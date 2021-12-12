@@ -2,5 +2,9 @@
     text-align: left;
 }
 .eqno {
-    float: right;
+    float: left;
+}
+
+.wy-nav-content {
+   max-width: 2000px !important;
 }

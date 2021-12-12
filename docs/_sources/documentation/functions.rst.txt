@@ -9,10 +9,90 @@ Functions
 Functions for System Identification
 ###################################
 
+:mod:`calculateNaturalFrequenciesAndDampingRatios`
+--------------------------------------------------
+.. py:function:: natural_frequencies, damping_ratios = calculateNaturalFrequenciesAndDampingRatios(systems)
+.. automodule:: SystemIDAlgorithms.CalculateNaturalFrequenciesAndDampingRatios.calculateNaturalFrequenciesAndDampingRatios
+
+   |br|
+   |br|
+
+---------------------------------------
+
 :mod:`correctSystemForEigenvaluesCheck`
 ---------------------------------------
 .. py:function:: corrected_system = correctSystemForEigenvaluesCheck(system, number_steps, p)
 .. automodule:: SystemIDAlgorithms.CorrectSystemForEigenvaluesCheck.correctSystemForEigenvaluesCheck
+
+   |br|
+   |br|
+
+----------------------------------------------------
+
+:mod:`createAugmentedSignalPolynomialBasisFunctions`
+----------------------------------------------------
+.. py:function:: augmented_signal = createAugmentedSignalPolynomialBasisFunctions(original_signal, order, post_treatment, max_order)
+.. automodule:: SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalPolynomialBasisFunctions
+
+   |br|
+   |br|
+
+----------------------------------------------
+
+:mod:`createAugmentedSignalWithGivenFunctions`
+----------------------------------------------
+.. py:function:: augmented_signal = createAugmentedSignalWithGivenFunctions(original_signal, given_functions)
+.. automodule:: SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalWithGivenFunctions
+
+   |br|
+   |br|
+
+----------------------------------------------------
+
+:mod:`departureDynamicsFromInitialConditionResponse`
+----------------------------------------------------
+.. py:function:: free_decay_experiments, free_decay_experiments_deviated = departureDynamicsFromInitialConditionResponse(nominal_system, tspan, deviations_dx0)
+.. automodule:: SystemIDAlgorithms.DepartureDynamics.departureDynamicsFromInitialConditionResponse
+
+   |br|
+   |br|
+
+--------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithm`
+--------------------------------------
+.. py:function:: A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithm(markov_parameters, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm
+
+   |br|
+   |br|
+
+------------------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmFromInitialConditionResponse`
+------------------------------------------------------------------
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse
+
+   |br|
+   |br|
+
+---------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmWithDataCorrelation`
+---------------------------------------------------------
+.. py:function:: A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
+-------------------------------------------------------------------------------------
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
 
    |br|
    |br|
@@ -44,10 +124,29 @@ Functions for System Identification
 .. py:function:: observer_markov_parameters = observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signal, **kwargs)
 .. automodule:: SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmWithObserver.observerKalmanIdentificationAlgorithmWithObserver
 
+   |br|
+   |br|
 
 Functions for Sparse Approximations
 ###################################
 
+   |br|
+   |br|
 
 Auxiliary Functions
 ###################
+
+:mod:`findPreviousPowerOf2`
+---------------------------
+.. py:function:: m = findPreviousPowerOf2(n)
+.. automodule:: SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2
+
+   |br|
+   |br|
+
+-----------------------
+
+:mod:`findNextPowerOf2`
+-----------------------
+.. py:function:: m = findNextPowerOf2(n)
+.. automodule:: SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2
