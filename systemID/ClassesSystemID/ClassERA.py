@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -51,13 +51,13 @@ class DMD:
 
 class TVERA:
     def __init__(self, free_decay_experiments, hki, D, state_dimension, p, q, **kwargs):
-        self.A, self.B, self.C, self.D, self.xq, self.Ok, self.Ok1, self.sigma = timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, state_dimension, p, q, **kwargs)
+        self.A, self.B, self.C, self.D, self.xq, self.Ok, self.Ok1, self.sigma, self.A_id, self.B_id, self.C_id, self.D_id = timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, state_dimension, p, q, **kwargs)
 
 
 
 class TVERAFromInitialConditionResponse:
-    def __init__(self, free_decay_experiments, state_dimension, p):
-        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0 = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p)
+    def __init__(self, free_decay_experiments, state_dimension, p, **kwargs):
+        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0, self.A_id, self.B_id, self.C_id, self.D_id, self.MAC, self.MSV = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p, **kwargs)
 
 
 

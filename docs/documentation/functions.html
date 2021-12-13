@@ -1,36 +1,75 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>Functions &mdash; systemID 0.0.6 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/_static/custom.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Plotting" href="plotting.html" />
     <link rel="prev" title="Classes" href="classes.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../index.html" class="icon icon-home"> systemID
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -38,7 +77,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../gettingStarted/requirements.html">Requirements</a></li>
@@ -49,27 +99,50 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#functions-for-system-identification">Functions for System Identification</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#calculatenaturalfrequenciesanddampingratios"><code class="xref py py-mod docutils literal notranslate"><span class="pre">calculateNaturalFrequenciesAndDampingRatios</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#correctsystemforeigenvaluescheck"><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#createaugmentedsignalpolynomialbasisfunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalPolynomialBasisFunctions</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#createaugmentedsignalwithgivenfunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalWithGivenFunctions</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#departuredynamicsfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">departureDynamicsFromInitialConditionResponse</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#eigensystemrealizationalgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#eigensystemrealizationalgorithmfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#weightingsequencedescription"><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#observerkalmanidentificationalgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithm</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#observerkalmanidentificationalgorithmwithobserver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithmWithObserver</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-for-sparse-approximations">Functions for Sparse Approximations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#auxiliary-functions">Auxiliary Functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#findpreviouspowerof2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#findnextpowerof2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#calculatenaturalfrequenciesanddampingratios"><code class="xref py py-mod docutils literal notranslate"><span class="pre">calculateNaturalFrequenciesAndDampingRatios</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#correctsystemforeigenvaluescheck"><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#createaugmentedsignalpolynomialbasisfunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalPolynomialBasisFunctions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#createaugmentedsignalwithgivenfunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalWithGivenFunctions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#departuredynamicsfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">departureDynamicsFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getcovariancemarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getCovarianceMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getdeltamatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getDeltaMatrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getinitialconditionresponsemarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getInitialConditionResponseMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getmacandmsv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getmarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getmarkovparametersfromfrequencyresponsefunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromFrequencyResponseFunctions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getmarkovparametersfromobservercontrollermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromObserverControllerMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getmarkovparametersfromobservermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromObserverMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getobservabilitymatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObservabilityMatrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getobservergainmarkovparametersfromobservermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverGainMarkovParametersFromObserverMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getobservergainmatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverGainMatrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getobservermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getoptimizedhankelmatrixsize"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getOptimizedHankelMatrixSize</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#findpreviouspowerof2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#findnextpowerof2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gettimevaryingmarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gettimevaryingmarkovparameters-matrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters_matrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gettimevaryingobservergainmatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingObserverGainMatrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gettvmarkovparametersfromtvobservermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTVMarkovParametersFromTVObserverMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gettvobservergainmarkovparametersfromtvobservermarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTVObserverGainMarkovParametersFromTVObserverMarkovParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#higherorderstatetransitiontensorspropagation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">higherOrderStateTransitionTensorsPropagation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identificationinitialcondition"><code class="xref py py-mod docutils literal notranslate"><span class="pre">identificationInitialCondition</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integrate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">integrate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#observercontrollerkalmanidentificationalgorithmwithobserver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerControllerKalmanIdentificationAlgorithmWithObserver</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#observerkalmanidentificationalgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithm</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#observerkalmanidentificationalgorithmwithobserver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithmWithObserver</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prediction"><code class="xref py py-mod docutils literal notranslate"><span class="pre">prediction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#propagation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">propagation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qmarkovcover"><code class="xref py py-mod docutils literal notranslate"><span class="pre">qMarkovCover</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timevaryingeigensystemrealizationalgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithm</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timevaryingeigensystemrealizationalgorithmfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timevaryingeigensystemrealizationalgorithmwithdatacorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timevaryingeigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timevaryingobserverkalmanidentificationalgorithmwithobserver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingObserverKalmanIdentificationAlgorithmWithObserver</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#weightingsequencedescription"><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a></li>
@@ -89,36 +162,75 @@
 <li class="toctree-l1"><a class="reference internal" href="../background/references.html">References</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">systemID</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
       <li>Functions</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="../_sources/documentation/functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
-  <section id="functions">
-<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h1>
-<section id="functions-for-system-identification">
-<h2>Functions for System Identification<a class="headerlink" href="#functions-for-system-identification" title="Permalink to this headline"></a></h2>
-<section id="calculatenaturalfrequenciesanddampingratios">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">calculateNaturalFrequenciesAndDampingRatios</span></code><a class="headerlink" href="#calculatenaturalfrequenciesanddampingratios" title="Permalink to this headline"></a></h3>
+            
+  <div class="section" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="calculatenaturalfrequenciesanddampingratios">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">calculateNaturalFrequenciesAndDampingRatios</span></code><a class="headerlink" href="#calculatenaturalfrequenciesanddampingratios" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">natural_frequencies,</span> <span class="pre">damping_ratios</span> <span class="pre">=</span> <span class="pre">calculateNaturalFrequenciesAndDampingRatios(systems)</span></span></dt>
@@ -148,10 +260,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="correctsystemforeigenvaluescheck">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck</span></code><a class="headerlink" href="#correctsystemforeigenvaluescheck" title="Permalink to this headline"></a></h3>
+<div class="section" id="correctsystemforeigenvaluescheck">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">correctSystemForEigenvaluesCheck</span></code><a class="headerlink" href="#correctsystemforeigenvaluescheck" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">corrected_system</span> <span class="pre">=</span> <span class="pre">correctSystemForEigenvaluesCheck(system,</span> <span class="pre">number_steps,</span> <span class="pre">p)</span></span></dt>
@@ -185,17 +297,17 @@
     \end{align}</div><p>have the same eigenvalues. The program calculates the observability matrices <span class="math notranslate nohighlight">\({\boldsymbol{O}_k^{(p)}}\)</span>         and <span class="math notranslate nohighlight">\(\boldsymbol{O}_{k+1}^{(p)}\)</span> at each time step from <span class="math notranslate nohighlight">\(k = 0\)</span> to <strong>number_steps</strong>         and multiply <span class="math notranslate nohighlight">\(A_k\)</span> on the left by <span class="math notranslate nohighlight">\({\boldsymbol{O}_k^{(p)}}^\dagger \boldsymbol{O}_{k+1}^{(p)}\)</span>.</p>
 </dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObservabilityMatrix</span></code></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix" title="SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObservabilityMatrix</span></code></a></p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">DiscreteLinearSystem</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="createaugmentedsignalpolynomialbasisfunctions">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalPolynomialBasisFunctions</span></code><a class="headerlink" href="#createaugmentedsignalpolynomialbasisfunctions" title="Permalink to this headline"></a></h3>
+<div class="section" id="createaugmentedsignalpolynomialbasisfunctions">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalPolynomialBasisFunctions</span></code><a class="headerlink" href="#createaugmentedsignalpolynomialbasisfunctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">augmented_signal</span> <span class="pre">=</span> <span class="pre">createAugmentedSignalPolynomialBasisFunctions(original_signal,</span> <span class="pre">order,</span> <span class="pre">post_treatment,</span> <span class="pre">max_order)</span></span></dt>
@@ -238,10 +350,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="createaugmentedsignalwithgivenfunctions">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalWithGivenFunctions</span></code><a class="headerlink" href="#createaugmentedsignalwithgivenfunctions" title="Permalink to this headline"></a></h3>
+<div class="section" id="createaugmentedsignalwithgivenfunctions">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalWithGivenFunctions</span></code><a class="headerlink" href="#createaugmentedsignalwithgivenfunctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">augmented_signal</span> <span class="pre">=</span> <span class="pre">createAugmentedSignalWithGivenFunctions(original_signal,</span> <span class="pre">given_functions)</span></span></dt>
@@ -274,10 +386,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="departuredynamicsfrominitialconditionresponse">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">departureDynamicsFromInitialConditionResponse</span></code><a class="headerlink" href="#departuredynamicsfrominitialconditionresponse" title="Permalink to this headline"></a></h3>
+<div class="section" id="departuredynamicsfrominitialconditionresponse">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">departureDynamicsFromInitialConditionResponse</span></code><a class="headerlink" href="#departuredynamicsfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">free_decay_experiments,</span> <span class="pre">free_decay_experiments_deviated</span> <span class="pre">=</span> <span class="pre">departureDynamicsFromInitialConditionResponse(nominal_system,</span> <span class="pre">tspan,</span> <span class="pre">deviations_dx0)</span></span></dt>
@@ -307,10 +419,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="eigensystemrealizationalgorithm">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code><a class="headerlink" href="#eigensystemrealizationalgorithm" title="Permalink to this headline"></a></h3>
+<div class="section" id="eigensystemrealizationalgorithm">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code><a class="headerlink" href="#eigensystemrealizationalgorithm" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithm(markov_parameters,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -340,10 +452,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="eigensystemrealizationalgorithmfrominitialconditionresponse">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmfrominitialconditionresponse" title="Permalink to this headline"></a></h3>
+<div class="section" id="eigensystemrealizationalgorithmfrominitialconditionresponse">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">input_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -373,10 +485,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="eigensystemrealizationalgorithmwithdatacorrelation">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmwithdatacorrelation" title="Permalink to this headline"></a></h3>
+<div class="section" id="eigensystemrealizationalgorithmwithdatacorrelation">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmwithdatacorrelation" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -406,10 +518,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse" title="Permalink to this headline"></a></h3>
+<div class="section" id="eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">input_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -439,44 +551,841 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="weightingsequencedescription">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code><a class="headerlink" href="#weightingsequencedescription" title="Permalink to this headline"></a></h3>
+<div class="section" id="getcovariancemarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getCovarianceMarkovParameters</span></code><a class="headerlink" href="#getcovariancemarkovparameters" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">output_signal</span> <span class="pre">=</span> <span class="pre">weightingSequenceDescription(input_signal,</span> <span class="pre">markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
+<span class="sig-name descname"><span class="pre">covariance_markov_parameters</span> <span class="pre">=</span> <span class="pre">getCovarianceMarkovParameters(output_signal,</span> <span class="pre">p)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.WeightingSequenceDescription.weightingSequenceDescription"></span><dl class="simple">
-<dt>Purpose:</dt><dd><p>Compute the weighting sequence description <span class="math notranslate nohighlight">\(\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\boldsymbol{u}_{k-i}\)</span> of a linear system using the system markov parameters.</p>
-</dd>
+<span class="target" id="module-SystemIDAlgorithms.GetCovarianceMarkovParameters.getCovarianceMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
 <dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>input_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the input signal</p></li>
-<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of markov parameters (weights) to use</p></li>
-<li><p><strong>**kwargs</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): observer</p></li>
+<li></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li><p><strong>output_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the output signal</p></li>
+<li></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">ClassesGeneral.ClassSignal</span> <span class="pre">import</span> <span class="pre">DiscreteSignal</span></code></p></li>
+<li></li>
 </ul>
 </dd>
-<dt>Description:</dt><dd><p>Uses matrix multiplication. Inverse of OKID.</p>
-</dd>
-<dt>See Also:</dt><dd><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ClassesGeneral.ClassSignal.DiscreteSignal</span></code></p>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
 </dd>
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="observerkalmanidentificationalgorithm">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithm</span></code><a class="headerlink" href="#observerkalmanidentificationalgorithm" title="Permalink to this headline"></a></h3>
+<div class="section" id="getdeltamatrix">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getDeltaMatrix</span></code><a class="headerlink" href="#getdeltamatrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Delta</span> <span class="pre">=</span> <span class="pre">getDeltaMatrix(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetDeltaMatrix.getDeltaMatrix"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getinitialconditionresponsemarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getInitialConditionResponseMarkovParameters</span></code><a class="headerlink" href="#getinitialconditionresponsemarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getInitialConditionResponseMarkovParameters(A,</span> <span class="pre">C,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getmacandmsv">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code><a class="headerlink" href="#getmacandmsv" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">getMACandMSV(A_id,</span> <span class="pre">B_id,</span> <span class="pre">C_id,</span> <span class="pre">Rq,</span> <span class="pre">q)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetMACandMSV.getMACandMSV"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getmarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParameters</span></code><a class="headerlink" href="#getmarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getmarkovparametersfromfrequencyresponsefunctions">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromFrequencyResponseFunctions</span></code><a class="headerlink" href="#getmarkovparametersfromfrequencyresponsefunctions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">DFT_u,</span> <span class="pre">DFT_y,</span> <span class="pre">Suu,</span> <span class="pre">Suy,</span> <span class="pre">Syu,</span> <span class="pre">Syy,</span> <span class="pre">Suu_averaged,</span> <span class="pre">Suy_averaged,</span> <span class="pre">Syu_averaged,</span> <span class="pre">Syy_averaged,</span> <span class="pre">transfer_function1,</span> <span class="pre">transfer_function2,</span> <span class="pre">markov_parameters1,</span> <span class="pre">markov_parameters2</span> <span class="pre">=</span> <span class="pre">getMarkovParametersFromFrequencyResponseFunctions(experiments)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetMarkovParametersFromFrequencyResponseFunctions.getMarkovParametersFromFrequencyResponseFunctions"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getmarkovparametersfromobservercontrollermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromObserverControllerMarkovParameters</span></code><a class="headerlink" href="#getmarkovparametersfromobservercontrollermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getMarkovParametersFromObserverControllerMarkovParameters(observer_controller_markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetMarkovParametersFromObserverControllerMarkovParameters.getMarkovParametersFromObserverControllerMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getmarkovparametersfromobservermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParametersFromObserverMarkovParameters</span></code><a class="headerlink" href="#getmarkovparametersfromobservermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getMarkovParametersFromObserverMarkovParameters(observer_markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetMarkovParametersFromObserverMarkovParameters.getMarkovParametersFromObserverMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getobservabilitymatrix">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObservabilityMatrix</span></code><a class="headerlink" href="#getobservabilitymatrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">O</span> <span class="pre">=</span> <span class="pre">getObservabilityMatrix(A,</span> <span class="pre">C,</span> <span class="pre">number_steps,</span> <span class="pre">tk,</span> <span class="pre">dt)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getobservergainmarkovparametersfromobservermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverGainMarkovParametersFromObserverMarkovParameters</span></code><a class="headerlink" href="#getobservergainmarkovparametersfromobservermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">observer_gain_markov_parameters</span> <span class="pre">=</span> <span class="pre">getObserverGainMarkovParametersFromObserverMarkovParameters(observer_markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetObserverGainMarkovParametersFromObserverMarkovParameters.getObserverGainMarkovParametersFromObserverMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getobservergainmatrix">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverGainMatrix</span></code><a class="headerlink" href="#getobservergainmatrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">G,</span> <span class="pre">O,</span> <span class="pre">Yo</span> <span class="pre">=</span> <span class="pre">getObserverGainMatrix(A,</span> <span class="pre">C,</span> <span class="pre">observer_gain_markov_parameters,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">order)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetObserverGainMatrix.getObserverGainMatrix"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getobservermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObserverMarkovParameters</span></code><a class="headerlink" href="#getobservermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">observer_markov_parameters</span> <span class="pre">=</span> <span class="pre">getObserverMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">G,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetObserverMarkovParameters.getObserverMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="getoptimizedhankelmatrixsize">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getOptimizedHankelMatrixSize</span></code><a class="headerlink" href="#getoptimizedhankelmatrixsize" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">p,</span> <span class="pre">q</span> <span class="pre">=</span> <span class="pre">getOptimizedHankelMatrixSize(assumed_order,</span> <span class="pre">output_dimension,</span> <span class="pre">input_dimension)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetOptimizedHankelMatrixSize.getOptimizedHankelMatrixSize"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="findpreviouspowerof2">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code><a class="headerlink" href="#findpreviouspowerof2" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">findPreviousPowerOf2(n)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2"></span><dl>
+<dt>Purpose:</dt><dd><p>Compute the previous power of 2 of an integer <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>n</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the integer.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>m</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): previous power of 2 of <strong>n</strong>.</p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>For any integer <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(\exists ! \ d \in \mathbb{N}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[2^{d-1} \leq n &lt; 2^d.\]</div>
+<p>The program returns <span class="math notranslate nohighlight">\(2^{d-1}\)</span>.</p>
+</dd>
+<dt>See Also:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2" title="SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="findnextpowerof2">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code><a class="headerlink" href="#findnextpowerof2" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">findNextPowerOf2(n)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2"></span><dl>
+<dt>Purpose:</dt><dd><p>Compute the next power of 2 of an integer <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>n</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the integer.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>m</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): next power of 2 of <strong>n</strong>.</p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>For any integer <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(\exists ! \ d \in \mathbb{N}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[2^{d-1} \leq n &lt; 2^d.\]</div>
+<p>The program returns <span class="math notranslate nohighlight">\(2^{d}\)</span>.</p>
+</dd>
+<dt>See Also:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2" title="SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gettimevaryingmarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code><a class="headerlink" href="#gettimevaryingmarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">time_varying_markov_parameters</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gettimevaryingmarkovparameters-matrix">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters_matrix</span></code><a class="headerlink" href="#gettimevaryingmarkovparameters-matrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">time_varying_markov_parameters</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters_matrix(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">k,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gettimevaryingobservergainmatrix">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingObserverGainMatrix</span></code><a class="headerlink" href="#gettimevaryingobservergainmatrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">G</span> <span class="pre">=</span> <span class="pre">getTimeVaryingObserverGainMatrix(A,</span> <span class="pre">C,</span> <span class="pre">hkio,</span> <span class="pre">order,</span> <span class="pre">dt)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingObserverGainMatrix.getTimeVaryingObserverGainMatrix"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gettvmarkovparametersfromtvobservermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTVMarkovParametersFromTVObserverMarkovParameters</span></code><a class="headerlink" href="#gettvmarkovparametersfromtvobservermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">hki,</span> <span class="pre">h2,</span> <span class="pre">r</span> <span class="pre">=</span> <span class="pre">getTVMarkovParametersFromTVObserverMarkovParameters(D,</span> <span class="pre">hki_observer1,</span> <span class="pre">hki_observer2,</span> <span class="pre">observer_order)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetTVMarkovParametersFromTVObserverMarkovParameters.getTVMarkovParametersFromTVObserverMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gettvobservergainmarkovparametersfromtvobservermarkovparameters">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTVObserverGainMarkovParametersFromTVObserverMarkovParameters</span></code><a class="headerlink" href="#gettvobservergainmarkovparametersfromtvobservermarkovparameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">hkio</span> <span class="pre">=</span> <span class="pre">getTVObserverGainMarkovParametersFromTVObserverMarkovParameters(hki_observer2,</span> <span class="pre">observer_order)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.GetTVObserverGainMarkovParametersFromTVObserverMarkovParameters.getTVObserverGainMarkovParametersFromTVObserverMarkovParameters"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="higherorderstatetransitiontensorspropagation">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">higherOrderStateTransitionTensorsPropagation</span></code><a class="headerlink" href="#higherorderstatetransitiontensorspropagation" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A_vec</span> <span class="pre">=</span> <span class="pre">higherOrderStateTransitionTensorsPropagation(sensitivities,</span> <span class="pre">F,</span> <span class="pre">u,</span> <span class="pre">x0,</span> <span class="pre">tspan)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation.higherOrderStateTransitionTensorsPropagation"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="identificationinitialcondition">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">identificationInitialCondition</span></code><a class="headerlink" href="#identificationinitialcondition" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">x0</span> <span class="pre">=</span> <span class="pre">identificationInitialCondition(input_signal,</span> <span class="pre">output_signal,</span> <span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">number_steps)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.IdentificationInitialCondition.identificationInitialCondition"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="integrate">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">integrate</span></code><a class="headerlink" href="#integrate" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">integrate(dynamics,</span> <span class="pre">x0,</span> <span class="pre">tspan,</span> <span class="pre">integration_step,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.Integrate.integrate"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="observercontrollerkalmanidentificationalgorithmwithobserver">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerControllerKalmanIdentificationAlgorithmWithObserver</span></code><a class="headerlink" href="#observercontrollerkalmanidentificationalgorithmwithobserver" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">observer_controller_markov_parameters,</span> <span class="pre">y,</span> <span class="pre">U</span> <span class="pre">=</span> <span class="pre">observerControllerKalmanIdentificationAlgorithmWithObserver(input_signal,</span> <span class="pre">feedback_signal,</span> <span class="pre">output_signal,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.ObserverControllerKalmanIdentificationAlgorithmWithObserver.observerControllerKalmanIdentificationAlgorithmWithObserver"></span><dl>
+<dt>Purpose:</dt><dd><p>Compute the coefficients <span class="math notranslate nohighlight">\(\tilde{h}_i\)</span>, called observer/controller Markov parameters, of the weighting sequence description             with observer <span class="math notranslate nohighlight">\(\boldsymbol{v}_k^f = \bar{C}\bar{A}^k\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\tilde{h}_i\boldsymbol{v}_{k-i}\)</span>.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>input_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the input signal.</p></li>
+<li><p><strong>feedback_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the feedback signal.</p></li>
+<li><p><strong>output_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the output signal.</p></li>
+<li><p><strong>observer_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): number <span class="math notranslate nohighlight">\(d\)</span> of observer/controller Markov parameters to consider as non-zero in the             weighting sequence description. If not specified, <strong>observer_order = output_signal.number_steps</strong>.</p></li>
+<li><p><strong>stable_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the order <span class="math notranslate nohighlight">\(d'\)</span> such that <span class="math notranslate nohighlight">\(\bar{C}\bar{A}^{d'}\boldsymbol{x}_0 \simeq 0\)</span>. If not specified,             <strong>stable_order = 0</strong>.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>observer_controller_markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of observer/controller Markov parameters</p></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>The weighting sequence description (I/O relationship of a linear system) with observer and full state feedback controller is</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{v}_k^f = \bar{C}\bar{A}^k\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\tilde{h}_i\boldsymbol{v}_{k-i}.\]</div>
+<p>For zero initial condition, <span class="math notranslate nohighlight">\(\boldsymbol{x}_0 = 0\)</span>, the observer/controller Markov parameters :math:` ilde{h}_i` appear linearly and it is possible to write in a matrix form</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{v}^f = \boldsymbol{Y}\boldsymbol{U} \Leftrightarrow \boldsymbol{Y} = \boldsymbol{v}\boldsymbol{U}^\dagger,\]</div>
+<p>given <span class="math notranslate nohighlight">\(\boldsymbol{U}\)</span> full rank, with</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+    \boldsymbol{v}^f &amp; = \begin{bmatrix} \boldsymbol{y}_0 &amp; \boldsymbol{y}_1 &amp; \boldsymbol{y}_2 &amp; \cdots &amp; \boldsymbol{y}_{l-1} \\
+                                           \boldsymbol{u}_0^f &amp; \boldsymbol{u}_1^f &amp; \boldsymbol{u}_2^f &amp; \cdots &amp; \boldsymbol{u}_{l-1}^f
+                          \end{bmatrix}, \\
+    \boldsymbol{Y} &amp; = \begin{bmatrix} \bar{D} &amp; \bar{C}\bar{B} &amp; \bar{C}\bar{A}\bar{B} &amp; \cdots &amp; \bar{C}\bar{A}^{l-2}\bar{B} \end{bmatrix}, \\
+    \boldsymbol{U} &amp; = \begin{bmatrix}
+        \boldsymbol{u}_0 &amp; \boldsymbol{u}_1 &amp; \boldsymbol{u}_2 &amp; \cdots &amp; \boldsymbol{u}_{l-1}\\
+                          &amp; \boldsymbol{v}_0 &amp; \boldsymbol{v}_1 &amp; \cdots &amp; \boldsymbol{v}_{l-2}\\
+                          &amp;                   &amp; \boldsymbol{v}_0 &amp; \cdots &amp; \boldsymbol{v}_{l-3}\\
+                          &amp;                   &amp;                   &amp; \ddots &amp; \vdots\\
+                          &amp;                   &amp;                   &amp;        &amp; \boldsymbol{v}_0
+        \end{bmatrix}.
+\end{align}</div><p>If <strong>observer_order</strong> (<span class="math notranslate nohighlight">\(d\)</span>) and/or <strong>stable_order</strong> (<span class="math notranslate nohighlight">\(d'\)</span>) are specified, matrices <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{Y}\)</span>             and <span class="math notranslate nohighlight">\(\boldsymbol{U}\)</span> become</p>
+<div class="math notranslate nohighlight">
+\begin{align}
+    \boldsymbol{y} &amp; = \begin{bmatrix} \boldsymbol{y}_{d'} &amp; \boldsymbol{y}_{d'+1} &amp; \boldsymbol{y}_{d'+2} &amp; \cdots &amp; \boldsymbol{y}_{l-1} \\
+                                         \boldsymbol{u}_{d'}^f &amp; \boldsymbol{u}_{d' + 1}^f &amp; \boldsymbol{u}_{d' + 2}^f &amp; \cdots &amp; \boldsymbol{u}_{l-1}^f
+                        \end{bmatrix}, \\
+    \boldsymbol{Y} &amp; = \begin{bmatrix} \bar{D} &amp; C\bar{B} &amp; \bar{C}\bar{A}\bar{B} &amp; \cdots &amp; \bar{C}\bar{A}^{d-1}\bar{B} \end{bmatrix}, \\
+    \boldsymbol{U} &amp; = \begin{bmatrix}
+        \boldsymbol{u}_{d'} &amp; \boldsymbol{u}_{d'+1} &amp; \boldsymbol{u}_{d'+2} &amp; \cdots  &amp; \boldsymbol{u}_{d-1}      &amp; \cdots  &amp; \boldsymbol{u}_{l-1}   \\
+        \vdots              &amp; \vdots                &amp; \vdots                &amp; \vdots &amp; \vdots                  &amp; \vdots &amp; \vdots                 \\
+        \boldsymbol{u}_{0}  &amp; \boldsymbol{v}_{1}    &amp; \boldsymbol{v}_{2}    &amp; \cdots  &amp; \boldsymbol{v}_{d-d'-1}   &amp; \cdots  &amp; \boldsymbol{v}_{l-d'-1}\\
+                             &amp; \boldsymbol{v}_0      &amp; \boldsymbol{v}_1      &amp; \cdots  &amp; \boldsymbol{v}_{d-d'-2} &amp; \cdots  &amp; \boldsymbol{v}_{l-d'-2}\\
+                             &amp;                        &amp; \boldsymbol{v}_0      &amp; \cdots  &amp; \boldsymbol{v}_{d-d'-3} &amp; \cdots  &amp; \boldsymbol{v}_{l-d'-3}\\
+                             &amp;                        &amp;                        &amp; \ddots  &amp; \vdots                  &amp; \vdots &amp; \vdots                 \\
+                             &amp;                        &amp;                        &amp;         &amp; \boldsymbol{v}_0        &amp; \cdots  &amp; \boldsymbol{v}_{l-d}
+        \end{bmatrix}.
+\end{align}</div><p>Notice that if <span class="math notranslate nohighlight">\(d = l\)</span> and <span class="math notranslate nohighlight">\(d' = 0\)</span>, this formulation is identical to the one above.</p>
+</dd>
+<dt>See Also:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithm.observerKalmanIdentificationAlgorithm" title="SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithm.observerKalmanIdentificationAlgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithm</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmWithObserver.observerKalmanIdentificationAlgorithmWithObserver" title="SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmWithObserver.observerKalmanIdentificationAlgorithmWithObserver"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithmWithObserver</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="observerkalmanidentificationalgorithm">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithm</span></code><a class="headerlink" href="#observerkalmanidentificationalgorithm" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">observerKalmanIdentificationAlgorithm(input_signal,</span> <span class="pre">output_signal,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -542,10 +1451,10 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="observerkalmanidentificationalgorithmwithobserver">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithmWithObserver</span></code><a class="headerlink" href="#observerkalmanidentificationalgorithmwithobserver" title="Permalink to this headline"></a></h3>
+<div class="section" id="observerkalmanidentificationalgorithmwithobserver">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">observerKalmanIdentificationAlgorithmWithObserver</span></code><a class="headerlink" href="#observerkalmanidentificationalgorithmwithobserver" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">observer_markov_parameters</span> <span class="pre">=</span> <span class="pre">observerKalmanIdentificationAlgorithmWithObserver(input_signal,</span> <span class="pre">output_signal,</span> <span class="pre">**kwargs)</span></span></dt>
@@ -610,121 +1519,364 @@
 </dl>
 <p><br />
 <br /></p>
-</section>
-</section>
-<section id="functions-for-sparse-approximations">
-<h2>Functions for Sparse Approximations<a class="headerlink" href="#functions-for-sparse-approximations" title="Permalink to this headline"></a></h2>
-<blockquote>
-<div><p><br />
-<br /></p>
-</div></blockquote>
-</section>
-<section id="auxiliary-functions">
-<h2>Auxiliary Functions<a class="headerlink" href="#auxiliary-functions" title="Permalink to this headline"></a></h2>
-<section id="findpreviouspowerof2">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code><a class="headerlink" href="#findpreviouspowerof2" title="Permalink to this headline"></a></h3>
+</div>
+<hr class="docutils" />
+<div class="section" id="prediction">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">prediction</span></code><a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">findPreviousPowerOf2(n)</span></span></dt>
+<span class="sig-name descname"><span class="pre">selected_for_propagation,</span> <span class="pre">output_signal_predicted</span> <span class="pre">=</span> <span class="pre">prediction(nominal_reference,</span> <span class="pre">system_reference,</span> <span class="pre">nominal,</span> <span class="pre">system,</span> <span class="pre">input_signal,</span> <span class="pre">starting_step,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2"></span><dl>
-<dt>Purpose:</dt><dd><p>Compute the previous power of 2 of an integer <span class="math notranslate nohighlight">\(n\)</span>.</p>
-</dd>
+<span class="target" id="module-SystemIDAlgorithms.Prediction.prediction"></span><p>Purpose:</p>
+<dl class="simple">
 <dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>n</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the integer.</p></li>
+<li></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li><p><strong>m</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): previous power of 2 of <strong>n</strong>.</p></li>
+<li></li>
 </ul>
 </dd>
-<dt>Description:</dt><dd><p>For any integer <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(\exists ! \ d \in \mathbb{N}\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[2^{d-1} \leq n &lt; 2^d.\]</div>
-<p>The program returns <span class="math notranslate nohighlight">\(2^{d-1}\)</span>.</p>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
 </dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
-<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2" title="SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code></a></p></li>
+<li></li>
 </ul>
 </dd>
 </dl>
 <p><br />
 <br /></p>
-</section>
+</div>
 <hr class="docutils" />
-<section id="findnextpowerof2">
-<h3><code class="xref py py-mod docutils literal notranslate"><span class="pre">findNextPowerOf2</span></code><a class="headerlink" href="#findnextpowerof2" title="Permalink to this headline"></a></h3>
+<div class="section" id="propagation">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">propagation</span></code><a class="headerlink" href="#propagation" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">findNextPowerOf2(n)</span></span></dt>
+<span class="sig-name descname"><span class="pre">y,</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">propagation(signal,</span> <span class="pre">system,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2"></span><dl>
-<dt>Purpose:</dt><dd><p>Compute the next power of 2 of an integer <span class="math notranslate nohighlight">\(n\)</span>.</p>
-</dd>
+<span class="target" id="module-SystemIDAlgorithms.Propagation.propagation"></span><p>Purpose:</p>
+<dl class="simple">
 <dt>Parameters:</dt><dd><ul class="simple">
-<li><p><strong>n</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the integer.</p></li>
+<li></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li><p><strong>m</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): next power of 2 of <strong>n</strong>.</p></li>
+<li></li>
 </ul>
 </dd>
-<dt>Description:</dt><dd><p>For any integer <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(\exists ! \ d \in \mathbb{N}\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[2^{d-1} \leq n &lt; 2^d.\]</div>
-<p>The program returns <span class="math notranslate nohighlight">\(2^{d}\)</span>.</p>
-</dd>
-<dt>See Also:</dt><dd><ul class="simple">
-<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2" title="SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2"><code class="xref py py-mod docutils literal notranslate"><span class="pre">findPreviousPowerOf2</span></code></a></p></li>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
 </ul>
 </dd>
 </dl>
-</section>
-</section>
-</section>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="qmarkovcover">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">qMarkovCover</span></code><a class="headerlink" href="#qmarkovcover" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A_id,</span> <span class="pre">B_id,</span> <span class="pre">C_id,</span> <span class="pre">D_id</span> <span class="pre">=</span> <span class="pre">qMarkovCover(markov_parameters,</span> <span class="pre">covariance_parameters,</span> <span class="pre">Q,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.QMarkovCover.qMarkovCover"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timevaryingeigensystemrealizationalgorithm">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithm</span></code><a class="headerlink" href="#timevaryingeigensystemrealizationalgorithm" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">Ok,</span> <span class="pre">Ok1,</span> <span class="pre">sigma,</span> <span class="pre">A_id,</span> <span class="pre">B_id,</span> <span class="pre">C_id,</span> <span class="pre">D_id</span> <span class="pre">=</span> <span class="pre">timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments,</span> <span class="pre">hki,</span> <span class="pre">D,</span> <span class="pre">state_dimension,</span> <span class="pre">p,</span> <span class="pre">q,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithm.timeVaryingEigenSystemRealizationAlgorithm"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timevaryingeigensystemrealizationalgorithmfrominitialconditionresponse">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code><a class="headerlink" href="#timevaryingeigensystemrealizationalgorithmfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">Ok,</span> <span class="pre">Ok1,</span> <span class="pre">Sigma,</span> <span class="pre">X0,</span> <span class="pre">A_id,</span> <span class="pre">B_id,</span> <span class="pre">C_id,</span> <span class="pre">D_id,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments,</span> <span class="pre">state_dimension,</span> <span class="pre">p,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse.timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timevaryingeigensystemrealizationalgorithmwithdatacorrelation">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation</span></code><a class="headerlink" href="#timevaryingeigensystemrealizationalgorithmwithdatacorrelation" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">x0,</span> <span class="pre">xq,</span> <span class="pre">Ok,</span> <span class="pre">Ok1,</span> <span class="pre">sigma,</span> <span class="pre">Hpnt,</span> <span class="pre">Rkt,</span> <span class="pre">Hkxzt,</span> <span class="pre">Hkxz,</span> <span class="pre">Rk</span> <span class="pre">=</span> <span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation(free_decay_experiments,</span> <span class="pre">hki,</span> <span class="pre">D,</span> <span class="pre">full_experiment,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation.timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timevaryingeigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code><a class="headerlink" href="#timevaryingeigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">x0,</span> <span class="pre">Ok,</span> <span class="pre">Ok1,</span> <span class="pre">sigma,</span> <span class="pre">Hpnt,</span> <span class="pre">Hkxzt,</span> <span class="pre">Rkt</span> <span class="pre">=</span> <span class="pre">timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(free_decay_experiments,</span> <span class="pre">full_experiment,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timevaryingobserverkalmanidentificationalgorithmwithobserver">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">timeVaryingObserverKalmanIdentificationAlgorithmWithObserver</span></code><a class="headerlink" href="#timevaryingobserverkalmanidentificationalgorithmwithobserver" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">D,</span> <span class="pre">hki,</span> <span class="pre">hkio</span> <span class="pre">=</span> <span class="pre">timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experiments,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.TimeVaryingObserverKalmanIdentificationAlgorithmWithObserver.timeVaryingObserverKalmanIdentificationAlgorithmWithObserver"></span><p>Purpose:</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p>Description:</p>
+<dl class="simple">
+<dt>See Also:</dt><dd><ul class="simple">
+<li></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="weightingsequencedescription">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">weightingSequenceDescription</span></code><a class="headerlink" href="#weightingsequencedescription" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">output_signal</span> <span class="pre">=</span> <span class="pre">weightingSequenceDescription(input_signal,</span> <span class="pre">markov_parameters,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SystemIDAlgorithms.WeightingSequenceDescription.weightingSequenceDescription"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute the weighting sequence description <span class="math notranslate nohighlight">\(\boldsymbol{y}_k = \displaystyle\sum_{i=0}^ph_i\boldsymbol{u}_{k-i}\)</span> of a linear system using the system markov parameters.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>input_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the input signal</p></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of markov parameters (weights) to use</p></li>
+<li><p><strong>**kwargs</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): observer</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>output_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the output signal</p></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">ClassesGeneral.ClassSignal</span> <span class="pre">import</span> <span class="pre">DiscreteSignal</span></code></p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>Uses matrix multiplication. Inverse of OKID.</p>
+</dd>
+<dt>See Also:</dt><dd><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ClassesGeneral.ClassSignal.DiscreteSignal</span></code></p>
+</dd>
+</dl>
+</div>
+</div>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="classes.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="plotting.html" class="btn btn-neutral float-right" title="Plotting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="classes.html" class="btn btn-neutral float-left" title="Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Damien Guého.</p>
-  </div>
+    <p>
+        &#169; Copyright 2021, Damien Guého.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-XXXXXXX-1', {
-          'anonymize_ip': false,
-      });
-    </script> 
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-XXXXXXX-1', 'auto');
+    
+    ga('send', 'pageview');
+    </script>
+
+    
+   
 
 </body>
 </html>

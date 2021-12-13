@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -13,7 +13,7 @@ import numpy as np
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
-from ClassesGeneral.ClassSignal import DiscreteSignal
+from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
 
 
 class PanelFlutterDynamics:
@@ -96,8 +96,8 @@ class PanelFlutterDynamics:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -107,7 +107,7 @@ import numpy as np
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
-from ClassesGeneral.ClassSignal import DiscreteSignal
+from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
 
 
 class PanelFlutterDynamics2:
@@ -189,8 +189,8 @@ class PanelFlutterDynamics2:
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -200,7 +200,7 @@ import numpy as np
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
-from ClassesGeneral.ClassSignal import DiscreteSignal
+from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
 
 
 class PanelFlutterDynamics3:

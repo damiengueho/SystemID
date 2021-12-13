@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -14,6 +14,25 @@ import scipy.linalg as LA
 
 
 def getTVObserverGainMarkovParametersFromTVObserverMarkovParameters(hki_observer2, observer_order):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimension and number of steps
     output_dimension = int(hki_observer2.shape[1] / observer_order)

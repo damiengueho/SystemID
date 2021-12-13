@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -17,6 +17,25 @@ from systemID.SystemIDAlgorithms.IdentificationInitialCondition import identific
 
 
 def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation(free_decay_experiments, hki, D, full_experiment, state_dimension, **kwargs):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions and number of steps
     output_dimension, input_dimension, number_steps = D.shape

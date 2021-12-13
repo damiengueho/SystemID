@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -197,7 +197,26 @@ def departureDynamicsDiscrete(nominal_system, nominal_input_signal, tspan, devia
 
 
 
-def departureDynamicsFromInitialConditionResponse(nominal_system, nominal_input_signal, tspan, deviations_dx0, full_deviation_dx0):
+def departureDynamicsFromInitialConditionResponse(nominal_system, tspan, deviations_dx0):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions
     state_dimension = nominal_system.state_dimension
@@ -215,7 +234,7 @@ def departureDynamicsFromInitialConditionResponse(nominal_system, nominal_input_
 
 
     # Integration Nominal Trajectory
-    nominal_output_signal = OutputSignal(nominal_input_signal, nominal_system, tspan=tspan)
+    nominal_output_signal = OutputSignal(ContinuousSignal(input_dimension), nominal_system, tspan=tspan)
 
 
     # Create Free Decay Experiments
@@ -224,20 +243,20 @@ def departureDynamicsFromInitialConditionResponse(nominal_system, nominal_input_
     for i in range(number_free_decay_experiments):
         initial_state = [(deviations_dx0[i] + nominal_system.x0, 0)]
         free_decay_systems.append(ContinuousNonlinearSystem(state_dimension, input_dimension, output_dimension, initial_state, 'Free Decay Experiment System' + str(i), nominal_system.F, nominal_system.G))
-        free_decay_input_signals.append(ContinuousSignal(input_dimension, signal_shape='External', u=nominal_input_signal.u))
+        free_decay_input_signals.append(ContinuousSignal(input_dimension))
     free_decay_experiments = Experiments(free_decay_systems, free_decay_input_signals, tspan=tspan)
     free_decay_experiments_deviated = copy.deepcopy(free_decay_experiments)
     for i in range(number_free_decay_experiments):
         free_decay_experiments_deviated.input_signals[i] = DiscreteSignal(input_dimension, total_time, frequency)
         free_decay_experiments_deviated.output_signals[i] = subtract2Signals(free_decay_experiments.output_signals[i], nominal_output_signal)
 
-    ## Create Full Experiment
-    full_system = ContinuousNonlinearSystem(state_dimension, input_dimension, output_dimension, [(full_deviation_dx0 + nominal_system.x0, 0)], 'Full Experiment System', nominal_system.F, nominal_system.G)
-    full_input_signal = ContinuousSignal(input_dimension)
-    full_experiment = Experiments([full_system], [full_input_signal], tspan=tspan)
-    full_experiment_deviated = copy.deepcopy(full_experiment)
-    full_experiment_deviated.input_signals[0] = DiscreteSignal(input_dimension, total_time, frequency)
-    full_experiment_deviated.output_signals[0] = subtract2Signals(full_experiment.output_signals[0], nominal_output_signal)
+    # ## Create Full Experiment
+    # full_system = ContinuousNonlinearSystem(state_dimension, input_dimension, output_dimension, [(full_deviation_dx0 + nominal_system.x0, 0)], 'Full Experiment System', nominal_system.F, nominal_system.G)
+    # full_input_signal = ContinuousSignal(input_dimension)
+    # full_experiment = Experiments([full_system], [full_input_signal], tspan=tspan)
+    # full_experiment_deviated = copy.deepcopy(full_experiment)
+    # full_experiment_deviated.input_signals[0] = DiscreteSignal(input_dimension, total_time, frequency)
+    # full_experiment_deviated.output_signals[0] = subtract2Signals(full_experiment.output_signals[0], nominal_output_signal)
 
 
-    return free_decay_experiments, free_decay_experiments_deviated, full_experiment, full_experiment_deviated
+    return free_decay_experiments, free_decay_experiments_deviated

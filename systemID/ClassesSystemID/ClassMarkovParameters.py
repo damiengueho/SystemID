@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -12,7 +12,7 @@ from systemID.SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithm import ob
 from systemID.SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmWithObserver import observerKalmanIdentificationAlgorithmWithObserver
 from systemID.SystemIDAlgorithms.GetMarkovParametersFromObserverMarkovParameters import getMarkovParametersFromObserverMarkovParameters
 from systemID.SystemIDAlgorithms.GetObserverGainMarkovParametersFromObserverMarkovParameters import getObserverGainMarkovParametersFromObserverMarkovParameters
-from systemID.SystemIDAlgorithms.GetMarkovParametersFromFrequencyResponseFunctions import getMarkovParametersFromFrequencyRepsonseFunctions
+from systemID.SystemIDAlgorithms.GetMarkovParametersFromFrequencyResponseFunctions import getMarkovParametersFromFrequencyResponseFunctions
 from systemID.SystemIDAlgorithms.TimeVaryingObserverKalmanIdentificationAlgorithmWithObserver import timeVaryingObserverKalmanIdentificationAlgorithmWithObserver
 
 
@@ -43,7 +43,7 @@ class OKIDWithObserver:
 
 class FrequencyResponseFunction:
     def __init__(self, experiments):
-        self.DFT_u, self.DFT_y, self.Suu, self.Suy, self.Syu, self.Syy, self.Suu_averaged, self.Suy_averaged, self.Syu_averaged, self.Syy_averaged, self.transfer_function1, self.transfer_function2, self.markov_parameters1, self.markov_parameters2 = getMarkovParametersFromFrequencyRepsonseFunctions(experiments)
+        self.DFT_u, self.DFT_y, self.Suu, self.Suy, self.Syu, self.Syy, self.Suu_averaged, self.Suy_averaged, self.Syu_averaged, self.Syy_averaged, self.transfer_function1, self.transfer_function2, self.markov_parameters1, self.markov_parameters2 = getMarkovParametersFromFrequencyResponseFunctions(experiments)
 
 
 class TVOKIDWithObserver:

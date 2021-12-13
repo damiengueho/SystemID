@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -14,6 +14,25 @@ import scipy.linalg as LA
 
 
 def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, state_dimension, p, q, **kwargs):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions and number of steps
     output_dimension, input_dimension, number_steps = D.shape
@@ -185,4 +204,4 @@ def timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, s
     # xq = identificationInitialCondition(full_experiment_input_q, full_experiment_output_q, A, B, C, D, q * full_experiment.input_signals[0].dt, q)
 
 
-    return A, B, C, D, Ok, Ok1, sigma
+    return A, B, C, D, Ok, Ok1, sigma, A_id, B_id, C_id, D_id

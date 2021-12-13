@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -20,7 +20,26 @@ from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
 
-def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, true_output_signal, state_dimension, input_dimension, **kwargs):
+def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Number of Signals
     number_signals = len(output_signals)
@@ -119,6 +138,6 @@ def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionRespon
     def D(tk):
         return np.zeros([output_dimension, input_dimension])
 
-    x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
+    # x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
 
-    return A, B, C, D, X0, x0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV
+    return A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -19,24 +19,40 @@ from systemID.ClassesGeneral.ClassSystem import DiscreteLinearSystem
 def correctSystemForEigenvaluesCheck(system, number_steps, p):
     """
     Purpose:
-        Correct the system matrices :math:`A_k` of a system with a matrix multiplication on the left by :math:`{\\boldsymbol{O}_k^{(p)}}^\dagger \\boldsymbol{O}_{k+1}^{(p)}`.
+        Correct the system matrices :math:`A_k` of a system with a matrix multiplication on the left by \
+        :math:`{\\boldsymbol{O}_k^{(p)}}^\dagger \\boldsymbol{O}_{k+1}^{(p)}`, where :math:`\\boldsymbol{O}_k^{(p)}` \
+        is the observability matrix at time :math:`k` of the coresponding linear time-varying system.
 
     Parameters:
-        - **system** (``DiscreteLinearSystem``): the system to be corrected
-        - **number_steps** (``int``): number of steps
-        - **p** (``int``): p
+        - **system** (``DiscreteLinearSystem``): the system to be corrected.
+        - **number_steps** (``int``): the number of steps for which the correction will be made.
+        - **p** (``int``): the block size of the observability matrix .
 
     Returns:
-        - **corrected_system** (``DiscreteLinearSystem``): the corrected system
+        - **corrected_system** (``DiscreteLinearSystem``): the corrected system.
 
     Imports:
         - ``import numpy as np``
         - ``import scipy.linalg as LA``
-        - ``from SystemIDAlgorithms.GetObservabilityMatrix import getObservabilityMatrix``
-        - ``from ClassesGeneral.ClassSystem import DiscreteLinearSystem``
+        - ``from systemID.SystemIDAlgorithms.GetObservabilityMatrix import getObservabilityMatrix``
+        - ``from systemID.ClassesGeneral.ClassSystem import DiscreteLinearSystem``
 
     Description:
-        A useful description.ergergd
+        This multiplicative correction on the left represents one part of the similarity transform that exists between two topologically equivalent \
+        realizations. If :math:`A_k` and :math:`\\hat{A}_k` represent the system matrices of two topologically equivalent \
+        realizations, then the matrices
+
+        .. math::
+            :nowrap:
+
+                \\begin{align}
+                    {} & {\\boldsymbol{O}_k^{(p)}}^\dagger \\boldsymbol{O}_{k+1}^{(p)}A_k, \\\\
+                    {} & {\\hat{\\boldsymbol{O}}_k^{(p)}}^\dagger \\hat{\\boldsymbol{O}}_{k+1}^{(p)}\\hat{A}_k,
+                \\end{align}
+
+        have the same eigenvalues. The program calculates the observability matrices :math:`{\\boldsymbol{O}_k^{(p)}}` \
+        and :math:`\\boldsymbol{O}_{k+1}^{(p)}` at each time step from :math:`k = 0` to **number_steps** \
+        and multiply :math:`A_k` on the left by :math:`{\\boldsymbol{O}_k^{(p)}}^\dagger \\boldsymbol{O}_{k+1}^{(p)}`.
 
     See Also:
         - :py:mod:`~SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix`

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -11,9 +11,29 @@ Python: 3.7.7
 
 import numpy as np
 import scipy.linalg as LA
+from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
-def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p):
+def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p, **kwargs):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions and number of steps
     input_dimension = free_decay_experiments.input_dimension
@@ -42,6 +62,12 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
     Sigma = []
 
 
+    # MAC and MSV
+    mac_and_msv = kwargs.get('mac_and_msv', False)
+    MAC = []
+    MSV = []
+
+
     # Construct Y
     Y = np.zeros([(p + 1) * output_dimension, number_free_decay_experiments, number_steps - p])
     for k in range(number_steps - p):
@@ -60,6 +86,21 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
         # SVD Y2
         (R2, sigma2, St2) = LA.svd(Y[output_dimension:(p + 1) * output_dimension, :, k], full_matrices=True)
         Sigma2 = np.diag(sigma2)
+
+        if mac_and_msv:
+            pm, qr = Y[0:p * output_dimension, :, k].shape
+            n = min(pm, qr)
+            Rn = R1[:, 0:n]
+            Snt = St1[0:n, :]
+            Sigman = Sigma1[0:n, 0:n]
+            Op = np.matmul(Rn, LA.sqrtm(Sigman))
+            Rq = np.matmul(LA.sqrtm(Sigman), Snt)
+            A_idt = np.matmul(LA.pinv(Op), np.matmul(Y[output_dimension:(p + 1) * output_dimension, :, k], LA.pinv(Rq)))
+            B_idt = Rq[:, 0:input_dimension]
+            C_idt = Op[0:output_dimension, :]
+            mac, msv = getMACandMSV(A_idt, B_idt, C_idt, Rq, p)
+            MAC.append(mac)
+            MSV.append(msv)
 
         # Applying state_dim
         Rn1 = R1[:, 0:state_dimension]
@@ -105,4 +146,4 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
     # x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
 
 
-    return A, B, C, D, Ok, Ok1, Sigma, X0
+    return A, B, C, D, Ok, Ok1, Sigma, X0, A_id, B_id, C_id, D_id, MAC, MSV

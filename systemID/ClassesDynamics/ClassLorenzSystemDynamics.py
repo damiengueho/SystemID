@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -13,10 +13,10 @@ import numpy as np
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
-from ClassesGeneral.ClassSignal import DiscreteSignal
-from SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation import higherOrderStateTransitionTensorsPropagation
-from SystemIDAlgorithms.Propagation import propagation
-from ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
+from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
+from systemID.SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation import higherOrderStateTransitionTensorsPropagation
+from systemID.SystemIDAlgorithms.Propagation import propagation
+from systemID.ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 
 
 class LorenzSystemDynamics:

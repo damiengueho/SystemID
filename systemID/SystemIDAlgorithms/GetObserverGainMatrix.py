@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -15,6 +15,25 @@ from systemID.SystemIDAlgorithms.GetObservabilityMatrix import getObservabilityM
 
 
 def getObserverGainMatrix(A, C, observer_gain_markov_parameters, tk, dt, order):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions
     output_dimension, _ = C(tk).shape

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -13,6 +13,25 @@ from scipy.integrate import odeint
 
 
 def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     ## Order of the expansion and dimension of the system
     order = len(sensitivities)
@@ -131,7 +150,7 @@ def higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan)
             return np.concatenate((dxdt, np.concatenate((dPhi1_tensor.reshape(state_dimension ** 2), dPhi2_tensor.reshape(state_dimension ** 3), dPhi3_tensor.reshape(state_dimension ** 4), dPhi4_tensor.reshape(state_dimension ** 5)))))
 
         Phi0 = np.concatenate((Phi1.reshape(state_dimension ** 2), Phi2.reshape(state_dimension ** 3), Phi3.reshape(state_dimension ** 4), Phi4.reshape(state_dimension ** 5)))
-        A_vec = odeint(dPhi, np.concatenate((x0, Phi0)), tspan, rtol=1e-12, atol=1e-12)
+        A_vec = odeint(dPhi, np.concatenate((x0, Phi0)), tspan, rtol=1e-13, atol=1e-13)
 
     return A_vec
 

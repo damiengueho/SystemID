@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -16,7 +16,7 @@ def observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signa
     """
         Purpose:
             Compute the coefficients :math:`\\bar{h}_i`, called observer Markov parameters, of the weighting sequence description \
-            with observer :math:`\\boldsymbol{y}_k = C\\bar{A}^k\\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\\bar{h}_i\\boldsymbol{u}_{k-i}`.
+            with observer :math:`\\boldsymbol{y}_k = C\\bar{A}^k\\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\\bar{h}_i\\boldsymbol{v}_{k-i}`.
 
         Parameters:
             - **input_signal** (``DiscreteSignal``): the input signal.
@@ -37,9 +37,9 @@ def observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signa
 
             .. math::
 
-                \\boldsymbol{y}_k = C\\bar{A}^k\\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\\bar{h}_i\\boldsymbol{u}_{k-i}.
+                \\boldsymbol{y}_k = C\\bar{A}^k\\boldsymbol{x}_0 + \displaystyle\sum_{i=0}^k\\bar{h}_i\\boldsymbol{v}_{k-i}.
 
-            For zero initial condition, :math:`\\boldsymbol{x}_0 = 0`, the observer Markov parameters :math:`h_i` appear linearly and it is possible to write in a matrix form
+            For zero initial condition, :math:`\\boldsymbol{x}_0 = 0`, the observer Markov parameters :math:`\\bar{h}_i` appear linearly and it is possible to write in a matrix form
 
             .. math::
 
@@ -110,6 +110,8 @@ def observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signa
 
     # Get Y
     Y = np.matmul(y[:, stable_order:], LA.pinv(U))
+
+    print(LA.norm(y[:, stable_order:] - np.matmul(Y, U)))
 
     # Get observer Markov parameters
     observer_markov_parameters = [Y[:, 0:input_dimension]]

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 20
-Date: November 2021
+Version: 21
+Date: December 2021
 Python: 3.7.7
 """
 
@@ -11,10 +11,27 @@ Python: 3.7.7
 import numpy as np
 from scipy import linalg as LA
 
-from scipy.linalg import null_space
-
 
 def qMarkovCover(markov_parameters, covariance_parameters, Q, state_dimension, **kwargs):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
 
     # Dimensions
     (output_dimension, input_dimension) = markov_parameters[0].shape
