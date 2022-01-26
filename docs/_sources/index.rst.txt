@@ -6,7 +6,7 @@ Documentation for systemID
   :width: 600
   :alt: Alternative text
 
-**systemID** is an open source Python package consisting of a collection of functions useful for linear and nonlinear system identification, focusing on time-domain methods.
+**systemID** is an open source Python package consisting of a collection of functions useful for linear, bilinear and nonlinear system identification, focusing on time-domain methods.
 It provides a complete and robust API and handles most of the latest system identification techniques.
 
 Specifically, it handles
@@ -25,7 +25,6 @@ Specifically, it handles
    :hidden:
    :caption: Getting Started
 
-   gettingStarted/requirements
    gettingStarted/installation
    gettingStarted/relatedPackages
 

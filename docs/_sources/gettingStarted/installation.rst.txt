@@ -1,16 +1,51 @@
 Installation
 ============
 
+Although you might find some unpolished details, these development installations should work without problems.
+If you find any, please open an issue in the issue tracker.
 
-1. AAA
-######
+1. Installation from PyPI
+#########################
 
+You can install poliastro from PyPI using pip:
 
-2. BBB
-######
+.. code-block:: python
 
+   pip install systemID
 
-3. CCC
-######
+or
 
+.. code-block:: python
 
+   pip3 install systemID
+
+The PyPI webpage for systemID can be found `here <https://pypi.org/project/systemID/>`_.
+
+.. warning::
+    It is recommended that you never ever use sudo with distutils, pip, setuptools and friends in Linux
+    because you might seriously break your system. Use virtual environments instead.
+
+For upgrading to the latest version:
+
+.. code-block:: python
+
+   pip install systemID --upgrade
+
+or
+
+.. code-block::
+
+   pip3 install systemID --upgrade
+
+2. Installation from Conda
+##########################
+
+The easiest and fastest way to get the package up and running with conda is to install systemID as:
+
+.. code-block:: python
+
+   conda install -c conda-forge systemID=0.0.10
+
+.. note::
+    We encourage users to use conda or mamba and the conda-forge packages for convenience,
+    especially when developing on Windows. Also, it is strongly recommended to create a new virtual environment.
