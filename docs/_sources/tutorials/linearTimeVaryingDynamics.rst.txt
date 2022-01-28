@@ -106,6 +106,16 @@ Code using systemID
 
 .. code-block:: python
 
+    ## Imports
+    from systemID.ClassesGeneral.ClassSystem import *
+    from systemID.ClassesGeneral.ClassSignal import *
+    from systemID.ClassesGeneral.ClassExperiments import *
+    from systemID.ClassesSystemID.ClassERA import TVERAFromInitialConditionResponse
+    from systemID.SystemIDAlgorithms.IdentificationInitialCondition import *
+    from systemID.SystemIDAlgorithms.CorrectSystemForEigenvaluesCheck import *
+    from systemID.ClassesDynamics.ClassPointMassInRotatingTubeDynamics import PointMassInRotatingTubeDynamics
+
+
    ## Define parameters
     dt = 0.1
     mass = 1
