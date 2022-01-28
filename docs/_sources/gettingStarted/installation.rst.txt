@@ -7,7 +7,7 @@ If you find any, please open an issue in the issue tracker.
 1. Installation from PyPI
 #########################
 
-You can install poliastro from PyPI using pip:
+You can install systemID from PyPI using pip:
 
 .. code-block:: python
 

@@ -10,14 +10,16 @@ Documentation for systemID
 It provides a complete and robust API and handles most of the latest system identification techniques.
 
 Specifically, it handles
-    * Eigensystem Realization Algorithm (ERA)
+    * Eigensystem Realization Algorithm (ERA), from initial condition response (ERA/IC)
     * Observer Kalman Identification Algorithm (OKID)
-    * Eigensystem Realization Algorithm with Data Correlations (ERA/DC)
-    * Time-varying Eigensystem Realization Algorithm (TVERA)
+    * Eigensystem Realization Algorithm with Data Correlations (ERA/DC), from initial condition response (ERA/DCIC)
+    * Time-varying Eigensystem Realization Algorithm (TVERA), from initial condition response (TVERA/IC)
     * Time-varying Observer Kalman Identification Algorithm (TVOKID)
+    * Time-varying Eigensystem Realization Algorithm with Data Correlations (TVERA/DC), from initial condition response (TVERA/DCIC)
     * Bilinear System Identification Algorithm
-    * Koopman Operator
+    * Koopman Operator, general embeddings
     * Sparse Approximation
+    * Higher-order state-transition tensor propagation (up to order 4)
 
 
 

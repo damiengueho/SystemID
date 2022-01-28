@@ -36,6 +36,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -103,9 +104,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="linearTimeInvariantDynamics.html">Linear Time-Invariant (LTI) Dynamics</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Linear Time-Varying (LTV) Dynamics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#aaa">1. AAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bbb">2. BBB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ccc">3. CCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-1-point-mass-in-a-rotating-tube">Example 1: Point Mass in a Rotating Tube</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#description-of-the-problem">Description of the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-using-systemid">Code using systemID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bilinearDynamics.html">Bilinear Dynamics</a></li>
@@ -188,14 +192,145 @@
             
   <div class="section" id="linear-time-varying-ltv-dynamics">
 <h1>Linear Time-Varying (LTV) Dynamics<a class="headerlink" href="#linear-time-varying-ltv-dynamics" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="aaa">
-<h2>1. AAA<a class="headerlink" href="#aaa" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example-1-point-mass-in-a-rotating-tube">
+<h2>Example 1: Point Mass in a Rotating Tube<a class="headerlink" href="#example-1-point-mass-in-a-rotating-tube" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="description-of-the-problem">
+<h3>Description of the problem<a class="headerlink" href="#description-of-the-problem" title="Permalink to this headline">¶</a></h3>
+<a class="reference internal image-reference" href="../_images/setup.png"><img alt="Alternative text" class="align-center" src="../_images/setup.png" style="width: 350px;" /></a>
+<p>Consider the dynamics of a point mass in a rotating tube governed by a second order differential equation given by</p>
+<div class="math notranslate nohighlight">
+\[\delta\ddot{r}(t) = \left(\dot{\theta}^2(t)-\dfrac{k}{m}\right)\delta r(t)+u(t)+l\dot{\theta}^2(t)\]</div>
+<p>where the new variable <span class="math notranslate nohighlight">\(\delta r(t) = r(t) - l\)</span> has been introduced, together with the definition of <span class="math notranslate nohighlight">\(l\)</span>,
+as the free length of the spring (when no force is applied on it, i.e., Hooke’s Law applies as <span class="math notranslate nohighlight">\(F_s = -k\delta r\)</span>).
+The function <span class="math notranslate nohighlight">\(u(t)\)</span> is the radial control force applied on the point mass, and the parameters <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> are the
+spring stiffness and the mass of the point mass of interest. The time variation in this linear system is brought about
+by the profile of the angular velocity of the rotating tube <span class="math notranslate nohighlight">\(\dot{\theta}(t)\)</span>. Choosing the origin of the coordinate
+system at the position <span class="math notranslate nohighlight">\(r_0 = l\)</span> (with no loss of generality), the second order differential equation is given by</p>
+<div class="math notranslate nohighlight">
+\[\delta\ddot{r}(t) = \left(\dot{\theta}^2(t)-\dfrac{k}{m}\right)\delta r(t)+u(t)\]</div>
+<p>where the redefinition of the origin renders the system linear time varying without any extra forcing functions.
+In the first order state space form (<span class="math notranslate nohighlight">\(x_1(t) = \delta r(t), x_2(t) = \delta\dot{r}(t)\)</span>), the equations can
+be written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} \dot{x}_1(t)\\
+                \dot{x}_2(t)
+\end{bmatrix}
+=
+\begin{bmatrix} 0 &amp; 1\\
+                \dot{\theta}^2(t)-\dfrac{k}{m} &amp; 0
+\end{bmatrix}
+\begin{bmatrix} x_1(t)\\
+                x_2(t)
+\end{bmatrix} +
+\begin{bmatrix} 0\\
+                1
+\end{bmatrix}u(t) =
+A(t)\boldsymbol{x}(t) + B(t)u(t)\end{split}\]</div>
+<p>together with the measurement equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} y_1(t)\\
+                y_2(t)
+\end{bmatrix} =
+\begin{bmatrix} 1 &amp; 0\\
+                0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix} x_1(t)\\
+                x_2(t)
+\end{bmatrix} +
+\begin{bmatrix} 0\\
+                1
+\end{bmatrix}u(t) =
+C(t)\boldsymbol{x}(t) + D(t)u(t).\end{split}\]</div>
+<p>To compare with the identified models, analytical discrete-time models are generated by computing the state
+transition matrix (equivalent <span class="math notranslate nohighlight">\(A_k\)</span>) and the convolution integrals (equivalent <span class="math notranslate nohighlight">\(B_k\)</span> with a zero order
+hold assumption on the inputs). Because the system matrices are time varying, matrix differential equations are given by</p>
+<div class="math notranslate nohighlight">
+\[\dot{\Phi}(t, t_k) = A(t)\Phi(t, t_k), \quad \dot{\Psi}(t, t_k) = A(t)\Psi(t, t_k) + I,\]</div>
+<p><span class="math notranslate nohighlight">\(\forall \ t \in [t_k, t_{k+1}]\)</span>, with initial conditions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Phi(t_k, t_k) = \begin{bmatrix} 1 &amp; 0\\
+                                 0 &amp; 1
+                 \end{bmatrix}, \quad
+\Psi(t_k, t_k) = \begin{bmatrix} 0 &amp; 0\\
+                                 0 &amp; 0
+                 \end{bmatrix}\end{split}\]</div>
+<p>such that</p>
+<div class="math notranslate nohighlight">
+\[A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,\]</div>
+<p>would represent the equivalent discrete-time varying system (true  model). For the current investigation, the time
+variation profile of <span class="math notranslate nohighlight">\(\dot{\theta}(t) = 3\sin(\frac{1}{2}t)\)</span>, with the mass and stiffness of the system
+chosen to be <span class="math notranslate nohighlight">\(m=1\)</span> and <span class="math notranslate nohighlight">\(k=10\)</span>, respectively. The time interval of interest is <span class="math notranslate nohighlight">\(10\)</span> seconds,
+with the discretization sampling frequency set to be <span class="math notranslate nohighlight">\(10\)</span> Hz. In that example, <span class="math notranslate nohighlight">\(u(t) = 0\)</span> and this is
+considered an initial condition response experiment.</p>
 </div>
-<div class="section" id="bbb">
-<h2>2. BBB<a class="headerlink" href="#bbb" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="code-using-systemid">
+<h3>Code using systemID<a class="headerlink" href="#code-using-systemid" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Define parameters</span>
+ <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
+ <span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span>
+ <span class="n">spring_constant</span> <span class="o">=</span> <span class="mi">10</span>
+ <span class="k">def</span> <span class="nf">theta_dot</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+     <span class="k">return</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+
+ <span class="c1">## Define dynamics</span>
+ <span class="n">dynamics</span> <span class="o">=</span> <span class="n">PointMassInRotatingTubeDynamics</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">spring_constant</span><span class="p">,</span> <span class="n">theta_dot</span><span class="p">)</span>
+
+
+ <span class="c1">## Define Training Experiments</span>
+ <span class="n">frequency</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span>
+ <span class="n">total_time_training</span> <span class="o">=</span> <span class="mi">11</span>
+ <span class="n">number_steps_training</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_training</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+ <span class="n">number_experiments</span> <span class="o">=</span> <span class="mi">20</span>
+ <span class="n">input_signals_training</span> <span class="o">=</span> <span class="p">[]</span>
+ <span class="n">systems_training</span> <span class="o">=</span> <span class="p">[]</span>
+ <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_experiments</span><span class="p">):</span>
+     <span class="n">input_signals_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DiscreteSignal</span><span class="p">(</span><span class="n">dynamics</span><span class="o">.</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">total_time_training</span><span class="p">,</span> <span class="n">frequency</span><span class="p">))</span>
+     <span class="n">systems_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DiscreteLinearSystem</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">output_dimension</span><span class="p">,</span> <span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;Original System&#39;</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">D</span><span class="p">))</span>
+ <span class="n">training_experiments</span> <span class="o">=</span> <span class="n">Experiments</span><span class="p">(</span><span class="n">systems_training</span><span class="p">,</span> <span class="n">input_signals_training</span><span class="p">)</span>
+
+
+ <span class="c1">## TVERAIC</span>
+ <span class="n">assumed_state_dimension</span> <span class="o">=</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">state_dimension</span>
+ <span class="n">p</span> <span class="o">=</span> <span class="mi">10</span>
+ <span class="n">tveraic</span> <span class="o">=</span> <span class="n">TVERAFromInitialConditionResponse</span><span class="p">(</span><span class="n">training_experiments</span><span class="p">,</span> <span class="n">assumed_state_dimension</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+
+ <span class="c1">## Testing data</span>
+ <span class="n">total_time_testing</span> <span class="o">=</span> <span class="mi">10</span>
+ <span class="n">input_signal_testing</span> <span class="o">=</span> <span class="n">DiscreteSignal</span><span class="p">(</span><span class="n">dynamics</span><span class="o">.</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">frequency</span><span class="p">)</span>
+ <span class="n">initial_states</span> <span class="o">=</span> <span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)]</span>
+ <span class="n">true_system</span> <span class="o">=</span> <span class="n">DiscreteLinearSystem</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">output_dimension</span><span class="p">,</span> <span class="n">initial_states</span><span class="p">,</span> <span class="s1">&#39;True System&#39;</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+
+ <span class="c1">## Output</span>
+ <span class="n">true_output</span> <span class="o">=</span> <span class="n">OutputSignal</span><span class="p">(</span><span class="n">input_signal_testing</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)</span>
+
+
+ <span class="c1">## Identify IC</span>
+ <span class="n">x0_id</span> <span class="o">=</span> <span class="n">identificationInitialCondition</span><span class="p">(</span><span class="n">input_signal_testing</span><span class="p">,</span> <span class="n">true_output</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+
+ <span class="c1">## Identified System</span>
+ <span class="n">identified_system</span> <span class="o">=</span> <span class="n">DiscreteLinearSystem</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">assumed_state_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">output_dimension</span><span class="p">,</span> <span class="p">[(</span><span class="n">x0_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;Identified System&#39;</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">tveraic</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+
+ <span class="c1">## Identified Output Signal</span>
+ <span class="n">identified_output</span> <span class="o">=</span> <span class="n">OutputSignal</span><span class="p">(</span><span class="n">input_signal_testing</span><span class="p">,</span> <span class="n">identified_system</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="ccc">
-<h2>3. CCC<a class="headerlink" href="#ccc" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h3>
+<p>The error incurred in the response is shown below.</p>
+<a class="reference internal image-reference" href="../_images/propagation.png"><img alt="Alternative text" class="align-center" src="../_images/propagation.png" style="width: 800px;" /></a>
+<p>The singular value decomposition plot is displayed at different time instants.</p>
+<a class="reference internal image-reference" href="../_images/svd.png"><img alt="Alternative text" class="align-center" src="../_images/svd.png" style="width: 400px;" /></a>
+<p>Finally, the eigenvalues of the time varying <span class="math notranslate nohighlight">\(A_k\)</span> matrix are shown before:</p>
+<a class="reference internal image-reference" href="../_images/eigenvalues.png"><img alt="Alternative text" class="align-center" src="../_images/eigenvalues.png" style="width: 800px;" /></a>
+<p>and after correction:</p>
+<a class="reference internal image-reference" href="../_images/eigenvalues_corrected.png"><img alt="Alternative text" class="align-center" src="../_images/eigenvalues_corrected.png" style="width: 800px;" /></a>
+</div>
 </div>
 </div>
 
@@ -213,7 +348,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Damien Guého &lt;https://www.personal.psu.edu/djg76/&gt;.
+        &#169; Copyright 2022, Damien Guého.
 
     </p>
   </div>

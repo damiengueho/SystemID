@@ -1,14 +1,7 @@
 Plotting
 ========
 
-
-1. AAA
-######
-
-
-2. BBB
-######
-
-
-3. CCC
-######
+.. image:: ../images/under-construction.png
+  :align: center
+  :width: 600
+  :alt: Alternative text

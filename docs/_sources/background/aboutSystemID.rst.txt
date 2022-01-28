@@ -6,18 +6,27 @@ Overview
 ########
 
 **systemID** is an open source collection of Python subroutines for linear and nonlinear system identification.
-**systemID** combines mature and well established system identification algorithms with young, newly developed techniques to provide a user friendly API for solving system identification problems.
+**systemID** combines mature and well established system identification algorithms with young, newly developed
+techniques to provide a user friendly API for solving system identification problems.
 
 
 History
 #######
 
-This work started during my PhD at Penn State while I was investigating how to combine existing system identification techniques with more advanced and newly develped methods.
-I started implementing the basic algorithms for class projects and as the number of algorithms was growing I decided to
+This work started during my PhD at Penn State while I was investigating how to combine existing system identification
+techniques with more advanced and newly develped methods. I started implementing the basic algorithms for class
+projects and as the number of algorithms was growing I decided to build a Python package that would contain everything
+I need to move forward with data-driven modeling in general.
 
 
 Future Ideas
 ############
 
-**systemID** has been historically focused on time-domain system identification, and we would like to improve robustness and velocity of execution
+**systemID** has been historically focused on time-domain system identification, and we would like to improve robustness and velocity of execution.
 In general, we would like to stabilize the API and release a 1.0 version at some point!
+**systemID** represents the first stepping stone of a larger project to build a computationally fast, robust and accurate
+data‐driven framework that combines the latest techniques in time‐varying subspace realization methods, sparse
+representation and embeddings. Eventually, I would like this framework to be operated real‐time, with real‐time data
+collection, process, visualization, and all achieved on‐board (applications for autonomous aerospace vehicles,
+space missions). I want to extend the system identification module with an estimation and uncertainty quantification
+module, a real‐time learning module, and a data‐driven control and parameters update module.
