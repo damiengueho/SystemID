@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 21
-Date: December 2021
+Version: 22
+Date: February 2022
 Python: 3.7.7
 """
 
@@ -22,7 +22,7 @@ from systemID.ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 class LorenzSystemDynamics:
     def __init__(self, sigma, rho, beta, **kwargs):
         self.state_dimension = 3
-        self.input_dimension = 3
+        self.input_dimension = 1
         self.output_dimension = 3
         self.sigma = sigma
         self.rho = rho

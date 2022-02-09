@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 21
-Date: December 2021
+Version: 22
+Date: February 2022
 Python: 3.7.7
 """
 
@@ -126,11 +126,19 @@ class ContinuousSignal(Signal):
             self.u = u
         elif self.signal_shape == 'External':
             def zero(t):
-                return np.zeros(self.dimension) * t
+                data = np.outer(np.zeros(self.dimension), t)
+                if data.shape[1] == 1:
+                    return data[:, 0]
+                else:
+                    return data
             self.u = kwargs.get('u', zero)
         else:
             def zero(t):
-                return np.zeros(self.dimension) * t
+                data = np.outer(np.zeros(self.dimension), t)
+                if data.shape[1] == 1:
+                    return data[:, 0]
+                else:
+                    return data
             self.u = zero
 
 

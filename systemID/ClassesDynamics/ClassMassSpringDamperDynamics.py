@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 21
-Date: December 2021
+Version: 22
+Date: February 2022
 Python: 3.7.7
 """
 
@@ -89,7 +89,7 @@ class MassSpringDamperDynamics:
 class MassSpringDamperDynamicsBilinear:
     def __init__(self, mass, damping_coefficient, measurements):
         self.state_dimension = 2
-        self.input_dimension = 2
+        self.input_dimension = 1
         self.output_dimension = len(measurements)
         self.mass = mass
         self.damping_coefficient = damping_coefficient
@@ -107,12 +107,9 @@ class MassSpringDamperDynamicsBilinear:
         self.Ac[1:2, 1:2] = np.matmul(-inv(self.M), self.Z)
 
         self.Nc = np.zeros([self.state_dimension, self.state_dimension * self.input_dimension])
-        self.Nc[1, 0] = -1
+        self.Nc[1, 0] = -1 / self.mass
 
-        self.B2 = np.zeros([int(self.state_dimension / 2), int(self.input_dimension / 2)])
-        self.B2[0, 0] = 1
         self.Bc = np.zeros([self.state_dimension, self.input_dimension])
-        self.Bc[1:2, 1:2] = np.matmul(inv(self.M), self.B2)
 
         self.Cd = np.zeros([self.output_dimension, self.state_dimension])
         self.Cp = np.zeros([self.output_dimension, int(self.state_dimension / 2)])

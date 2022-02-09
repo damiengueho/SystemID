@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 21
-Date: December 2021
+Version: 22
+Date: February 2022
 Python: 3.7.7
 """
 
@@ -17,6 +17,7 @@ from systemID.SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithm impo
 from systemID.SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse import timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse
 from systemID.SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation import timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation
 from systemID.SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse import timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
+# from systemID.SystemIDAlgorithms.BilinearSystemID import bilinearSystemID, bilinearSystemIDFromInitialConditionResponse
 
 
 class ERA:
@@ -57,7 +58,7 @@ class TVERA:
 
 class TVERAFromInitialConditionResponse:
     def __init__(self, free_decay_experiments, state_dimension, p, **kwargs):
-        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0, self.A_id, self.B_id, self.C_id, self.D_id, self.MAC, self.MSV = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p, **kwargs)
+        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0, self.A_id, self.B_id, self.C_id, self.D_id, self.MAC, self.MSV, self.Y = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p, **kwargs)
 
 
 

@@ -2,8 +2,8 @@
 Author: Damien GUEHO
 Copyright: Copyright (C) 2021 Damien GUEHO
 License: Public Domain
-Version: 21
-Date: December 2021
+Version: 22
+Date: February 2022
 Python: 3.7.7
 """
 
@@ -21,7 +21,7 @@ from systemID.ClassesGeneral.ClassSystem import ContinuousNonlinearSystem
 
 class FlutterAeroelasticWingDynamics:
 
-    def __init__(self, mt, mw, Ia, xa, U, b, kh, ch, ca, rho, cla, clb, cma, cmb, ka0, ka1, ka2, ka3, ka4, **kwargs):
+    def __init__(self, mt, mw, Ia, a, rcg, xa, U, b, kh, ch, ca, rho, cla, clb, cma, cmb, ka0, ka1, ka2, ka3, ka4, **kwargs):
         self.state_dimension = 4
         self.input_dimension = 1
         self.output_dimension = 4
@@ -30,8 +30,9 @@ class FlutterAeroelasticWingDynamics:
         self.Ia = Ia
         self.xa = xa
         self.U = U
-        self.a = xa
+        self.a = a
         self.b = b
+        self.rcg = rcg
         self.kh = kh
         self.ch = ch
         self.ca = ca
@@ -45,15 +46,17 @@ class FlutterAeroelasticWingDynamics:
         self.ka2 = ka2
         self.ka3 = ka3
         self.ka4 = ka4
-        self.d = self.mt * (self.Ia - self.mw ** 2 * self.xa ** 2 * self.b ** 2)
+        self.d = self.mt * self.Ia - self.mw ** 2 * self.xa ** 2 * self.b ** 2
         self.k1 = self.Ia * self.kh / self.d
         self.k2 = (self.Ia * self.rho * self.b * self.cla + self.mw * self.xa * self.b ** 3 * self.rho * self.cma) / self.d
         self.k3 = - self.mw * self.xa * self.b * self.kh / self.d
         self.k4 = (- self.mw * self.xa * self.b ** 2 * self.rho * self.cla - self.mt * self.rho * self.b ** 2 * self.cma) / self.d
         self.c1 = (self.Ia * (self.ch + self.rho * self.U * self.b * self.cla) + self.mw * self.xa * self.rho * self.U * self.b ** 3 * self.cma) / self.d
         self.c2 = (self.Ia * self.rho * self.U * self.b ** 2 * self.cla * (1/2 - self.a) - self.mw * self.xa * self.b * self.ca + self.mw * self.xa + self.rho * self.U * self.b ** 4 * self.cma * (1/2 - self.a)) / self.d
-        self.c3 = (-self.mw * self.xa * self.b * self.ch - self.mw * self.xa * self.rho * self.U * self.b ** 2 * self.cla - self.mt * self.rho * self.U * self.b ** 2 * self.cma) / self.d
-        self.c4 = (self.mt * self.ca - self.mt * self.rho * self.U * self.b ** 3 * self.cma * (1/2 - self.a) - self.mw * self.xa * self.rho * self.U * self.b ** 3 * self.cla * (1/2 - self.a)) / self.d
+        self.c3 = (-self.mw * self.xa * self.b * (self.ch + self.rho * self.U * self.b * self.cla) - self.mt * self.rho * self.U * self.b ** 2 * self.cma) / self.d
+        self.c4 = (self.mt * (self.ca - self.rho * self.U * self.b ** 3 * self.cma * (1/2 - self.a)) - self.mw * self.xa * self.rho * self.U * self.b ** 3 * self.cla * (1/2 - self.a)) / self.d
+        self.g3 = - (self.Ia * self.rho * self.b * self.clb + self.mw * self.xa * self.b ** 3 * self.rho * self.cmb) / self.d
+        self.g4 = (self.mw * self.xa * self.rho * self.b **2 * self.clb + self.mt * self.rho * self.b ** 2 * self.cmb) / self.d
 
 
         self.nominal = kwargs.get('nominal', False)
