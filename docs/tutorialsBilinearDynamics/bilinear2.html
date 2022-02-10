@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Example 2 &mdash; systemID 0.22.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example 3: Mass-spring-damper system with varying stifness" href="bilinear3.html" />
+    <link rel="prev" title="Example 1" href="bilinear1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> systemID
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted/relatedPackages.html">Requirements &amp; Related Packages</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation/plotting.html">Plotting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTIDynamics/linearTimeInvariantDynamics.html">Example 1:</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTVDynamics/PointMassInRotatingTube1.html">Example 1: Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="bilinear1.html">Example 1</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description-of-the-problem">Description of the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-using-systemid">Code using systemID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bilinear3.html">Example 3: Mass-spring-damper system with varying stifness</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Nonlinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorialsNonlinearDynamics/nonlinearDynamics.html">Example 1:</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../background/aboutSystemID.html">About systemID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/problemsAndSuggestions.html">Problems and Suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../background/references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">systemID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Example 2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <a href="https://github.com/damiengueho/SystemID/blob/tutorialsBilinearDynamics/bilinear2.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="example-2">
+<h1>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description-of-the-problem">
+<h2>Description of the problem<a class="headerlink" href="#description-of-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Consider the synthetic continuous bilinear dynamical system given in its state-space form by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dot{\boldsymbol{x}}(t) &amp;= A_c\boldsymbol{x}(t) + \sum_{i=1}^2N_{c_i}\boldsymbol{x}(t)u_i(t) + B_c\boldsymbol{u}(t)\\
+ \boldsymbol{y}(t) &amp;= C\boldsymbol{x}(t) + D\boldsymbol{u}(t)\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A_c = \begin{bmatrix} 0 &amp; 1 &amp; 0\\
+                      -1 &amp; 0 &amp; 0\\
+                      0 &amp; 0 &amp; 0.3
+\end{bmatrix}, \quad
+N_{c_1} = \begin{bmatrix} 1 &amp; -1 &amp; 0\\
+                          0 &amp; 2 &amp; 1\\
+                          1 &amp; 3 &amp; 4
+\end{bmatrix}, \quad
+N_{c_2} = \begin{bmatrix} 0 &amp; 0 &amp; 1\\
+                          1 &amp; 0 &amp; 1\\
+                          4 &amp; 2 &amp; 1
+\end{bmatrix}, \quad
+B_{c} = \begin{bmatrix} 1 &amp; 0\\
+                        0 &amp; 2\\
+                        1 &amp; 1
+\end{bmatrix}, \quad
+C = \begin{bmatrix} 1 &amp; 0 &amp; 1\\
+                    -1 &amp; 1 &amp; 2
+\end{bmatrix}, \quad
+D = \begin{bmatrix} 0 &amp; 0\\
+                    0 &amp; 0
+     \end{bmatrix}.\end{split}\]</div>
+<p>The procedure in Python using the package <strong>systemID</strong> is highlighted below, with <span class="math notranslate nohighlight">\(N_1 = N_2 = 10\)</span>, a frequency of acquisition
+<span class="math notranslate nohighlight">\(f = 20\)</span> Hz for a total time of <span class="math notranslate nohighlight">\(5\)</span> seconds. As is the case for linear systems,
+the realized system matrices are not unique, because the state space description is not unique. However, the input/output
+mapping should be unique and the linear part of the identified system matrix should have the same eigenvalues as the
+true system matrix. The errors in the system matrix eigenvalues (between true and identified) are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\left| \lambda\left(A_c\right) - \lambda\left(\hat{A}_c\right)\right|\right| &amp; \simeq 10^{-12}\\
+\left|\left| \lambda\left(N_{c_1}\right) - \lambda\left(\hat{N}_{c_1}\right)\right|\right| &amp; \simeq 10^{-12}\\
+\left|\left| \lambda\left(N_{c_2}\right) - \lambda\left(\hat{N}_{c_2}\right)\right|\right| &amp; \simeq 10^{-12}\end{split}\]</div>
+<p>The identified system was subject to some test inputs and the response from the true system to the same test inputs
+was performed. The test inputs applied to the plants are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{u}(t) = \begin{bmatrix} \sin(7t)\\
+                      \cos(10t)
+\end{bmatrix}.\end{split}\]</div>
+</div>
+<div class="section" id="code-using-systemid">
+<h2>Code using systemID<a class="headerlink" href="#code-using-systemid" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">from</span> <span class="nn">systemID.ClassesGeneral.ClassSystem</span> <span class="kn">import</span> <span class="n">ContinuousBilinearSystem</span>
+<span class="kn">from</span> <span class="nn">systemID.ClassesGeneral.ClassSignal</span> <span class="kn">import</span> <span class="n">ContinuousSignal</span><span class="p">,</span> <span class="n">OutputSignal</span><span class="p">,</span> <span class="n">DiscreteSignal</span><span class="p">,</span> <span class="n">subtract2Signals</span>
+<span class="kn">from</span> <span class="nn">systemID.ClassesGeneral.ClassExperiments</span> <span class="kn">import</span> <span class="n">Experiments</span>
+<span class="kn">from</span> <span class="nn">systemID.ClassesSystemID.ClassBilinear</span> <span class="kn">import</span> <span class="n">BilinearSystemID</span>
+
+
+<span class="c1">## Define continuous time system matrices and parameters</span>
+<span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">input_dimension</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">output_dimension</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]])</span>
+<span class="k">def</span> <span class="nf">N</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+
+<span class="c1">## Identification parameters</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mi">10</span>
+
+
+<span class="c1">## Signal parameters</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span><span class="n">frequency</span>
+<span class="n">total_time_training</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">total_time_testing</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">number_steps_training</span> <span class="o">=</span> <span class="n">total_time_training</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">number_steps_testing</span> <span class="o">=</span> <span class="n">total_time_testing</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">tspan_training</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time_training</span><span class="p">,</span> <span class="n">number_steps_training</span><span class="p">)</span>
+<span class="n">tspan_testing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">)</span>
+
+
+<span class="c1">## Create system</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">ContinuousBilinearSystem</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">input_dimension</span><span class="p">,</span> <span class="n">output_dimension</span><span class="p">,</span> <span class="p">[(</span><span class="n">x0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;Nominal system&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+
+
+<span class="c1">## Test signal</span>
+<span class="k">def</span> <span class="nf">u</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="p">)])</span>
+<span class="n">test_signal</span> <span class="o">=</span> <span class="n">ContinuousSignal</span><span class="p">(</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">signal_shape</span><span class="o">=</span><span class="s1">&#39;External&#39;</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="p">)</span>
+<span class="n">test_signal_d</span> <span class="o">=</span> <span class="n">DiscreteSignal</span><span class="p">(</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">signal_shape</span><span class="o">=</span><span class="s1">&#39;External&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">u</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">))</span>
+<span class="n">true_output</span> <span class="o">=</span> <span class="n">OutputSignal</span><span class="p">(</span><span class="n">test_signal</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">tspan</span><span class="o">=</span><span class="n">tspan_testing</span><span class="p">)</span>
+
+
+<span class="c1">## Experiments</span>
+<span class="n">N1</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">data_inputs_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">number_steps_training</span><span class="p">,</span> <span class="n">N1</span><span class="p">])</span>
+<span class="n">data_inputs_1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">N1</span><span class="p">)</span>
+
+<span class="n">N2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">data_inputs_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">number_steps_training</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="n">N2</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">):</span>
+    <span class="n">random_input</span> <span class="o">=</span> <span class="n">data_inputs_1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">data_inputs_2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_inputs_1</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">N2</span><span class="p">]</span>
+    <span class="n">data_inputs_2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">random_input</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N2</span><span class="p">))</span>
+
+<span class="n">inputs_1</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">inputs_2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">systems</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N1</span><span class="p">):</span>
+    <span class="n">inputs_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ContinuousSignal</span><span class="p">(</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">signal_shape</span><span class="o">=</span><span class="s1">&#39;External&#39;</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">tspan_training</span><span class="p">,</span> <span class="n">data_inputs_1</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;zero&#39;</span><span class="p">)))</span>
+    <span class="n">systems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">):</span>
+    <span class="n">inputs_2</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">):</span>
+        <span class="n">inputs_2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ContinuousSignal</span><span class="p">(</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">signal_shape</span><span class="o">=</span><span class="s1">&#39;External&#39;</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">tspan_training</span><span class="p">,</span> <span class="n">data_inputs_2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;zero&#39;</span><span class="p">)))</span>
+
+<span class="n">experiments_1</span> <span class="o">=</span> <span class="n">Experiments</span><span class="p">(</span><span class="n">systems</span><span class="p">,</span> <span class="n">inputs_1</span><span class="p">,</span> <span class="n">tspan</span><span class="o">=</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="n">total_time_testing</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
+<span class="n">experiments_2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N2</span><span class="p">):</span>
+    <span class="n">experiments_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Experiments</span><span class="p">(</span><span class="n">systems</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">N2</span><span class="p">],</span> <span class="n">inputs_2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tspan</span><span class="o">=</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="n">total_time_testing</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">))</span>
+
+
+<span class="c1">## Identification</span>
+<span class="n">bilinear</span> <span class="o">=</span> <span class="n">BilinearSystemID</span><span class="p">(</span><span class="n">experiments_1</span><span class="p">,</span> <span class="n">experiments_2</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+
+
+<span class="c1">## Identified system</span>
+<span class="n">x0_id</span> <span class="o">=</span> <span class="n">x0</span>
+<span class="n">identified_system</span> <span class="o">=</span> <span class="n">ContinuousBilinearSystem</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">input_dimension</span><span class="p">,</span> <span class="n">output_dimension</span><span class="p">,</span> <span class="p">[(</span><span class="n">x0_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;Identified system&#39;</span><span class="p">,</span> <span class="n">bilinear</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">bilinear</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">bilinear</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">bilinear</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">bilinear</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+
+<span class="c1">## Test</span>
+<span class="n">identified_output</span> <span class="o">=</span> <span class="n">OutputSignal</span><span class="p">(</span><span class="n">test_signal</span><span class="p">,</span> <span class="n">identified_system</span><span class="p">,</span> <span class="n">tspan</span><span class="o">=</span><span class="n">tspan_testing</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<p>Output profiles obtained from the true and identified systems are compared below.</p>
+<a class="reference internal image-reference" href="../_images/propagation1.png"><img alt="Alternative text" class="align-center" src="../_images/propagation1.png" style="width: 800px;" /></a>
+<p>The singular value decomposition plot is displayed at different time instants.</p>
+<a class="reference internal image-reference" href="../_images/svd1.png"><img alt="Alternative text" class="align-center" src="../_images/svd1.png" style="width: 400px;" /></a>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="bilinear3.html" class="btn btn-neutral float-right" title="Example 3: Mass-spring-damper system with varying stifness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="bilinear1.html" class="btn btn-neutral float-left" title="Example 1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Damien Guého.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-XXXXXXX-1', 'auto');
+    
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

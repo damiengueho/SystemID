@@ -1,7 +1,0 @@
-Linear Time-Invariant (LTI) Dynamics
-====================================
-
-.. image:: ../images/under-construction.png
-  :align: center
-  :width: 600
-  :alt: Alternative text

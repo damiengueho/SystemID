@@ -1,5 +1,5 @@
-Bilinear Dynamics
-=================
+Example 1:
+==========
 
 .. image:: ../images/under-construction.png
   :align: center

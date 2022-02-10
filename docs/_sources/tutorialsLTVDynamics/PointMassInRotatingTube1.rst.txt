@@ -1,12 +1,8 @@
-Linear Time-Varying (LTV) Dynamics
-==================================
-
-
 Example 1: Point Mass in a Rotating Tube
-########################################
+========================================
 
 Description of the problem
---------------------------
+##########################
 
 .. image:: ../images/Tutorials/LTVDynamics/PointMassInRotatingTube/setup.png
   :align: center
@@ -102,7 +98,7 @@ considered an initial condition response experiment.
 
 
 Code using systemID
--------------------
+###################
 
 .. code-block:: python
 
@@ -171,7 +167,7 @@ Code using systemID
 
 
 Results
--------
+#######
 The error incurred in the response is shown below.
 
 .. image:: ../images/Tutorials/LTVDynamics/PointMassInRotatingTube/propagation.png

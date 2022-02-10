@@ -42,12 +42,32 @@ Specifically, it handles
 
 .. toctree::
    :hidden:
-   :caption: Tutorials
+   :caption: Tutorials LTI Systems
 
-   tutorials/linearTimeInvariantDynamics
-   tutorials/linearTimeVaryingDynamics
-   tutorials/bilinearDynamics
-   tutorials/nonlinearDynamics
+   tutorialsLTIDynamics/linearTimeInvariantDynamics
+
+
+.. toctree::
+   :hidden:
+   :caption: Tutorials LTV Systems
+
+   tutorialsLTVDynamics/PointMassInRotatingTube1.rst
+
+
+.. toctree::
+   :hidden:
+   :caption: Tutorials Bilinear Systems
+
+   tutorialsBilinearDynamics/bilinear1.rst
+   tutorialsBilinearDynamics/bilinear2.rst
+   tutorialsBilinearDynamics/bilinear3.rst
+
+
+.. toctree::
+   :hidden:
+   :caption: Tutorials Nonlinear Systems
+
+   tutorialsNonlinearDynamics/nonlinearDynamics
 
 
 .. toctree::
