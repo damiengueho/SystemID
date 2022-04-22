@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -15,7 +15,7 @@ import scipy.linalg as LA
 from systemID.SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
 
 
-def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(free_decay_experiments, full_experiment, state_dimension, **kwargs):
+def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(free_decay_experiments, state_dimension, **kwargs):
     """
     Purpose:
 
@@ -37,18 +37,18 @@ def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialCond
     """
 
     # Dimensions and number of steps
-    input_dimension = free_decay_experiments[0].input_dimension
-    output_dimension = free_decay_experiments[0].output_dimension
+    input_dimension = 1
+    output_dimension = free_decay_experiments[0].output_signals[0].dimension
     number_free_decay_experiments = free_decay_experiments[0].number_experiments
     number_steps = free_decay_experiments[0].output_signals[0].number_steps
 
     # Sizes
     p = int(kwargs.get('p', 100))
     p = min(p, 100)
-    xi = int(kwargs.get('xi', 100))
+    xi = int(kwargs.get('xi', p))
     xi = min(xi, 100)
     number_batches = len(free_decay_experiments)
-    tau = int(kwargs.get('tau', 100))
+    tau = int(kwargs.get('tau', p))
     tau = min(tau, 100)
     max_k = number_steps - p - (xi - 1) * tau - 2
 
@@ -63,7 +63,7 @@ def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialCond
 
 
     # Frequency
-    frequency = full_experiment.input_signals[0].frequency
+    frequency = free_decay_experiments[0].output_signals[0].frequency
 
 
     # Initializing Identified matrices
@@ -118,6 +118,8 @@ def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialCond
 
     for k in range(max_k + 1):
 
+        print(k)
+
         # Build Hk2
         Hk2t = np.zeros([xi * (p + 1) * output_dimension, number_batches * (p + 1) * output_dimension])
         for i in range(xi):
@@ -152,6 +154,10 @@ def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialCond
         O2 = np.matmul(Rn2, LA.sqrtm(Sigman2))
         X2 = np.matmul(LA.sqrtm(Sigman2), Snt2)
 
+        # ICs
+        if k == 0:
+            X0 = X1
+
         # Store observability matrices
         Ok[:, :, k] = O1[0:xi * p * output_dimension, :]
         Ok1[:, :, k] = O2[0:xi * p * output_dimension, :]
@@ -176,8 +182,4 @@ def timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialCond
         return D_id[:, :, int(round(tk * frequency))]
 
 
-    # Get x0
-    x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
-
-
-    return A, B, C, D, x0, Ok, Ok1, sigma, Hpnt, Hkxzt, Rkt
+    return A, B, C, D, X0, Ok, Ok1, sigma, Hpnt, Hkxzt, Rkt

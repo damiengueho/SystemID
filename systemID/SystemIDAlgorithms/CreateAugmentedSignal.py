@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -15,7 +15,7 @@ from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
 from systemID.SparseIDAlgorithms.GeneratePolynomialBasisFunctions import generatePolynomialBasisFunctions
 from systemID.SparseIDAlgorithms.GeneratePolynomialIndex import generatePolynomialIndex
 
-def createAugmentedSignalPolynomialBasisFunctions(original_signal, order, post_treatment, max_order):
+def createAugmentedSignalPolynomialBasisFunctions(original_signal, order, **kwargs):
     """
         Purpose:
             Create an augmented signal appending polynomial functions of original data.
@@ -23,8 +23,7 @@ def createAugmentedSignalPolynomialBasisFunctions(original_signal, order, post_t
         Parameters:
             - **original_signal** (``DiscreteSignal``): the signal to be augmented.
             - **order** (``int``): the order of single monomials to be appended.
-            - **post_treatment** (``bool``): boolean to know whether or not **max_order** is applied.
-            - **max_order** (``int``): the maximum order of polynomials to be appended.
+            - **max_order** (``int``, optional): the maximum order of polynomials to be appended.
 
         Returns:
             - **augmented_signal** (``DiscreteSignal``): the augmented signal.
@@ -54,16 +53,20 @@ def createAugmentedSignalPolynomialBasisFunctions(original_signal, order, post_t
             - :py:mod:`~SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions`
             - :py:mod:`~SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex`
             - :py:mod:`~SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalWithGivenFunctions`
-        """
+    """
 
     # Dimension
     dimension = original_signal.dimension
 
     # Generate Index
-    index = generatePolynomialIndex(dimension, order, post_treatment, max_order=max_order)
+    max_order = kwargs.get('max_order', -1)
+    if max_order >= 0:
+        index = generatePolynomialIndex(dimension, order, max_order=max_order)
+    else:
+        index = generatePolynomialIndex(dimension, order)
 
     # Generate Polynomial Basis Functions
-    lifting_functions = generatePolynomialBasisFunctions(dimension, index)
+    lifting_functions = generatePolynomialBasisFunctions(index)
 
     # Construct Data for Augmented Signal
     augmented_dimension = len(lifting_functions) - 1
@@ -107,9 +110,6 @@ def createAugmentedSignalWithGivenFunctions(original_signal, given_functions):
             - :py:mod:`~ClassesGeneral.ClassSignal.DiscreteSignal`
             - :py:mod:`~SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalPolynomialBasisFunctions`
     """
-
-    # Dimension
-    dimension = original_signal.dimension
 
     # Construct Data for Augmented Signal
     augmented_dimension = len(given_functions)

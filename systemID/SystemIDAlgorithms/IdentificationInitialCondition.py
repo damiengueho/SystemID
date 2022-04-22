@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -40,7 +40,7 @@ def identificationInitialCondition(input_signal, output_signal, A, B, C, D, tk, 
     output_dimension, input_dimension = D(tk).shape
 
     # Number of steps and dt
-    dt = input_signal.dt
+    dt = output_signal.dt
 
     # Data
     u = input_signal.data[:, 0:number_steps]
@@ -51,7 +51,7 @@ def identificationInitialCondition(input_signal, output_signal, A, B, C, D, tk, 
     Y = y.T.reshape(1, number_steps * output_dimension).reshape(number_steps * output_dimension, 1)
 
     # Get the Observability matrix
-    O = getObservabilityMatrix(A, C, number_steps, tk, dt)
+    O = getObservabilityMatrix(A, C, number_steps, tk=tk, dt=dt)
 
     # Get the Delta Matrix
     Delta = getDeltaMatrix(A, B, C, D, tk, dt, number_steps)

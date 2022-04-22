@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -39,7 +39,7 @@ def propagation(signal, system, **kwargs):
     state_dimension = system.state_dimension
     output_dimension = system.output_dimension
     x0 = system.x0
-    initial_states = system.initial_states
+    initial_states = [(x0, 0)]
     number_initial_states = len(initial_states)
 
     # Propagate depending on system type

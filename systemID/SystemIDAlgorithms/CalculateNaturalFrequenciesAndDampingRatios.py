@@ -1,30 +1,33 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
 
 import numpy as np
-from scipy import linalg as LA
+import scipy.linalg as LA
 
 
 def calculateNaturalFrequenciesAndDampingRatios(systems):
     """
     Purpose:
+        Compute the natural frequencies and associated damping ratios from the system matrix A of a list of systems.
 
 
     Parameters:
-        -
+        - **systems** (``list``): list of systems.
 
     Returns:
-        -
+        - **natural_frequencies** (``list``): list of natural frequencies.
+        - **damping_ratios** (``list``): list of damping ratios.
 
     Imports:
-        -
+        - ``import numpy as np``
+        - ``import scipy.linalg as LA``
 
     Description:
 

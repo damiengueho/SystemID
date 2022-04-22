@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -11,33 +11,41 @@ Python: 3.7.7
 import numpy as np
 
 
-def getObservabilityMatrix(A, C, number_steps, tk, dt):
+def getObservabilityMatrix(A, C, number_steps, **kwargs):
     """
-    Purpose:
+        Purpose:
+            This function calculates the observability matrix at time **tk**.
 
+        Parameters:
+            - **A** (``fun``): the system matrix.
+            - **C** (``fun``): the output influence matrix.
+            - **number_steps** (``int``): the block size :math:`p` of the observability matrix.
+            - **tk** (``float``, *optional*): the starting time step. If not specified, its value is :math:`0`.
+            - **dt** (``float``, *optional*): the length of the time step for which the zero-order hold approximation for the system matrices is valid. If not specified, its value is :math:`0`.
 
-    Parameters:
-        -
+        Returns:
+            - **O** (``ndarray``): the corresponding observability matrix.
 
-    Returns:
-        -
+        Imports:
+            - ``import numpy as np``
 
-    Imports:
-        -
+        Description:
+            The algorithm builds the observability matrix :math:`O_k^{(p)}` from time step **tk** such that
 
-    Description:
+            .. math::
 
+                O_k^{(p)} = \\begin{bmatrix} C_k \\\\ C_{k+1}A_k \\\\ C_{k+2}A_{k+1}A_k \\\\ \\vdots \\\\ C_{k+p-1}A_{k+p-2}\\cdots A_k \\end{bmatrix}.
 
-    See Also:
-        -
+        See Also:
+            -
     """
 
-    (state_dimension, _) = A(tk).shape
-    (output_dimension, _) = C(tk).shape
+    tk = kwargs.get('tk', 0)
+    dt = kwargs.get('dt', 0)
+
+    (output_dimension, state_dimension) = C(tk).shape
 
     O = np.zeros([number_steps * output_dimension, state_dimension])
-
-    O[0:output_dimension, :] = C(tk)
 
     if number_steps <= 0:
         return np.zeros([number_steps * output_dimension, state_dimension])

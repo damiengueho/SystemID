@@ -1,41 +1,56 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
 
 import numpy as np
-from scipy.linalg import fractional_matrix_power as matpow
 
 
 def getMarkovParameters(A, B, C, D, number_steps):
     """
-    Purpose:
+        Purpose:
+            This program computes a list comprised of the first :math:`p` time-invariant Markov parameters.
+
+        Parameters:
+            - **A** (``fun``): the system matrix.
+            - **B** (``fun``): the input influence matrix.
+            - **C** (``fun``): the output influence matrix.
+            - **D** (``fun``): the direct transmission matrix.
+            - **number_steps** (``int``): the number :math:`p` of time-invariant Markov parameters to compute.
+
+        Returns:
+            - **markov_parameters** (``list``): a list of the first :math:`p` time-invariant Markov parameters.
+
+        Imports:
+            - ``import numpy as np``
+
+        Description:
+            The list of the first :math:`p` time-invariant initial condition Markov parameters is
+
+            .. math::
+
+                \\left[D, CB, CAB, CA^2B, \\cdots, CA^{p-2}B\\right].
 
 
-    Parameters:
-        -
-
-    Returns:
-        -
-
-    Imports:
-        -
-
-    Description:
-
-
-    See Also:
-        -
+        See Also:
+            - :py:mod:`~SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters`
     """
 
-    markov_parameters = [D(0)]
+    A_mat = A(0)
+    B_mat = B(0)
+    C_mat = C(0)
+    D_mat = D(0)
 
-    for i in range(number_steps - 1):
-        markov_parameters.append(np.matmul(C(0), np.matmul(matpow(A(0), i), B(0))))
+    markov_parameters = [D_mat]
+    temp = C_mat
+
+    for i in range(1, number_steps):
+        markov_parameters.append(np.matmul(temp, B_mat))
+        temp = np.matmul(temp, A_mat)
 
     return markov_parameters

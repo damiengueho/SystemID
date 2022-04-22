@@ -1,44 +1,70 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
 
 import numpy as np
-from numpy import linalg as LA
-from scipy.linalg import fractional_matrix_power as matpow
+import scipy.linalg as LA
 
-
-from systemID.SystemIDAlgorithms.IdentificationInitialCondition import identificationInitialCondition
-from systemID.ClassesGeneral.ClassSignal import DiscreteSignal
 from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
 
 
-def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs):
+def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, **kwargs):
     """
     Purpose:
+        Compute a balanced state-space realization :math:`(\hat{A}, \hat{C})` of a linear time-invariant
+        system from a set of output data :math:`\{\\boldsymbol{y}^{\# i}\}_{i=1..N}`. This modified version of ERA takes
+        advantage of data correlation to minimize the effect of noise in the data.
 
 
     Parameters:
-        -
+        - **output_signals** (``list``): a list of ``DiscreteSignals``.
+        - **state_dimension** (``int``): the dimension, :math:`n`, of the balanced realization (most observable subspace).
+        - **p** (``int``, optional): the number of row blocks of the Hankel matrices. If not specified, :math:`p=\\lfloor (N-1)/2\\rfloor`.
+        - **q** (``int``, optional): the number of column blocks of the Hankel matrices. If not specified, :math:`q=\min(p, \\lfloor (N-1)/2\\rfloor)`.
+        - **xi** (``int``, optional):
+        - **zeta** (``int``, optional):
+        - **tau** (``int``, optional):
 
     Returns:
-        -
+        - **A** (``fun``): the identified system matrix :math:`\hat{A}`.
+        - **B** (``fun``): a zero input influence matrix :math:`\hat{B}`.
+        - **C** (``fun``): the identified output influence matrix :math:`\hat{C}`.
+        - **D** (``fun``): a zero direct transmission matrix :math:`\hat{D}`.
+        - **X0** (``np.array``): the set of identified initial conditions corresponding to each signal from **output_signals**. Each column corresponds to one initial condition.
+        - **H0** (``np.array``): the Hankel matrix :math:`H_0`.
+        - **H1** (``np.array``): the Hankel matrix :math:`H_1`.
+        - **R** (``np.array``): the left eigenvectors of :math:`H_0` computed through a singular value decomposition.
+        - **Sigma** (``np.array``): diagonal matrix of singular values of :math:`H_0` computed through a singular value decomposition.
+        - **St** (``np.array``): the right eigenvectors of :math:`H_0` computed through a singular value decomposition.
+        - **Rn** (``np.array``): the first :math:`n` columns of :math:`R`.
+        - **Sigman** (``np.array``): the first :math:`n` rows and :math:`n` columns of :math:`\Sigma`.
+        - **Snt** (``np.array``): the first :math:`n` rows of :math:`S^T`.
+        - **Op** (``np.array``): the observability matrix.
+        - **Rq** (``np.array``): the controllability matrix.
+        - **MAC** (``list``): MAC values.
+        - **MSV** (``list``): MSV values.
 
     Imports:
-        -
+        - ``import numpy as np``
+        - ``import scipy.linalg as LA``
+        - ``from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV``
 
     Description:
 
 
     See Also:
-        -
+        - :py:mod:`~SystemIDAlgorithms.GetMACandMSV.getMACandMSV`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
     """
 
     # Number of Signals
@@ -48,6 +74,7 @@ def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionRespon
     number_steps = output_signals[0].number_steps
 
     # Dimensions
+    input_dimension = 1
     output_dimension = output_signals[0].dimension
 
     # Building pseudo Markov parameters
@@ -120,8 +147,8 @@ def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionRespon
     Sigman = Sigma[0:state_dimension, 0:state_dimension]
 
     # Identified matrices
-    Op = np.matmul(Rn, matpow(Sigman, 1/2))
-    Rq = np.matmul(matpow(Sigman, 1/2), Snt)
+    Op = np.matmul(Rn, LA.sqrtm(Sigman))
+    Rq = np.matmul(LA.sqrtm(Sigman), Snt)
     A_id = np.matmul(LA.pinv(Op), np.matmul(H1, LA.pinv(Rq)))
     X0 = np.matmul(LA.pinv(Op[0:p * output_dimension, :]), H[:, :, 0])[:, 0:number_signals]
     C_id = Op[0:output_dimension, :]
@@ -138,6 +165,5 @@ def eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionRespon
     def D(tk):
         return np.zeros([output_dimension, input_dimension])
 
-    # x0 = identificationInitialCondition(DiscreteSignal(input_dimension, true_output_signal.total_time, true_output_signal.frequency), true_output_signal, A, B, C, D, 0, p)
 
     return A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV

@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -163,9 +163,9 @@ class OutputSignal(DiscreteSignal):
         if signal.signal_type == 'Continuous':
 
             tspan = kwargs.get('tspan', np.array([0, 1]))
-            total_time = tspan[-1]
+            total_time = kwargs.get('total_time', tspan[-1])
             number_steps = len(tspan)
-            frequency = int(round((number_steps - 1) / total_time))
+            frequency = kwargs.get('frequency', int(round((number_steps - 1) / total_time)))
 
             observer = kwargs.get('observer', False)
             reference_output_signal = kwargs.get('reference_output_signal', np.zeros([system.output_dimension, number_steps]))

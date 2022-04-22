@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -250,13 +250,75 @@ def departureDynamicsFromInitialConditionResponse(nominal_system, tspan, deviati
         free_decay_experiments_deviated.input_signals[i] = DiscreteSignal(input_dimension, total_time, frequency)
         free_decay_experiments_deviated.output_signals[i] = subtract2Signals(free_decay_experiments.output_signals[i], nominal_output_signal)
 
-    # ## Create Full Experiment
-    # full_system = ContinuousNonlinearSystem(state_dimension, input_dimension, output_dimension, [(full_deviation_dx0 + nominal_system.x0, 0)], 'Full Experiment System', nominal_system.F, nominal_system.G)
-    # full_input_signal = ContinuousSignal(input_dimension)
-    # full_experiment = Experiments([full_system], [full_input_signal], tspan=tspan)
-    # full_experiment_deviated = copy.deepcopy(full_experiment)
-    # full_experiment_deviated.input_signals[0] = DiscreteSignal(input_dimension, total_time, frequency)
-    # full_experiment_deviated.output_signals[0] = subtract2Signals(full_experiment.output_signals[0], nominal_output_signal)
-
 
     return free_decay_experiments, free_decay_experiments_deviated
+
+
+
+
+
+
+
+
+
+
+def departureDynamicsForcedResponse(nominal_system, nominal_input_signal, deviations_input_signal, tspan):
+    """
+    Purpose:
+
+
+    Parameters:
+        -
+
+    Returns:
+        -
+
+    Imports:
+        -
+
+    Description:
+
+
+    See Also:
+        -
+    """
+
+    # Dimensions
+    state_dimension = nominal_system.state_dimension
+    input_dimension = nominal_system.input_dimension
+    output_dimension = nominal_system.output_dimension
+
+
+    # Time
+    total_time = tspan[-1]
+    frequency = (len(tspan) - 1) / total_time
+
+
+    # Number of experiments
+    number_forced_response_experiments = len(deviations_input_signal)
+
+
+    # Integration Nominal Trajectory
+    nominal_output_signal = OutputSignal(nominal_input_signal, nominal_system, tspan=tspan)
+
+    # Create Forced Response Experiments
+    forced_response_input_signals = []
+    forced_response_systems = [nominal_system] * number_forced_response_experiments
+    for i in range(number_forced_response_experiments):
+
+        def make_u(i):
+            def u(t):
+                return nominal_input_signal.u(t) + deviations_input_signal[i].u(t)
+
+            return u
+
+        forced_response_input_signals.append(ContinuousSignal(input_dimension, signal_shape='External', u=make_u(i)))
+    forced_response_experiments = Experiments(forced_response_systems, forced_response_input_signals, tspan=tspan)
+    forced_response_experiments_deviated = copy.deepcopy(forced_response_experiments)
+    for i in range(number_forced_response_experiments):
+        data = deviations_input_signal[i].u(tspan)
+        forced_response_experiments_deviated.input_signals[i] = DiscreteSignal(input_dimension, total_time, frequency, signal_shape='External', data=data)
+        forced_response_experiments_deviated.output_signals[i] = subtract2Signals(forced_response_experiments.output_signals[i], nominal_output_signal)
+
+
+    return forced_response_experiments, forced_response_experiments_deviated

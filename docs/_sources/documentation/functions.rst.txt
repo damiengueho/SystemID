@@ -67,7 +67,7 @@ Functions
 
 :mod:`eigenSystemRealizationAlgorithmFromInitialConditionResponse`
 ------------------------------------------------------------------
-.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs)
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, **kwargs)
 .. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse
 
    |br|
@@ -87,8 +87,28 @@ Functions
 
 :mod:`eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
 -------------------------------------------------------------------------------------
-.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, input_dimension, **kwargs)
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, **kwargs)
 .. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`generatePolynomialBasisFunctions`
+-------------------------------------------------------------------------------------
+.. py:function:: basis_functions = generatePolynomialBasisFunctions(index)
+.. automodule:: SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`generatePolynomialIndex`
+-------------------------------------------------------------------------------------
+.. py:function:: index = generatePolynomialIndex(dimension, order, **kwargs)
+.. automodule:: SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex
 
    |br|
    |br|
@@ -177,7 +197,7 @@ Functions
 
 :mod:`getObservabilityMatrix`
 -----------------------------
-.. py:function:: O = getObservabilityMatrix(A, C, number_steps, tk, dt)
+.. py:function:: O = getObservabilityMatrix(A, C, number_steps, **kwargs)
 .. automodule:: SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix
 
    |br|
@@ -247,7 +267,7 @@ Functions
 
 :mod:`getTimeVaryingMarkovParameters`
 -------------------------------------
-.. py:function:: time_varying_markov_parameters = getTimeVaryingMarkovParameters(A, B, C, D, tk, dt, number_steps)
+.. py:function:: time_varying_markov_parameters = getTimeVaryingMarkovParameters(A, B, C, D, tk, dt, **kwargs)
 .. automodule:: SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters
 
    |br|
@@ -257,7 +277,7 @@ Functions
 
 :mod:`getTimeVaryingMarkovParameters_matrix`
 --------------------------------------------
-.. py:function:: time_varying_markov_parameters = getTimeVaryingMarkovParameters_matrix(A, B, C, D, k, number_steps)
+.. py:function:: time_varying_markov_parameters_matrix = getTimeVaryingMarkovParameters_matrix(A, B, C, D, k, **kwargs)
 .. automodule:: SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix
 
    |br|

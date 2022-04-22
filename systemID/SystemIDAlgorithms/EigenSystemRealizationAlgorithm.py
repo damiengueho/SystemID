@@ -1,39 +1,63 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
 
 import numpy as np
-from scipy import linalg as LA
+import scipy.linalg as LA
 
 from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
 
 def eigenSystemRealizationAlgorithm(markov_parameters, state_dimension, **kwargs):
     """
-    Purpose:
+        Purpose:
+            Compute a balanced state-space realization :math:`(\hat{A}, \hat{B}, \hat{C}, \hat{D})` of a linear time-invariant
+            system from a set of Markov parameters :math:`\{h_i\}_{i=0..N}`.
 
+        Parameters:
+            - **markov_parameters** (``list``): a list of Markov parameters :math:`\{h_i\}_{i=0..N}`.
+            - **state_dimension** (``int``): the dimension, :math:`n`, of the balanced realization (most observable and controllable subspace).
+            - **p** (``int``, optional): the number of row blocks of the Hankel matrices. If not specified, :math:`p=\\lfloor N/2\\rfloor`.
+            - **q** (``int``, optional): the number of column blocks of the Hankel matrices. If not specified, :math:`q=\min(p, \\lfloor N/2\\rfloor)`.
 
-    Parameters:
-        -
+        Returns:
+            - **A** (``fun``): the identified system matrix :math:`\hat{A}`.
+            - **B** (``fun``): the identified input influence matrix :math:`\hat{B}`.
+            - **C** (``fun``): the identified output influence matrix :math:`\hat{C}`.
+            - **D** (``fun``): the identified direct transmission matrix :math:`\hat{D}`.
+            - **H0** (``np.array``): the Hankel matrix :math:`H_0`.
+            - **H1** (``np.array``): the Hankel matrix :math:`H_1`.
+            - **R** (``np.array``): the left eigenvectors of :math:`H_0` computed through a singular value decomposition.
+            - **Sigma** (``np.array``): diagonal matrix of singular values of :math:`H_0` computed through a singular value decomposition.
+            - **St** (``np.array``): the right eigenvectors of :math:`H_0` computed through a singular value decomposition.
+            - **Rn** (``np.array``): the first :math:`n` columns of :math:`R`.
+            - **Sigman** (``np.array``): the first :math:`n` rows and :math:`n` columns of :math:`\Sigma`.
+            - **Snt** (``np.array``): the first :math:`n` rows of :math:`S^T`.
+            - **Op** (``np.array``): the observability matrix.
+            - **Rq** (``np.array``): the controllability matrix.
+            - **MAC** (``list``): MAC values.
+            - **MSV** (``list``): MSV values.
 
-    Returns:
-        -
+        Imports:
+            - ``import numpy as np``
+            - ``import scipy.linalg as LA``
+            - ``from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV``
 
-    Imports:
-        -
+        Description:
+            We describe.
 
-    Description:
-
-
-    See Also:
-        -
-    """
+        See Also:
+            - :py:mod:`~SystemIDAlgorithms.GetMACandMSV.getMACandMSV`
+            - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse`
+            - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation`
+            - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
+        """
 
     # Size of Hankel Matrix
     p = kwargs.get('p', int(np.floor((len(markov_parameters) - 1) / 2)))

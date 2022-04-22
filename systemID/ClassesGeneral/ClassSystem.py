@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -15,73 +15,81 @@ from systemID.SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation im
 
 
 
-class System:
-    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name):
-        self.state_dimension = state_dimension
-        self.input_dimension = input_dimension
-        self.output_dimension = output_dimension
-        self.initial_states = initial_states
-        self.x0 = self.initial_states[0][0]
-        self.name = name
-
-
-class DiscreteLinearSystem(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, A, B, C, D, **kwargs):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class DiscreteLinearSystem:
+    def __init__(self, frequency, x0, A, **kwargs):
         self.frequency = frequency
         self.dt = 1 / frequency
         self.system_type = 'Discrete Linear'
+        self.x0 = x0
         self.A = A
-        self.B = B
-        self.C = C
-        self.D = D
-        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
+        self.state_dimension = self.A(0).shape[0]
+        self.B = kwargs.get('B', lambda t: np.zeros([self.state_dimension, 1]))
+        self.input_dimension = self.B(0).shape[1]
+        self.C = kwargs.get('C', lambda t: np.eye(self.state_dimension))
+        self.output_dimension = self.C(0).shape[0]
+        self.D = kwargs.get('D', lambda t: np.zeros([self.output_dimension, self.input_dimension]))
+        self.K = kwargs.get('observer_gain', lambda t: np.zeros([self.state_dimension, self.output_dimension]))
 
 
-class DiscreteNonlinearSystem(System):
-    def __init__(self, frequency, state_dimension, input_dimension, output_dimension, initial_states, name, F, G, **kwargs):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class DiscreteNonlinearSystem:
+    def __init__(self, frequency, x0, F, **kwargs):
         self.frequency = frequency
         self.dt = 1 / frequency
         self.system_type = 'Discrete Nonlinear'
+        self.x0 = x0
+        self.state_dimension = self.x0.shape[0]
         self.F = F
-        self.G = G
-        self.K = kwargs.get('observer_gain', np.zeros([self.state_dimension, self.output_dimension]))
+        self.input_dimension = kwargs.get('input_dimension', 1)
+        self.G = kwargs.get('G', lambda x, t, u: x)
+        self.output_dimension = self.G(np.zeros(self.state_dimension), 0, np.zeros(self.input_dimension)).shape[0]
+        self.K = kwargs.get('observer_gain', lambda t: np.zeros([self.state_dimension, self.output_dimension]))
 
 
-class ContinuousLinearSystem(System):
-    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, A, B, C, D):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class ContinuousLinearSystem:
+    def __init__(self, x0, A, **kwargs):
         self.system_type = 'Continuous Linear'
+        self.x0 = x0
         self.A = A
-        self.B = B
-        self.C = C
-        self.D = D
+        self.state_dimension = self.A(0).shape[0]
+        self.B = kwargs.get('B', lambda t: np.zeros([self.state_dimension, 1]))
+        self.input_dimension = self.B(0).shape[1]
+        self.C = kwargs.get('C', lambda t: np.eye(self.state_dimension))
+        self.output_dimension = self.C(0).shape[0]
+        self.D = kwargs.get('D', lambda t: np.zeros([self.output_dimension, self.input_dimension]))
+        self.K = kwargs.get('observer_gain', lambda t: np.zeros([self.state_dimension, self.output_dimension]))
 
 
-class ContinuousBilinearSystem(System):
-    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, A, N, B, C, D):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class ContinuousBilinearSystem:
+    def __init__(self, x0, A, **kwargs):
         self.system_type = 'Continuous Bilinear'
+        self.x0 = x0
         self.A = A
-        self.N = N
-        self.B = B
-        self.C = C
-        self.D = D
+        self.state_dimension = self.A(0).shape[0]
+        self.B = kwargs.get('B', lambda t: np.zeros([self.state_dimension, 1]))
+        self.input_dimension = self.B(0).shape[1]
+        self.N = kwargs.get('N', lambda t: np.zeros([self.state_dimension, self.state_dimension * self.input_dimension]))
+        self.C = kwargs.get('C', lambda t: np.eye(self.state_dimension))
+        self.output_dimension = self.C(0).shape[0]
+        self.D = kwargs.get('D', lambda t: np.zeros([self.output_dimension, self.input_dimension]))
+        self.K = kwargs.get('observer_gain', lambda t: np.zeros([self.state_dimension, self.output_dimension]))
 
 
-class ContinuousNonlinearSystem(System):
-    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, F, G):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class ContinuousNonlinearSystem:
+    def __init__(self, x0, F, **kwargs):
         self.system_type = 'Continuous Nonlinear'
+        self.x0 = x0
+        self.state_dimension = self.x0.shape[0]
         self.F = F
-        self.G = G
+        self.input_dimension = kwargs.get('input_dimension', 1)
+        self.G = kwargs.get('G', lambda x, t, u: x)
+        self.output_dimension = self.G(np.zeros(self.state_dimension), 0, np.zeros(self.input_dimension)).shape[0]
+        self.K = kwargs.get('observer_gain', lambda t: np.zeros([self.state_dimension, self.output_dimension]))
 
 
-class ContinuousNonlinearSystemHigherOrderExpansion(System):
-    def __init__(self, state_dimension, input_dimension, output_dimension, initial_states, name, F, G, Acs, x0_nominal, u_nominal, tspan):
-        super().__init__(state_dimension, input_dimension, output_dimension, initial_states, name)
+class ContinuousNonlinearSystemHigherOrderExpansion:
+    def __init__(self, x0, F, G, Acs, x0_nominal, u_nominal, tspan):
         self.system_type = 'Continuous Nonlinear Higher Order Expansion'
+        self.x0 = x0
         self.F = F
         self.G = G
         self.Acs = Acs

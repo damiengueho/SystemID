@@ -1,16 +1,15 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
 
 import numpy as np
-from numpy import linalg as LA
-from scipy.linalg import fractional_matrix_power as matpow
+import scipy.linalg as LA
 
 from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 
@@ -20,22 +19,51 @@ from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV
 def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs):
     """
     Purpose:
+        Compute a balanced state-space realization :math:`(\hat{A}, \hat{B}, \hat{C}, \hat{D})` of a linear time-invariant
+        system from a set of Markov parameters :math:`\{h_i\}_{i=0..N}`. This modified version of ERA takes advantage of
+        data correlation to minimize the effect of noise in the data.
 
 
     Parameters:
-        -
+        - **markov_parameters** (``list``): a list of Markov parameters :math:`\{h_i\}_{i=0..N}`.
+        - **state_dimension** (``int``): the dimension, :math:`n`, of the balanced realization (most observable and controllable subspace).
+        - **p** (``int``, optional): the number of row blocks of the Hankel matrices. If not specified, :math:`p=\\lfloor N/2\\rfloor`.
+        - **q** (``int``, optional): the number of column blocks of the Hankel matrices. If not specified, :math:`q=\\min(p, \lfloor N/2\\rfloor)`.
+        - **xi** (``int``, optional):
+        - **zeta** (``int``, optional):
+        - **tau** (``int``, optional):
 
     Returns:
-        -
+        - **A** (``fun``): the identified system matrix :math:`\hat{A}`.
+        - **B** (``fun``): the identified input influence matrix :math:`\hat{B}`.
+        - **C** (``fun``): the identified output influence matrix :math:`\hat{C}`.
+        - **D** (``fun``): the identified direct transmission matrix :math:`\hat{D}`.
+        - **H0** (``np.array``): the Hankel matrix :math:`H_0`.
+        - **H1** (``np.array``): the Hankel matrix :math:`H_1`.
+        - **R** (``np.array``): the left eigenvectors of :math:`H_0` computed through a singular value decomposition.
+        - **Sigma** (``np.array``): diagonal matrix of singular values of :math:`H_0` computed through a singular value decomposition.
+        - **St** (``np.array``): the right eigenvectors of :math:`H_0` computed through a singular value decomposition.
+        - **Rn** (``np.array``): the first :math:`n` columns of :math:`R`.
+        - **Sigman** (``np.array``): the first :math:`n` rows and :math:`n` columns of :math:`\Sigma`.
+        - **Snt** (``np.array``): the first :math:`n` rows of :math:`S^T`.
+        - **Op** (``np.array``): the observability matrix.
+        - **Rq** (``np.array``): the controllability matrix.
+        - **MAC** (``list``): MAC values.
+        - **MSV** (``list``): MSV values.
 
     Imports:
-        -
+        - ``import numpy as np``
+        - ``import scipy.linalg as LA``
+        - ``from systemID.SystemIDAlgorithms.GetMACandMSV import getMACandMSV``
 
     Description:
 
 
     See Also:
-        -
+        - :py:mod:`~SystemIDAlgorithms.GetMACandMSV.getMACandMSV`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse`
+        - :py:mod:`~SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
     """
 
     # Sizes
@@ -63,17 +91,17 @@ def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_
                 H[i * output_dimension:(i + 1) * output_dimension, j * input_dimension:(j + 1) * input_dimension, k] = markov_parameters[i + j + 1 + k]
 
     # Data Correlation Matrices
-    R = np.zeros([p * output_dimension, p * output_dimension, gamma + 1])
+    HR = np.zeros([p * output_dimension, p * output_dimension, gamma + 1])
     for i in range(gamma + 1):
-        R[:, :, i] = np.matmul(H[:, :, i], np.transpose(H[:, :, 0]))
+        HR[:, :, i] = np.matmul(H[:, :, i], np.transpose(H[:, :, 0]))
 
     # Building Block Correlation Hankel Matrices
     H0 = np.zeros([(xi + 1) * p * output_dimension, (zeta + 1) * p * output_dimension])
     H1 = np.zeros([(xi + 1) * p * output_dimension, (zeta + 1) * p * output_dimension])
     for i in range(xi + 1):
         for j in range(zeta + 1):
-            H0[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = R[:, :, (i + j) * tau]
-            H1[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = R[:, :, (i + j) * tau + 1]
+            H0[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = HR[:, :, (i + j) * tau]
+            H1[i * p * output_dimension:(i + 1) * p * output_dimension, j * p * output_dimension:(j + 1) * p * output_dimension] = HR[:, :, (i + j) * tau + 1]
 
     # SVD H(0)
     (R, sigma, St) = LA.svd(H0, full_matrices=True)
@@ -103,8 +131,8 @@ def eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_
     Sigman = Sigma[0:state_dimension, 0:state_dimension]
 
     # Identified matrices
-    Op = np.matmul(Rn, matpow(Sigman, 1/2))
-    Rq = np.matmul(matpow(Sigman, 1/2), Snt)
+    Op = np.matmul(Rn, LA.sqrtm(Sigman))
+    Rq = np.matmul(LA.sqrtm(Sigman), Snt)
     A_id = np.matmul(LA.pinv(Op), np.matmul(H1, LA.pinv(Rq)))
     B_id = np.matmul(LA.pinv(Op[0:p * output_dimension, :]), H[:, :, 0])[:, 0:input_dimension]
     C_id = Op[0:output_dimension, :]

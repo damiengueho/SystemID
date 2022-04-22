@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -79,6 +79,7 @@ def timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experime
 
         # Least-Squares solution for Observer Markov Parameters
         Mk = np.matmul(y, LA.pinv(V))
+        print('Error TVOKID', LA.norm(y - np.matmul(Mk, V)))
 
         # Extract Dk
         D[:, :, k] = Mk[:, 0:input_dimension]
@@ -97,7 +98,7 @@ def timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experime
     # Get TV Observer Gain Markov Parameters from TV Observer Markov Parameters
     hkio = getTVObserverGainMarkovParametersFromTVObserverMarkovParameters(hki_observer2, observer_order)
 
-    return D, hki, hkio
+    return D, hki, hkio, hki_observer1, hki_observer2
 
 
 

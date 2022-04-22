@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -50,11 +50,12 @@ def integrate(dynamics, x0, tspan, integration_step, **kwargs):
 
     # Iterate for number of iterations
     for i in range(1, n+1):
+        # print('t =', t)
         k1 = integration_step * dynamics(x, t, u)
-        half_t = np.round(t + 0.5 * integration_step, decimals=4)
+        half_t = np.round(t + 0.5 * integration_step, decimals=8)
         k2 = integration_step * dynamics(x + 0.5 * k1, half_t, u)
         k3 = integration_step * dynamics(x + 0.5 * k2, half_t, u)
-        next_t = np.round(t + integration_step, decimals=3)
+        next_t = np.round(t + integration_step, decimals=8)
         k4 = integration_step * dynamics(x + k3, next_t, u)
 
         # Update next value of x
@@ -65,6 +66,7 @@ def integrate(dynamics, x0, tspan, integration_step, **kwargs):
 
         # Update next value of t
         t = next_t
+
 
 
     return output

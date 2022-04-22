@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -48,4 +48,4 @@ class FrequencyResponseFunction:
 
 class TVOKIDWithObserver:
     def __init__(self, forced_experiments, **kwargs):
-        self.D, self.hki, self.hkio = timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experiments, **kwargs)
+        self.D, self.hki, self.hkio, self.hki_observer1, self.hki_observer2 = timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experiments, **kwargs)

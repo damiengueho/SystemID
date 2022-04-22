@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Functions &mdash; systemID 0.22.1 documentation</title>
+  <title>Functions &mdash; systemID 0.23.1 documentation</title>
   
 
   
@@ -107,6 +107,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generatepolynomialbasisfunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generatepolynomialindex"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getcovariancemarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getCovarianceMarkovParameters</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getdeltamatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getDeltaMatrix</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getinitialconditionresponsemarkovparameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getInitialConditionResponseMarkovParameters</span></code></a></li>
@@ -248,18 +250,21 @@
 <span class="sig-name descname"><span class="pre">natural_frequencies,</span> <span class="pre">damping_ratios</span> <span class="pre">=</span> <span class="pre">calculateNaturalFrequenciesAndDampingRatios(systems)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.CalculateNaturalFrequenciesAndDampingRatios.calculateNaturalFrequenciesAndDampingRatios"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.CalculateNaturalFrequenciesAndDampingRatios.calculateNaturalFrequenciesAndDampingRatios"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute the natural frequencies and associated damping ratios from the system matrix A of a list of systems.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>systems</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of systems.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>natural_frequencies</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of natural frequencies.</p></li>
+<li><p><strong>damping_ratios</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of damping ratios.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -331,8 +336,7 @@
 <dt>Parameters:</dt><dd><ul class="simple">
 <li><p><strong>original_signal</strong> (<code class="docutils literal notranslate"><span class="pre">DiscreteSignal</span></code>): the signal to be augmented.</p></li>
 <li><p><strong>order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the order of single monomials to be appended.</p></li>
-<li><p><strong>post_treatment</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): boolean to know whether or not <strong>max_order</strong> is applied.</p></li>
-<li><p><strong>max_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the maximum order of polynomials to be appended.</p></li>
+<li><p><strong>max_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the maximum order of polynomials to be appended.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
@@ -354,8 +358,8 @@
 </dd>
 <dt>See Also:</dt><dd><ul class="simple">
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">DiscreteSignal</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></p></li>
+<li><p><a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions" title="SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex" title="SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></a></p></li>
 <li><p><a class="reference internal" href="#module-SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalWithGivenFunctions" title="SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalWithGivenFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">createAugmentedSignalWithGivenFunctions</span></code></a></p></li>
 </ul>
 </dd>
@@ -440,25 +444,49 @@
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithm(markov_parameters,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute a balanced state-space realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{B}, \hat{C}, \hat{D})\)</span> of a linear time-invariant
+system from a set of Markov parameters <span class="math notranslate nohighlight">\(\{h_i\}_{i=0..N}\)</span>.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of Markov parameters <span class="math notranslate nohighlight">\(\{h_i\}_{i=0..N}\)</span>.</p></li>
+<li><p><strong>state_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the dimension, <span class="math notranslate nohighlight">\(n\)</span>, of the balanced realization (most observable and controllable subspace).</p></li>
+<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of row blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(p=\lfloor N/2\rfloor\)</span>.</p></li>
+<li><p><strong>q</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of column blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(q=\min(p, \lfloor N/2\rfloor)\)</span>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified system matrix <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified input influence matrix <span class="math notranslate nohighlight">\(\hat{B}\)</span>.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified output influence matrix <span class="math notranslate nohighlight">\(\hat{C}\)</span>.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified direct transmission matrix <span class="math notranslate nohighlight">\(\hat{D}\)</span>.</p></li>
+<li><p><strong>H0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p><strong>H1</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_1\)</span>.</p></li>
+<li><p><strong>R</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the left eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Sigma</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): diagonal matrix of singular values of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>St</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the right eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Rn</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Sigman</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p></li>
+<li><p><strong>Snt</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows of <span class="math notranslate nohighlight">\(S^T\)</span>.</p></li>
+<li><p><strong>Op</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the observability matrix.</p></li>
+<li><p><strong>Rq</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the controllability matrix.</p></li>
+<li><p><strong>MAC</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MAC values.</p></li>
+<li><p><strong>MSV</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MSV values.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">systemID.SystemIDAlgorithms.GetMACandMSV</span> <span class="pre">import</span> <span class="pre">getMACandMSV</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>We describe.</p>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetMACandMSV.getMACandMSV" title="SystemIDAlgorithms.GetMACandMSV.getMACandMSV"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -470,28 +498,54 @@
 <h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">input_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute a balanced state-space realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{C})\)</span> of a linear time-invariant
+system from a set of output data <span class="math notranslate nohighlight">\(\{\boldsymbol{y}^{\# i}\}_{i=1..N}\)</span>.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>output_signals</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of <code class="docutils literal notranslate"><span class="pre">DiscreteSignals</span></code>.</p></li>
+<li><p><strong>state_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the dimension, <span class="math notranslate nohighlight">\(n\)</span>, of the balanced realization (most observable subspace).</p></li>
+<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of row blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(p=\lfloor (N-1)/2\rfloor\)</span>.</p></li>
+<li><p><strong>q</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of column blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(q=\min(p, \lfloor (N-1)/2\rfloor)\)</span>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified system matrix <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): a zero input influence matrix <span class="math notranslate nohighlight">\(\hat{B}\)</span>.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified output influence matrix <span class="math notranslate nohighlight">\(\hat{C}\)</span>.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): a zero direct transmission matrix <span class="math notranslate nohighlight">\(\hat{D}\)</span>.</p></li>
+<li><p><strong>X0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the set of identified initial conditions corresponding to each signal from <strong>output_signals</strong>. Each column corresponds to one initial condition.</p></li>
+<li><p><strong>H0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p><strong>H1</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_1\)</span>.</p></li>
+<li><p><strong>R</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the left eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Sigma</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): diagonal matrix of singular values of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>St</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the right eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Rn</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Sigman</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p></li>
+<li><p><strong>Snt</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows of <span class="math notranslate nohighlight">\(S^T\)</span>.</p></li>
+<li><p><strong>Op</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the observability matrix.</p></li>
+<li><p><strong>Rq</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the controllability matrix.</p></li>
+<li><p><strong>MAC</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MAC values.</p></li>
+<li><p><strong>MSV</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MSV values.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">systemID.SystemIDAlgorithms.GetMACandMSV</span> <span class="pre">import</span> <span class="pre">getMACandMSV</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <p>Description:</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetMACandMSV.getMACandMSV" title="SystemIDAlgorithms.GetMACandMSV.getMACandMSV"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -506,25 +560,54 @@
 <span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute a balanced state-space realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{B}, \hat{C}, \hat{D})\)</span> of a linear time-invariant
+system from a set of Markov parameters <span class="math notranslate nohighlight">\(\{h_i\}_{i=0..N}\)</span>. This modified version of ERA takes advantage of
+data correlation to minimize the effect of noise in the data.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of Markov parameters <span class="math notranslate nohighlight">\(\{h_i\}_{i=0..N}\)</span>.</p></li>
+<li><p><strong>state_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the dimension, <span class="math notranslate nohighlight">\(n\)</span>, of the balanced realization (most observable and controllable subspace).</p></li>
+<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of row blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(p=\lfloor N/2\rfloor\)</span>.</p></li>
+<li><p><strong>q</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of column blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(q=\min(p, \lfloor N/2\rfloor)\)</span>.</p></li>
+<li><p><strong>xi</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
+<li><p><strong>zeta</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
+<li><p><strong>tau</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified system matrix <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified input influence matrix <span class="math notranslate nohighlight">\(\hat{B}\)</span>.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified output influence matrix <span class="math notranslate nohighlight">\(\hat{C}\)</span>.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified direct transmission matrix <span class="math notranslate nohighlight">\(\hat{D}\)</span>.</p></li>
+<li><p><strong>H0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p><strong>H1</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_1\)</span>.</p></li>
+<li><p><strong>R</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the left eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Sigma</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): diagonal matrix of singular values of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>St</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the right eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Rn</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Sigman</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p></li>
+<li><p><strong>Snt</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows of <span class="math notranslate nohighlight">\(S^T\)</span>.</p></li>
+<li><p><strong>Op</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the observability matrix.</p></li>
+<li><p><strong>Rq</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the controllability matrix.</p></li>
+<li><p><strong>MAC</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MAC values.</p></li>
+<li><p><strong>MSV</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MSV values.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">systemID.SystemIDAlgorithms.GetMACandMSV</span> <span class="pre">import</span> <span class="pre">getMACandMSV</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <p>Description:</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetMACandMSV.getMACandMSV" title="SystemIDAlgorithms.GetMACandMSV.getMACandMSV"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmFromInitialConditionResponse</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -536,28 +619,221 @@
 <h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code><a class="headerlink" href="#eigensystemrealizationalgorithmwithdatacorrelationfrominitialconditionresponse" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">input_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
+<span class="sig-name descname"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">X0,</span> <span class="pre">H0,</span> <span class="pre">H1,</span> <span class="pre">R,</span> <span class="pre">Sigma,</span> <span class="pre">St,</span> <span class="pre">Rn,</span> <span class="pre">Sigman,</span> <span class="pre">Snt,</span> <span class="pre">Op,</span> <span class="pre">Rq,</span> <span class="pre">MAC,</span> <span class="pre">MSV</span> <span class="pre">=</span> <span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals,</span> <span class="pre">state_dimension,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"></span><dl class="simple">
+<dt>Purpose:</dt><dd><p>Compute a balanced state-space realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{C})\)</span> of a linear time-invariant
+system from a set of output data <span class="math notranslate nohighlight">\(\{\boldsymbol{y}^{\# i}\}_{i=1..N}\)</span>. This modified version of ERA takes
+advantage of data correlation to minimize the effect of noise in the data.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>output_signals</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of <code class="docutils literal notranslate"><span class="pre">DiscreteSignals</span></code>.</p></li>
+<li><p><strong>state_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the dimension, <span class="math notranslate nohighlight">\(n\)</span>, of the balanced realization (most observable subspace).</p></li>
+<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of row blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(p=\lfloor (N-1)/2\rfloor\)</span>.</p></li>
+<li><p><strong>q</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): the number of column blocks of the Hankel matrices. If not specified, <span class="math notranslate nohighlight">\(q=\min(p, \lfloor (N-1)/2\rfloor)\)</span>.</p></li>
+<li><p><strong>xi</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
+<li><p><strong>zeta</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
+<li><p><strong>tau</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional):</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified system matrix <span class="math notranslate nohighlight">\(\hat{A}\)</span>.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): a zero input influence matrix <span class="math notranslate nohighlight">\(\hat{B}\)</span>.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the identified output influence matrix <span class="math notranslate nohighlight">\(\hat{C}\)</span>.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): a zero direct transmission matrix <span class="math notranslate nohighlight">\(\hat{D}\)</span>.</p></li>
+<li><p><strong>X0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the set of identified initial conditions corresponding to each signal from <strong>output_signals</strong>. Each column corresponds to one initial condition.</p></li>
+<li><p><strong>H0</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_0\)</span>.</p></li>
+<li><p><strong>H1</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the Hankel matrix <span class="math notranslate nohighlight">\(H_1\)</span>.</p></li>
+<li><p><strong>R</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the left eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Sigma</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): diagonal matrix of singular values of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>St</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the right eigenvectors of <span class="math notranslate nohighlight">\(H_0\)</span> computed through a singular value decomposition.</p></li>
+<li><p><strong>Rn</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+<li><p><strong>Sigman</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(n\)</span> columns of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p></li>
+<li><p><strong>Snt</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the first <span class="math notranslate nohighlight">\(n\)</span> rows of <span class="math notranslate nohighlight">\(S^T\)</span>.</p></li>
+<li><p><strong>Op</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the observability matrix.</p></li>
+<li><p><strong>Rq</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the controllability matrix.</p></li>
+<li><p><strong>MAC</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MAC values.</p></li>
+<li><p><strong>MSV</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): MSV values.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">scipy.linalg</span> <span class="pre">as</span> <span class="pre">LA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">systemID.SystemIDAlgorithms.GetMACandMSV</span> <span class="pre">import</span> <span class="pre">getMACandMSV</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <p>Description:</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetMACandMSV.getMACandMSV" title="SystemIDAlgorithms.GetMACandMSV.getMACandMSV"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMACandMSV</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithm</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelation</span></code></a></p></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse" title="SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="generatepolynomialbasisfunctions">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code><a class="headerlink" href="#generatepolynomialbasisfunctions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">basis_functions</span> <span class="pre">=</span> <span class="pre">generatePolynomialBasisFunctions(index)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions"></span><dl>
+<dt>Purpose:</dt><dd><p>The purpose of this program is to create a list of polynomial basis functions given an <strong>index</strong> array.
+The <strong>index</strong> array provides the information about the power of each monomial for each basis function.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>index</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the index array. <strong>index</strong> can be created with <a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex" title="SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>basis_functions</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): list of basis functions.</p></li>
+<li><p><strong>inverse</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>, optional): if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it creates the inverse polynomial basis functions.</p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>Given the <strong>index</strong> array, the program iterates through its rows and columns to build the corresponding basis functions. For example,
+consider an <strong>index</strong> array such that the input vector is of dimension 2 (number of columns of <strong>index</strong>) and the resulting basis functions
+are all the permutation of monomials up to degree 3:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{|c|c|}
+    \hline
+    0 &amp; 0 \\
+    \hline
+    1 &amp; 0 \\
+    \hline
+    2 &amp; 0 \\
+    \hline
+    3 &amp; 0 \\
+    \hline
+    0 &amp; 1 \\
+    \hline
+    1 &amp; 1 \\
+    \hline
+    2 &amp; 1 \\
+    \hline
+    0 &amp; 2 \\
+    \hline
+    1 &amp; 2 \\
+    \hline
+    0 &amp; 3 \\
+    \hline
+\end{array}\end{split}\]</div>
+<p>The program will create a list of 10 basis functions (the number of rows of index) such that if <span class="math notranslate nohighlight">\(\boldsymbol{x} = \begin{bmatrix} x_1 &amp; x_2 \end{bmatrix}^T\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\Phi} = \left[1, x_1, x_1^2, x_1^3, x_2, x_1x_2, x_1^2x_2, x_2^2, x_1x_2^2, x_2^3\right].\]</div>
+<p>Note that basis function <span class="math notranslate nohighlight">\(\phi(\boldsymbol{x}) = 1\)</span> is included as the first basis function with degree <span class="math notranslate nohighlight">\(0\)</span> in <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(0\)</span> in <span class="math notranslate nohighlight">\(x_2\)</span>.
+For more information on how to automatically build the <strong>index</strong> array, see <a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex" title="SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></a>.</p>
+</dd>
+<dt>See Also:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex" title="SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p><br />
+<br /></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="generatepolynomialindex">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialIndex</span></code><a class="headerlink" href="#generatepolynomialindex" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">index</span> <span class="pre">=</span> <span class="pre">generatePolynomialIndex(dimension,</span> <span class="pre">order,</span> <span class="pre">**kwargs)</span></span></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex"></span><dl>
+<dt>Purpose:</dt><dd><p>This function generates all permutations of monomials up to a certain order. It concatenates all the permutations in
+an array, where the number of rows is the number of resulting permutations and the number of columns is the number
+of monomials (or the <strong>dimension</strong> of the input vector).</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): number of monomials.</p></li>
+<li><p><strong>order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): maximum order for a given monomial.</p></li>
+<li><p><strong>max_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, optional): maximum order for a given basis function.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><strong>index</strong> (<code class="docutils literal notranslate"><span class="pre">np.array</span></code>): the index array.</p></li>
+</ul>
+</dd>
+<dt>Imports:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+</ul>
+</dd>
+<dt>Description:</dt><dd><p>Iterating through the <strong>dimension</strong> and the <strong>order</strong>, the program builds an array that contains all the permutations of
+1-D monomials. For example, if <strong>dimension</strong> <span class="math notranslate nohighlight">\(=2\)</span> and <strong>order</strong> <span class="math notranslate nohighlight">\(=3\)</span>, the program creates the array <span class="math notranslate nohighlight">\(I_1\)</span>,
+resulting in 16 permutations. If <strong>max_order</strong> <span class="math notranslate nohighlight">\(=3\)</span> is specified (let’s say we want the possible order of monomials
+to be up to <span class="math notranslate nohighlight">\(3\)</span>, but the resulting basis functions to be of degree at most <span class="math notranslate nohighlight">\(3\)</span>), the program deletes the rows
+with a resulting degree greater than <span class="math notranslate nohighlight">\(3\)</span>. This would result in the array <span class="math notranslate nohighlight">\(I_2\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}I_1 = \begin{array}{|c|c|}
+    \hline
+    0 &amp; 0 \\
+    \hline
+    1 &amp; 0 \\
+    \hline
+    2 &amp; 0 \\
+    \hline
+    3 &amp; 0 \\
+    \hline
+    0 &amp; 1 \\
+    \hline
+    1 &amp; 1 \\
+    \hline
+    2 &amp; 1 \\
+    \hline
+    3 &amp; 1 \\
+    \hline
+    0 &amp; 2 \\
+    \hline
+    1 &amp; 2 \\
+    \hline
+    2 &amp; 2 \\
+    \hline
+    3 &amp; 2 \\
+    \hline
+    0 &amp; 3 \\
+    \hline
+    1 &amp; 3 \\
+    \hline
+    2 &amp; 3 \\
+    \hline
+    3 &amp; 3 \\
+    \hline
+\end{array}, \quad \quad I_2 = \begin{array}{|c|c|}
+    \hline
+    0 &amp; 0 \\
+    \hline
+    1 &amp; 0 \\
+    \hline
+    2 &amp; 0 \\
+    \hline
+    3 &amp; 0 \\
+    \hline
+    0 &amp; 1 \\
+    \hline
+    1 &amp; 1 \\
+    \hline
+    2 &amp; 1 \\
+    \hline
+    0 &amp; 2 \\
+    \hline
+    1 &amp; 2 \\
+    \hline
+    0 &amp; 3 \\
+    \hline
+\end{array}.\end{split}\]</div>
+<p>This resulting <strong>index</strong> array can be use as an argument of <a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions" title="SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code></a>
+to create the resulting polynomial basis functions.</p>
+</dd>
+<dt>See Also:</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#module-SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions" title="SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">generatePolynomialBasisFunctions</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -605,25 +881,40 @@
 <span class="sig-name descname"><span class="pre">Delta</span> <span class="pre">=</span> <span class="pre">getDeltaMatrix(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">number_steps)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetDeltaMatrix.getDeltaMatrix"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetDeltaMatrix.getDeltaMatrix"></span><dl>
+<dt>Purpose:</dt><dd><p>This function creates the <span class="math notranslate nohighlight">\(\Delta_k\)</span> matrix defined below.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the system matrix.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the input influence matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the output influence matrix.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the direct transmission matrix.</p></li>
+<li><p><strong>tk</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): the time step from which the <span class="math notranslate nohighlight">\(\Delta_k\)</span> matrix is built.</p></li>
+<li><p><strong>dt</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): the length of the time step for which the zero-order hold approximation for the system matrices is valid.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the number of steps <span class="math notranslate nohighlight">\(p\)</span> for which the matrix will be built.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>Delta_k</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the corresponding <span class="math notranslate nohighlight">\(\Delta_k\)</span> matrix.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">systemID.SystemIDAlgorithms.GetTimeVaryingMarkovParameters</span> <span class="pre">import</span> <span class="pre">getTimeVaryingMarkovParameters</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>Returns the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Delta_k = \begin{bmatrix}
+            D_k &amp; &amp; &amp; &amp; \\
+            C_{k+1}B_k &amp; D_{k+1} &amp; &amp; &amp; \\
+            C_{k+2}A_{k+1}B_k &amp; C_{k+2}B_{k+1} &amp; D_{k+2} &amp; &amp; \\
+            \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \\
+            C_{k+p-1}A_{k+p-2}\cdots B_k &amp; C_{k+p-1}A_{k+p-2}\cdots B_{k+1} &amp; C_{k+p-1}A_{k+p-2}\cdots B_{k+2} &amp; \cdots &amp; D_{k+p-1}
+           \end{bmatrix}.\end{split}\]</div>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters" title="SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -638,25 +929,29 @@
 <span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getInitialConditionResponseMarkovParameters(A,</span> <span class="pre">C,</span> <span class="pre">number_steps)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters"></span><dl>
+<dt>Purpose:</dt><dd><p>This program computes a list comprised of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant initial condition Markov parameters.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the system matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the output influence matrix.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the number <span class="math notranslate nohighlight">\(p\)</span> of time-invariant initial condition Markov parameters to compute.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant initial condition Markov parameters.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The list of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant initial condition Markov parameters is</p>
+<div class="math notranslate nohighlight">
+\[\left[C, CA, CA^2, CA^3, \cdots, CA^{p-1}\right].\]</div>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters" title="SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getMarkovParameters</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -704,25 +999,31 @@
 <span class="sig-name descname"><span class="pre">markov_parameters</span> <span class="pre">=</span> <span class="pre">getMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">number_steps)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters"></span><dl>
+<dt>Purpose:</dt><dd><p>This program computes a list comprised of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant Markov parameters.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the system matrix.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the input influence matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the output influence matrix.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the direct transmission matrix.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the number <span class="math notranslate nohighlight">\(p\)</span> of time-invariant Markov parameters to compute.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant Markov parameters.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The list of the first <span class="math notranslate nohighlight">\(p\)</span> time-invariant initial condition Markov parameters is</p>
+<div class="math notranslate nohighlight">
+\[\left[D, CB, CAB, CA^2B, \cdots, CA^{p-2}B\right].\]</div>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters" title="SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getInitialConditionResponseMarkovParameters</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -833,26 +1134,32 @@
 <h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getObservabilityMatrix</span></code><a class="headerlink" href="#getobservabilitymatrix" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">O</span> <span class="pre">=</span> <span class="pre">getObservabilityMatrix(A,</span> <span class="pre">C,</span> <span class="pre">number_steps,</span> <span class="pre">tk,</span> <span class="pre">dt)</span></span></dt>
+<span class="sig-name descname"><span class="pre">O</span> <span class="pre">=</span> <span class="pre">getObservabilityMatrix(A,</span> <span class="pre">C,</span> <span class="pre">number_steps,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix"></span><dl>
+<dt>Purpose:</dt><dd><p>This function calculates the observability matrix at time <strong>tk</strong>.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the system matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the output influence matrix.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the block size <span class="math notranslate nohighlight">\(p\)</span> of the observability matrix.</p></li>
+<li><p><strong>tk</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <em>optional</em>): the starting time step. If not specified, its value is <span class="math notranslate nohighlight">\(0\)</span>.</p></li>
+<li><p><strong>dt</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <em>optional</em>): the length of the time step for which the zero-order hold approximation for the system matrices is valid. If not specified, its value is <span class="math notranslate nohighlight">\(0\)</span>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>O</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the corresponding observability matrix.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The algorithm builds the observability matrix <span class="math notranslate nohighlight">\(O_k^{(p)}\)</span> from time step <strong>tk</strong> such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}O_k^{(p)} = \begin{bmatrix} C_k \\ C_{k+1}A_k \\ C_{k+2}A_{k+1}A_k \\ \vdots \\ C_{k+p-1}A_{k+p-2}\cdots A_k \end{bmatrix}.\end{split}\]</div>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
 <li></li>
 </ul>
@@ -968,23 +1275,30 @@
 <span class="sig-name descname"><span class="pre">p,</span> <span class="pre">q</span> <span class="pre">=</span> <span class="pre">getOptimizedHankelMatrixSize(assumed_order,</span> <span class="pre">output_dimension,</span> <span class="pre">input_dimension)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetOptimizedHankelMatrixSize.getOptimizedHankelMatrixSize"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetOptimizedHankelMatrixSize.getOptimizedHankelMatrixSize"></span><dl>
+<dt>Purpose:</dt><dd><p>This algorithm provides the minimum number of row blocks, <span class="math notranslate nohighlight">\(p\)</span>, and column blocks, <span class="math notranslate nohighlight">\(q\)</span>, of the
+Hankel matrix to be full rank. This is in the context of model reduction, where the matrix is filled with Markov parameters
+of a linear system.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>assumed_order</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the assumed rank, <span class="math notranslate nohighlight">\(n\)</span>, of the Hankel matrix.</p></li>
+<li><p><strong>output_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the output dimension, <span class="math notranslate nohighlight">\(m\)</span>, of the linear system.</p></li>
+<li><p><strong>input_dimension</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the input dimension, <span class="math notranslate nohighlight">\(r\)</span>, of the linear system.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>p</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the minimum number of row blocks, <span class="math notranslate nohighlight">\(p\)</span>, of the Hankel matrix.</p></li>
+<li><p><strong>q</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): the minimum number of column blocks, <span class="math notranslate nohighlight">\(q\)</span>, of the Hankel matrix.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The sizes <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> are calculated such that <span class="math notranslate nohighlight">\(pm \geq n\)</span> and <span class="math notranslate nohighlight">\(qr \geq n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[p = \left\lceil \dfrac{n}{m} \right\rceil, \quad \quad \quad q = \left\lceil\dfrac{n}{r}\right\rceil.\]</div>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
 <li></li>
 </ul>
@@ -1062,28 +1376,38 @@
 <h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code><a class="headerlink" href="#gettimevaryingmarkovparameters" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">time_varying_markov_parameters</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">number_steps)</span></span></dt>
+<span class="sig-name descname"><span class="pre">time_varying_markov_parameters</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">tk,</span> <span class="pre">dt,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"></span><dl>
+<dt>Purpose:</dt><dd><p>This program computes time-varying Markov parameters at time <strong>tk</strong> for a certain number of steps <strong>number_steps</strong>, if specified.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the system matrix.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the input influence matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the output influence matrix.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">fun</span></code>): the direct transmission matrix.</p></li>
+<li><p><strong>tk</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): the time step at which the time-varying Markov parameters are computed.</p></li>
+<li><p><strong>dt</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): the length of the time step for which the zero-order hold approximation for the system matrices is valid.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <em>optional</em>): the number <span class="math notranslate nohighlight">\(p\)</span> of time-varying Markov parameters to compute. If not specified, it will calculate the maximum amount of time-varying Markov parameters possible.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>time_varying_markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of the calculated time-varying Markov parameters.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The list of the time-varying Markov parameters at time <strong>tk</strong> is</p>
+<div class="math notranslate nohighlight">
+\[\left[D_k, C_kB_{k-1}, C_kA_{k-1}B_{k-2}, C_kA_{k-1}A_{k-2}B_{k-3}, \cdots, C_kA_{k-1}\cdots A_1B_0\right].\]</div>
+<p>If the number <span class="math notranslate nohighlight">\(p\)</span> of time-varying Markov parameters to compute, <strong>number_steps</strong>, is specified, the list is
+truncated to reflect only the first <span class="math notranslate nohighlight">\(p\)</span> time-varying Markov parameters.</p>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix" title="SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters_matrix</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -1095,28 +1419,39 @@
 <h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters_matrix</span></code><a class="headerlink" href="#gettimevaryingmarkovparameters-matrix" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">time_varying_markov_parameters</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters_matrix(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">k,</span> <span class="pre">number_steps)</span></span></dt>
+<span class="sig-name descname"><span class="pre">time_varying_markov_parameters_matrix</span> <span class="pre">=</span> <span class="pre">getTimeVaryingMarkovParameters_matrix(A,</span> <span class="pre">B,</span> <span class="pre">C,</span> <span class="pre">D,</span> <span class="pre">k,</span> <span class="pre">**kwargs)</span></span></dt>
 <dd></dd></dl>
 
-<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix"></span><p>Purpose:</p>
-<dl class="simple">
+<span class="target" id="module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix"></span><dl>
+<dt>Purpose:</dt><dd><p>This program computes time-varying Markov parameters at time <strong>tk</strong> for a certain number of steps <strong>number_steps</strong>, if specified.
+The output of this program is identical to <a class="reference internal" href="#module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters" title="SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code></a>
+with the only difference that the input matrices are given as <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> instead of <code class="docutils literal notranslate"><span class="pre">fun</span></code>.</p>
+</dd>
 <dt>Parameters:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>A</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the system matrix.</p></li>
+<li><p><strong>B</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the input influence matrix.</p></li>
+<li><p><strong>C</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the output influence matrix.</p></li>
+<li><p><strong>D</strong> (<code class="docutils literal notranslate"><span class="pre">ndarray</span></code>): the direct transmission matrix.</p></li>
+<li><p><strong>k</strong> (<code class="docutils literal notranslate"><span class="pre">float</span></code>): the time step at which the time-varying Markov parameters are computed.</p></li>
+<li><p><strong>number_steps</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <em>optional</em>): the number <span class="math notranslate nohighlight">\(p\)</span> of time-varying Markov parameters to compute. If not specified, it will calculate the maximum amount of time-varying Markov parameters possible.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><ul class="simple">
-<li></li>
+<li><p><strong>time_varying_markov_parameters</strong> (<code class="docutils literal notranslate"><span class="pre">list</span></code>): a list of the calculated time-varying Markov parameters.</p></li>
 </ul>
 </dd>
 <dt>Imports:</dt><dd><ul class="simple">
-<li></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code></p></li>
 </ul>
 </dd>
-</dl>
-<p>Description:</p>
-<dl class="simple">
+<dt>Description:</dt><dd><p>The list of the time-varying Markov parameters at time <strong>k</strong> is</p>
+<div class="math notranslate nohighlight">
+\[\left[D_k, C_kB_{k-1}, C_kA_{k-1}B_{k-2}, C_kA_{k-1}A_{k-2}B_{k-3}, \cdots, C_kA_{k-1}\cdots A_1B_0\right].\]</div>
+<p>If the number <span class="math notranslate nohighlight">\(p\)</span> of time-varying Markov parameters to compute, <strong>number_steps</strong>, is specified, the list is
+truncated to reflect only the first <span class="math notranslate nohighlight">\(p\)</span> time-varying Markov parameters.</p>
+</dd>
 <dt>See Also:</dt><dd><ul class="simple">
-<li></li>
+<li><p><a class="reference internal" href="#module-SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters" title="SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">getTimeVaryingMarkovParameters</span></code></a></p></li>
 </ul>
 </dd>
 </dl>

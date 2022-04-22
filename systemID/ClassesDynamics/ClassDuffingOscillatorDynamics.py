@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -28,7 +28,7 @@ class DuffingOscillatorDynamics:
 
     def __init__(self, delta, alpha, beta, **kwargs):
         self.state_dimension = 2
-        self.input_dimension = 1
+        self.input_dimension = 2
         self.output_dimension = 2
         self.delta = delta
         self.alpha = alpha
@@ -49,8 +49,8 @@ class DuffingOscillatorDynamics:
 
     def F(self, x, t, u):
         dxdt = np.zeros(self.state_dimension)
-        dxdt[0] = x[1]
-        dxdt[1] = -self.delta(t) * x[1] - self.alpha(t) * x[0] - self.beta(t) * x[0] ** 3
+        dxdt[0] = x[1] + u(t)[0]
+        dxdt[1] = -self.delta(t) * x[1] - self.alpha(t) * x[0] - self.beta(t) * x[0] ** 3 + u(t)[1]
         return dxdt
 
     def G(self, x, t, u):
@@ -198,9 +198,9 @@ class DuffingOscillatorDynamics3:
         self.alpha = alpha
         self.beta = beta
         self.tspan = kwargs.get('tspan', np.array([0, 1, 2, 3]))
-        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 'No nominal trajectory', 3, 1))
+        self.nominal_x = kwargs.get('nominal_x', DiscreteSignal(self.state_dimension, 3, 1))
         self.nominal_x_interpolated = interp1d(self.tspan, self.nominal_x.data, 'cubic')
-        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 'No nominal input', 3, 1))
+        self.nominal_u = kwargs.get('nominal_u', DiscreteSignal(self.input_dimension, 3, 1))
         self.nominal_u_interpolated = interp1d(self.tspan, self.nominal_u.data, 'cubic')
         self.dt = kwargs.get('dt', 0)
 

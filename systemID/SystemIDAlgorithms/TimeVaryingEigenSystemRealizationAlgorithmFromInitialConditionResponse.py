@@ -1,9 +1,9 @@
 """
 Author: Damien GUEHO
-Copyright: Copyright (C) 2021 Damien GUEHO
+Copyright: Copyright (C) 2022 Damien GUEHO
 License: Public Domain
-Version: 22
-Date: February 2022
+Version: 23
+Date: April 2022
 Python: 3.7.7
 """
 
@@ -36,14 +36,14 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
     """
 
     # Dimensions and number of steps
-    input_dimension = free_decay_experiments.input_dimension
-    output_dimension = free_decay_experiments.output_dimension
+    input_dimension = 1
+    output_dimension = free_decay_experiments.output_signals[0].dimension
     number_free_decay_experiments = free_decay_experiments.number_experiments
     number_steps = free_decay_experiments.output_signals[0].number_steps
 
 
     # Frequency
-    frequency = free_decay_experiments.input_signals[0].frequency
+    frequency = free_decay_experiments.output_signals[0].frequency
 
 
     # Initializing Identified matrices
@@ -141,9 +141,6 @@ def timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_
 
     def D(tk):
         return D_id[:, :, int(round(tk * frequency))]
-
-    # Get x0
-    # x0 = identificationInitialCondition(full_experiment.input_signals[0], full_experiment.output_signals[0], A, B, C, D, 0, p)
 
 
     return A, B, C, D, Ok, Ok1, Sigma, X0, A_id, B_id, C_id, D_id, MAC, MSV, Y
