@@ -12,4 +12,4 @@ class continuous_signal:
     def __init__(self, **kwargs):
         self.signal_type = 'continuous'
 
-        self.signal = kwargs.get('signal', lambda t: 0)
+        self.u = kwargs.get('u', lambda t: 0)

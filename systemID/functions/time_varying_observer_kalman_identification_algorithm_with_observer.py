@@ -36,8 +36,8 @@ def time_varying_observer_kalman_identification_algorithm_with_observer(input_si
     """
 
     # Dimensions
-    input_dimension = input_signals[0].input_dimension
-    output_dimension = output_signals[0].output_dimension
+    input_dimension = input_signals[0].dimension
+    output_dimension = output_signals[0].dimension
     number_steps = output_signals[0].number_steps
     number_experiments = len(output_signals)
 

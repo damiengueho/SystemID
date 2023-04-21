@@ -80,7 +80,7 @@ def eigensystem_realization_algorithm(markov_parameters, state_dimension, **kwar
 
     # MAC and MSV
     mac_msv = kwargs.get('mac_msv', False)
-    if mac_and_msv:
+    if mac_msv:
         pm, qr = H0.shape
         n = min(pm, qr)
         Rn = R[:, 0:n]

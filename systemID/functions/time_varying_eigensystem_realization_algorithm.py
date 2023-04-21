@@ -10,7 +10,7 @@ Version: 24
 import numpy as np
 import scipy.linalg as LA
 
-from systemID.state_space_identification.time_varying import tvera_ic
+from systemID.functions.time_varying_eigensystem_realization_algorithm_from_initial_condition_response import time_varying_eigensystem_realization_algorithm_from_initial_condition_response
 
 def time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dimension, p, q, **kwargs):
     """
@@ -61,15 +61,6 @@ def time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dime
     # Compute first few time steps using free response
     free_response_signals = kwargs.get('free_response_signals', [])
     number_experiments = len(free_response_signals)
-    if number_experiments > 0:
-        tvera_ic_realization = tvera_ic(free_response_signals, state_dimension, p, show_progress=show_progress, mac_msv=mac_msv, max_time_step=q)
-
-    A_id[:, :, 0:q] = tvera_ic_realization.A_id[:, :, 0:q]
-    C_id[:, :, 0:q] = tvera_ic_realization.C_id[:, :, 0:q]
-    Ok[:, :, 0:q] = tvera_ic_realization.Ok[:, :, 0:q]
-    Ok1[:, :, 0:q] = tvera_ic_realization.Ok1[:, :, 0:q]
-
-    Sigma = Sigma + tvera_ic_realization.Sigma
 
 
     # First Hpq1
@@ -85,7 +76,7 @@ def time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dime
     for k in range(q, number_steps - p - 1):
 
         if show_progress:
-            print('Step', k + 1, 'out of', number_steps - p)
+            print('Step', k + 1, 'out of', number_steps - p - 1)
 
 
         Hpq2 = np.zeros([(p + 1) * output_dimension, q * input_dimension])
@@ -132,20 +123,33 @@ def time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dime
         (R1, sigma1, St1) = (R2, sigma2, St2)
 
 
+    X0_tvera_ic = 'N/A'
     # Calculating first q A, B, C - Free Response
-    for k in range(q):
-        # Calculating corresponding Hp1
-        Hp1 = hki[k * output_dimension:(k + p) * output_dimension, k*input_dimension:(k + 1) * input_dimension]
+    if number_experiments > 0:
+        _, _, Ok_tvera_ic, Ok1_tvera_ic, Sigma_tvera_ic, X0_tvera_ic, A_id_tvera_ic, C_id_tvera_ic, MAC_tvera_ic, MSV_tvera_ic, Y = time_varying_eigensystem_realization_algorithm_from_initial_condition_response(free_response_signals, state_dimension, p, show_progress=show_progress, mac_msv=mac_msv, max_time_step=q)
 
-        # Identified matrices
-        if apply_transformation:
-            Tkp1 = np.matmul(LA.pinv(Ok[:, :, q]), Ok1[:, :, k])
-            Tk = np.matmul(LA.pinv(Ok[:, :, q]), Ok[:, :, k])
-            A_id[:, :, k] = np.matmul(Tkp1, A_id[:, :, k], LA.pinv(Tk))
-            B_id[:, :, k] = np.matmul(Tkp1, np.matmul(LA.pinv(O2), Hp1))
-            C_id[:, :, k] = np.matmul(C_id[:, :, k], LA.pinv(Tk))
-        else:
-            B_id[:, :, k] = np.matmul(LA.pinv(O2), Hp1)
+        A_id[:, :, 0:q] = A_id_tvera_ic[:, :, 0:q]
+        C_id[:, :, 0:q] = C_id_tvera_ic[:, :, 0:q]
+        Ok[:, :, 0:q] = Ok_tvera_ic[:, :, 0:q]
+        Ok1[:, :, 0:q] = Ok1_tvera_ic[:, :, 0:q]
+
+        Sigma = Sigma + Sigma_tvera_ic
+
+        for k in range(q):
+            # Calculating corresponding Hp1
+            Hp1 = hki[k * output_dimension:(k + p) * output_dimension, k*input_dimension:(k + 1) * input_dimension]
+
+            # Identified matrices
+            if apply_transformation:
+                Tkp1 = np.matmul(LA.pinv(Ok[:, :, q]), Ok1[:, :, k])
+                Tk = np.matmul(LA.pinv(Ok[:, :, q]), Ok[:, :, k])
+
+                A_id[:, :, k] = np.matmul(Tkp1, np.matmul(A_id[:, :, k], LA.pinv(Tk)))
+                B_id[:, :, k] = np.matmul(Tkp1, np.matmul(LA.pinv(Ok1[:, :, k]), Hp1))
+                C_id[:, :, k] = np.matmul(C_id[:, :, k], LA.pinv(Tk))
+
+            else:
+                B_id[:, :, k] = np.matmul(LA.pinv(Ok1[:, :, k]), Hp1)
 
 
     # Create corresponding functions
@@ -162,4 +166,4 @@ def time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dime
         return D_id[:, :, int(round(tk * frequency))]
 
 
-    return A, B, C, D, Ok, Ok1, Sigma, tvera_ic_realization.X0, A_id, B_id, C_id, D_id
+    return A, B, C, D, Ok, Ok1, Sigma, X0_tvera_ic, A_id, B_id, C_id, D_id

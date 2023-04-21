@@ -68,7 +68,7 @@ def time_varying_eigensystem_realization_algorithm_from_initial_condition_respon
     # Construct Y
     Y = np.zeros([(max_time_step + p) * output_dimension, number_experiments])
     for j in range(number_experiments):
-        Y[:, j] = output_signals[j].data.reshape((max_time_step + p) * output_dimension)
+        Y[:, j] = output_signals[j].data[:, 0:max_time_step + p].reshape((max_time_step + p) * output_dimension, order='F')
 
     # Calculating for first time step
     (R1, sigma1, St1) = LA.svd(Y[0:p * output_dimension, :], full_matrices=True)
@@ -83,18 +83,18 @@ def time_varying_eigensystem_realization_algorithm_from_initial_condition_respon
         Sigma.append(sigma1)
 
         # SVD Y2
-        (R2, sigma2, St2) = LA.svd(Y[output_dimension + k:(p + 1) * output_dimension + k, :], full_matrices=True)
+        (R2, sigma2, St2) = LA.svd(Y[output_dimension + k * output_dimension:(p + 1) * output_dimension + k * output_dimension, :], full_matrices=True)
         Sigma2 = np.diag(sigma2)
 
-        if mac_and_msv:
-            pm, qr = Y[0:p * output_dimension, :, k].shape
+        if mac_msv:
+            pm, qr = Y[0:p * output_dimension, :].shape
             n = min(pm, qr)
             Rn = R1[:, 0:n]
             Snt = St1[0:n, :]
             Sigman = Sigma1[0:n, 0:n]
             Op = np.matmul(Rn, LA.sqrtm(Sigman))
             Rq = np.matmul(LA.sqrtm(Sigman), Snt)
-            A_idt = np.matmul(LA.pinv(Op), np.matmul(Y[output_dimension:(p + 1) * output_dimension, :, k], LA.pinv(Rq)))
+            A_idt = np.matmul(LA.pinv(Op), np.matmul(Y[output_dimension + k * output_dimension:(p + 1) * output_dimension + k * output_dimension, :], LA.pinv(Rq)))
             B_idt = Rq[:, 0:input_dimension]
             C_idt = Op[0:output_dimension, :]
             mac, msv = mac_and_msv(A_idt, B_idt, C_idt, Rq, p)
