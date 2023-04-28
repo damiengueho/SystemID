@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DC Motor System &mdash; systemID 24.21 documentation</title>
+  <title>Point Mass in a Rotating Tube &mdash; systemID 24.21 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Point Mass in a Rotating Tube" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html" />
-    <link rel="prev" title="Spring Mass Damper System" href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html" /> 
+    <link rel="next" title="Spring Mass Damper System" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html" />
+    <link rel="prev" title="DC Motor System" href="../dc_motor_system/dc_motor_system_lti_notebook.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,17 +62,17 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">DC Motor System</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Point Mass in a Rotating Tube</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Description-of-the-problem">Description of the problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Code">Code</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
 <ul>
@@ -106,9 +106,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">DC Motor System</li>
+      <li class="breadcrumb-item active">Point Mass in a Rotating Tube</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/damiengueho/SystemID/blob/examples/dc_motor_system/dc_motor_system_lti_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/damiengueho/SystemID/blob/examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -116,26 +116,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="DC-Motor-System">
-<h1>DC Motor System<a class="headerlink" href="#DC-Motor-System" title="Permalink to this heading"></a></h1>
+  <section id="Point-Mass-in-a-Rotating-Tube">
+<h1>Point Mass in a Rotating Tube<a class="headerlink" href="#Point-Mass-in-a-Rotating-Tube" title="Permalink to this heading"></a></h1>
 <section id="Description-of-the-problem">
 <h2>Description of the problem<a class="headerlink" href="#Description-of-the-problem" title="Permalink to this heading"></a></h2>
-<p><img alt="d1d1f4714b474f6f81093ed9c8391c5e" class="center no-scaled-link" src="../../_images/dc_motor_image.png" style="width: 600px;" /></p>
-<p>The DC motor is a frequently used actuator that delivers immediate rotational movement. By pairing it with components such as wheels, drums, or cables, it can also generate linear motion. The input of the system is the voltage source (<span class="math notranslate nohighlight">\(V\)</span>) applied to the motor’s armature, while the output is the position of the shaft (<span class="math notranslate nohighlight">\(\theta\)</span>). The rotor and shaft are assumed to be rigid. We further assume a viscous friction model, that is, the friction torque is proportional to shaft angular
-velocity.</p>
-<p>The differential equations, in state-space form, by choosing the motor position <span class="math notranslate nohighlight">\(x_1=\theta\)</span>, motor speed <span class="math notranslate nohighlight">\(x_2 = \dot{\theta}\)</span> and armature current <span class="math notranslate nohighlight">\(x_3=i\)</span> as the state variables, are</p>
+<p><img alt="de26ef1076c14bf993fa76d0e8cbae07" class="center no-scaled-link" src="../../_images/point_mass_rotating_tube_image.png" style="width: 300px;" /></p>
+<p>Consider the dynamics of a point mass in a rotating tube governed by a second order differential equation given by</p>
 <p><span class="math">\begin{align}
-\dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t)\\ \dot{x}_3(t) \end{bmatrix} =
-\begin{bmatrix} 0 & 1 & 0\\ 0 & -\dfrac{b}{J} & \dfrac{K}{J}\\ 0 & -\dfrac{K}{L} & -\dfrac{R}{L} \end{bmatrix}
-\begin{bmatrix} x_1(t)\\ x_2(t)\\ x_3(t) \end{bmatrix} +
-\begin{bmatrix} 0 \\ 0\\ \dfrac{1}{L} \end{bmatrix}V(t) =
+\delta\ddot{r}(t) = \left(\dot{\theta}^2-\dfrac{k}{m}\right)\delta r(t)+u(t)+l\dot{\theta}^2(t)
+\end{align}</span> where the new variable <span class="math notranslate nohighlight">\(\delta r(t) = r(t) - l\)</span> has been introduced, together with the definition of <span class="math notranslate nohighlight">\(l\)</span>, as the free length of the spring (when no force is applied on it, i.e., Hooke’s Law applies as <span class="math notranslate nohighlight">\(F_s = -k\delta r\)</span>). The function <span class="math notranslate nohighlight">\(u(t)\)</span> is the radial control force applied on the point mass, and the parameters <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> are the spring stiffness and the mass of the point mass of interest. The time variation in this linear system is brought
+about by the profile of the angular velocity of the rotating tube <span class="math notranslate nohighlight">\(\dot{\theta}\)</span>. Choosing the origin of the coordinate system at the position <span class="math notranslate nohighlight">\(r_0 = l\)</span> (with no loss of generality), the second order differential equation is given by <span class="math">\begin{align}
+\delta\ddot{r}(t) = \left(\dot{\theta}^2-\dfrac{k}{m}\right)\delta r(t)+u(t)
+\end{align}</span> where the redefinition of the origin renders the system linear without any extra forcing functions. In the first order state space form (<span class="math notranslate nohighlight">\(x_1(t) = \delta r(t), x_2(t) = \delta\dot{r}(t)\)</span>), the equations can be written as</p>
+<p><span class="math">\begin{align}
+\dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t) \end{bmatrix} =
+\begin{bmatrix} 0 & 1\\ \dot{\theta}^2-\dfrac{k}{m} & 0 \end{bmatrix}
+\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} +
+\begin{bmatrix} 0 \\ 1 \end{bmatrix}u(t) =
 A_c\boldsymbol{x}(t) + B_cu(t),\\
-\boldsymbol{y}(t) &= \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t)\\ x_3(t) \end{bmatrix} =
+\boldsymbol{y}(t) &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} =
 C\boldsymbol{x}(t) + Du(t),\\
-\end{align}</span> where <span class="math">\begin{align}
-A_c = \begin{bmatrix} 0 & 1 & 0\\ 0 & -\dfrac{b}{J} & \dfrac{K}{J}\\ 0 & -\dfrac{K}{L} & -\dfrac{R}{L} \end{bmatrix}, \quad
-B_c = \begin{bmatrix} 0 \\ 0\\ \dfrac{1}{L} \end{bmatrix}, \quad
-C = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}, \quad
+\end{align}</span></p>
+<p><span class="math">\begin{align}
+A_c = \begin{bmatrix} 0 & 1\\ \dot{\theta}^2-\dfrac{k}{m} & 0 \end{bmatrix}, \quad
+B_c = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+C = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad
 D = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
 \end{align}</span> Assuming that <span class="math notranslate nohighlight">\(u(\tau)\)</span> is constant between sample times, i.e. <span class="math notranslate nohighlight">\(u(\tau) = u(k\Delta t)\)</span> for <span class="math notranslate nohighlight">\(k\Delta t\leq \tau &lt; (k+1)\Delta t\)</span>, let’s define the discrete-time model <span class="math">\begin{align}
 \boldsymbol{x}_{k+1} &= A\boldsymbol{x}_{k} + Bu_k,\\
@@ -147,7 +152,7 @@ B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
 </section>
 <section id="Code">
 <h2>Code<a class="headerlink" href="#Code" title="Permalink to this heading"></a></h2>
-<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the DC motor system.</p>
+<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the mass in a rotating tube.</p>
 <p>First, import all necessary packages.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -175,15 +180,13 @@ B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">J</span> <span class="o">=</span> <span class="mf">3.2284e-6</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mf">3.5077e-6</span>
-<span class="n">K</span> <span class="o">=</span> <span class="mf">0.0274</span>
-<span class="n">R</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">L</span> <span class="o">=</span> <span class="mf">2.75e-6</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">theta_dot</span> <span class="o">=</span> <span class="mf">0.3</span>
 
-<span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">input_dimension</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">output_dimension</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">output_dimension</span> <span class="o">=</span> <span class="mi">2</span>
 
 <span class="n">frequency</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">frequency</span>
@@ -199,18 +202,18 @@ B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">b</span><span class="o">/</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="o">/</span><span class="n">J</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">K</span><span class="o">/</span><span class="n">L</span><span class="p">,</span> <span class="o">-</span><span class="n">R</span><span class="o">/</span><span class="n">L</span><span class="p">]])</span>
-<span class="n">Bc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">L</span><span class="p">]])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">theta_dot</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">Bc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
-<span class="p">(</span><span class="n">Ad</span><span class="p">,</span> <span class="n">Bd</span><span class="p">)</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">continuous_to_discrete_matrices</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">Ac</span><span class="p">,</span> <span class="n">Bc</span><span class="o">=</span><span class="n">Bc</span><span class="p">,</span> <span class="n">expansion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Ad</span><span class="p">,</span> <span class="n">Bd</span><span class="p">)</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">continuous_to_discrete_matrices</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">Ac</span><span class="p">,</span> <span class="n">Bc</span><span class="o">=</span><span class="n">Bc</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Ad</span>
-<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Bd</span>
-<span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">output_dimension</span><span class="p">,</span> <span class="n">input_dimension</span><span class="p">])</span>
 
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
@@ -273,14 +276,14 @@ B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Error OKID = 2.183526586242027e-13
+Error OKID = 2.2259142179618677e-15
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_10_1.png" src="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_10_1.png" />
+<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_10_1.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_10_1.png" />
 </div>
 </div>
 <div class="line-block">
@@ -311,15 +314,22 @@ Error OKID = 2.183526586242027e-13
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Position $\theta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Range $r$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Comparison True vs. Identified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Range rate $\dot</span><span class="si">{r}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
@@ -347,14 +357,14 @@ Error OKID = 2.183526586242027e-13
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_14_0.png" src="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_14_0.png" />
+<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_14_0.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_14_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_14_1.png" src="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_14_1.png" />
+<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_14_1.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_14_1.png" />
 </div>
 </div>
 <div class="line-block">
@@ -393,15 +403,15 @@ Error OKID = 2.183526586242027e-13
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-True eigenvalues: [1.00000000e+00+0.j 2.67821742e-03+0.j 1.32348898e-23+0.j]
-Identified eigenvalues: [1.        +0.j 0.00267822+0.j 0.63406493+0.j]
+True eigenvalues: [0.99046519+0.13776322j 0.99046519-0.13776322j]
+Identified eigenvalues: [0.99046519+0.13776322j 0.99046519-0.13776322j]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_16_1.png" src="../../_images/examples_dc_motor_system_dc_motor_system_lti_notebook_16_1.png" />
+<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_16_1.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_lti_notebook_16_1.png" />
 </div>
 </div>
 </section>
@@ -411,8 +421,8 @@ Identified eigenvalues: [1.        +0.j 0.00267822+0.j 0.63406493+0.j]
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html" class="btn btn-neutral float-left" title="Spring Mass Damper System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html" class="btn btn-neutral float-right" title="Point Mass in a Rotating Tube" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../dc_motor_system/dc_motor_system_lti_notebook.html" class="btn btn-neutral float-left" title="DC Motor System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html" class="btn btn-neutral float-right" title="Spring Mass Damper System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

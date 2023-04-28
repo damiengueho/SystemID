@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Point Mass in a Rotating Tube &mdash; systemID 24.21 documentation</title>
+  <title>Spring Mass Damper System &mdash; systemID 24.21 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Example 1" href="../../tutorialsBilinearDynamics/bilinear1.html" />
-    <link rel="prev" title="Spring Mass Damper System" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html" /> 
+    <link rel="next" title="Point Mass in a Rotating Tube" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html" />
+    <link rel="prev" title="Point Mass in a Rotating Tube" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,18 +61,18 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
-<li class="toctree-l1"><a class="reference internal" href="point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Point Mass in a Rotating Tube</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spring Mass Damper System</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Description-of-the-problem">Description of the problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Code">Code</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
 <ul>
@@ -106,9 +106,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Point Mass in a Rotating Tube</li>
+      <li class="breadcrumb-item active">Spring Mass Damper System</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/damiengueho/SystemID/blob/examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/damiengueho/SystemID/blob/examples/spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -116,58 +116,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Point-Mass-in-a-Rotating-Tube">
-<h1>Point Mass in a Rotating Tube<a class="headerlink" href="#Point-Mass-in-a-Rotating-Tube" title="Permalink to this heading"></a></h1>
+  <section id="Spring-Mass-Damper-System">
+<h1>Spring Mass Damper System<a class="headerlink" href="#Spring-Mass-Damper-System" title="Permalink to this heading"></a></h1>
 <section id="Description-of-the-problem">
 <h2>Description of the problem<a class="headerlink" href="#Description-of-the-problem" title="Permalink to this heading"></a></h2>
-<p><img alt="b3b78a7e696745e996f537c234428483" class="center no-scaled-link" src="../../_images/point_mass_rotating_tube_image.png" style="width: 300px;" /></p>
-<p>Consider the dynamics of a point mass in a rotating tube governed by a second order differential equation given by</p>
+<p><img alt="9025c7b9e3cc4079b549e2631b995f16" class="center no-scaled-link" src="../../_images/smdd.png" style="width: 400px;" /></p>
+<p>Consider the dynamics of a damped spring mass system governed by a second order differential equation given by</p>
 <p><span class="math">\begin{align}
-\delta\ddot{r}(t) = \left(\dot{\theta}^2(t)-\dfrac{k}{m}\right)\delta r(t)+u(t)+l\dot{\theta}^2(t)
-\end{align}</span> where the new variable <span class="math notranslate nohighlight">\(\delta r(t) = r(t) - l\)</span> has been introduced, together with the definition of <span class="math notranslate nohighlight">\(l\)</span>, as the free length of the spring (when no force is applied on it, i.e., Hooke’s Law applies as <span class="math notranslate nohighlight">\(F_s = -k\delta r\)</span>). The function <span class="math notranslate nohighlight">\(u(t)\)</span> is the radial control force applied on the point mass, and the parameters <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(m\)</span> are the spring stiffness and the mass of the point mass of interest. The time variation in this linear system is brought
-about by the profile of the angular velocity of the rotating tube <span class="math notranslate nohighlight">\(\dot{\theta}(t)\)</span>. Choosing the origin of the coordinate system at the position <span class="math notranslate nohighlight">\(r_0 = l\)</span> (with no loss of generality), the second order differential equation is given by <span class="math">\begin{align}
-\delta\ddot{r}(t) = \left(\dot{\theta}^2-\dfrac{k}{m}\right)\delta r(t)+u(t)
-\end{align}</span> where the redefinition of the origin renders the system linear time varying without any extra forcing functions. In the first order state space form (<span class="math notranslate nohighlight">\(x_1(t) = \delta r(t), x_2(t) = \delta\dot{r}(t)\)</span>), the equations can be written as</p>
+m\ddot{x}(t) + c\dot{x}(t) + k(t)x(t) = F(t)
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(m(t), c(t)\)</span> and <span class="math notranslate nohighlight">\(k(t)\)</span> are the time-varying mass, damping and spring constants. Variable <span class="math notranslate nohighlight">\(x(t)\)</span> represents the displacement of the mass from the equilibrium and the external forcing is denoted by <span class="math notranslate nohighlight">\(F(t)\)</span>. In a first-order state-space form with <span class="math notranslate nohighlight">\(x_1 = x\)</span> and <span class="math notranslate nohighlight">\(x_2 = \dot{x}\)</span>, the continuous-time model (including its measurement equation) becomes</p>
 <p><span class="math">\begin{align}
 \dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t) \end{bmatrix} =
-\begin{bmatrix} 0 & 1\\ \dot{\theta}^2(t)-\dfrac{k}{m} & 0 \end{bmatrix}
+\begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}
 \begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} +
-\begin{bmatrix} 0 \\ 1 \end{bmatrix}u(t) =
+\begin{bmatrix} 0 \\ 1 \end{bmatrix}F(t) =
 A_c\boldsymbol{x}(t) + B_cu(t),\\
 \boldsymbol{y}(t) &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} =
 C\boldsymbol{x}(t) + Du(t),\\
-\end{align}</span></p>
-<p><span class="math">\begin{align}
-A_c(t) = \begin{bmatrix} 0 & 1\\ \dot{\theta}^2(t)-\dfrac{k}{m} & 0 \end{bmatrix}, \quad
-B_c(t) = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+\end{align}</span> where <span class="math">\begin{align}
+A_c = \begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}, \quad
+B_c = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
 C = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad
 D = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
 \end{align}</span></p>
 <p>To compare with the identified models, analytical discrete-time models are generated by computing the state transition matrix (equivalent <span class="math notranslate nohighlight">\(A_k\)</span>) and the convolution integrals (equivalent <span class="math notranslate nohighlight">\(B_k\)</span> with a zero order hold assumption on the inputs). Because the system matrices are time varying, matrix differential equations are given by <span class="math">\begin{align}
-\dot{\Phi}(t, t_k) = A(t)\Phi(t, t_k), \quad \dot{\Psi}(t, t_k) = A(t)\Psi(t, t_k) + I,
-\end{align}</span> <span class="math notranslate nohighlight">\(\forall \ t \in [t_k, t_{k+1}]\)</span>, with initial conditions :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{align}
-Phi(t_k, t_k) = begin{bmatrix} 1 &amp; 0\</p>
-<blockquote>
-<div><blockquote>
-<div><p>0 &amp; 1</p>
-</div></blockquote>
-<p>end{bmatrix}, quad</p>
-</div></blockquote>
-<dl>
-<dt>Psi(t_k, t_k) = begin{bmatrix} 0 &amp; 0\</dt><dd><blockquote>
-<div><p>0 &amp; 0</p>
-</div></blockquote>
-<p>end{bmatrix}</p>
-</dd>
-</dl>
-<p>end{align}` such that <span class="math">\begin{align}
-A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
-\end{align}</span> would represent the equivalent discrete-time varying system (true model). For the current investigation, the time variation profile of <span class="math notranslate nohighlight">\(\dot{\theta}(t) = 3\sin(\frac{1}{2}t)\)</span>, with the mass and stiffness of the system chosen to be <span class="math notranslate nohighlight">\(m=1\)</span> and <span class="math notranslate nohighlight">\(k=10\)</span>, respectively. The time interval of interest is 20 seconds, with the discretization sampling frequency set to be 10.</p>
+\dot{\Phi}(t, t_k) = A_c(t)\Phi(t, t_k), \quad \dot{\Psi}(t, t_k) = A_c(t)\Psi(t, t_k) + I,
+\end{align}</span> <span class="math notranslate nohighlight">\(\forall \ t \in [t_k, t_{k+1}]\)</span>, with initial conditions</p>
+<p><span class="math">\begin{align}
+\Phi(t_k, t_k) = \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}, \quad
+\Psi(t_k, t_k) = \begin{bmatrix} 0 & 0\\ 0 & 0 \end{bmatrix}
+\end{align}</span> such that <span class="math">\begin{align}
+A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B_c,
+\end{align}</span> would represent the equivalent discrete-time varying system (true model). For the current investigation, the time variation profile of <span class="math">\begin{align}
+m(t) &= \exp(-0.1 * t),\\
+c(t) &= 0.1 + 0.05\cos(t)\\
+k(t) &= 1 + np.sin(2 * t^2).
+\end{align}</span> The time interval of interest is 10 seconds, with the discretization sampling frequency set to be 10.</p>
 <p>Given a time-history of <span class="math notranslate nohighlight">\(\boldsymbol{x}(t_k)\)</span> and <span class="math notranslate nohighlight">\(u(t_k)\)</span>, the objective is to find a realization <span class="math notranslate nohighlight">\((\hat{A}_k, \hat{B}_k, \hat{C}_k, \hat{D}_k)\)</span> of the discrete-time linear model.</p>
 </section>
 <section id="Code">
 <h2>Code<a class="headerlink" href="#Code" title="Permalink to this heading"></a></h2>
-<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the mass in a rotating tube.</p>
+<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the DC motor system.</p>
 <p>First, import all necessary packages.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -196,10 +186,12 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="k">def</span> <span class="nf">theta_dot</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">m</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">k</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">input_dimension</span> <span class="o">=</span> <span class="mi">1</span>
@@ -220,7 +212,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Ac</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">theta_dot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="o">-</span><span class="n">c</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">(</span><span class="n">t</span><span class="p">)]])</span>
 
 <span class="k">def</span> <span class="nf">dPhi</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Ac</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">Phi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
@@ -253,7 +245,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
-<div class="line">  Generate an input signal for 5 seconds.</div>
+<div class="line">  Generate an input signal for 10 seconds.</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -277,7 +269,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
     <span class="n">model_free_response</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">free_x0_training</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">)</span>
     <span class="n">free_output_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">number_steps_training</span><span class="p">])),</span> <span class="n">model_free_response</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">free_outputs_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">free_output_training</span><span class="p">)</span>
-<br/></pre></div>
+<br/><br/></pre></div>
 </div>
 </div>
 <div class="line-block">
@@ -303,7 +295,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">concatenated_singular_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">253</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">127</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">35</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Amplitude of singular values&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time steps&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Singular value index&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Singular value plot from TVERA&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -320,7 +312,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_10_0.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_10_0.png" />
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_10_0.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_10_0.png" />
 </div>
 </div>
 <div class="line-block">
@@ -336,7 +328,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <span class="n">number_steps_testing</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_testing</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">tspan_testing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">)</span>
 
-<span class="n">input_testing</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">tspan_testing</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">input_testing</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">tspan_testing</span><span class="p">))</span>
 <span class="n">output_testing_true</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">output_testing_identified</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">identified_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <br/></pre></div>
@@ -394,14 +386,14 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_14_0.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_14_0.png" />
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_14_0.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_14_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_14_1.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_14_1.png" />
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_14_1.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_14_1.png" />
 </div>
 </div>
 <div class="line-block">
@@ -459,7 +451,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_16_0.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_16_0.png" />
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_16_0.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_16_0.png" />
 </div>
 </div>
 <div class="line-block">
@@ -522,15 +514,7 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_18_0.png" src="../../_images/examples_point_mass_rotating_tube_system_point_mass_rotating_tube_system_ltv_notebook_18_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_18_0.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_ltv_notebook_18_0.png" />
 </div>
 </div>
 </section>
@@ -540,8 +524,8 @@ A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html" class="btn btn-neutral float-left" title="Spring Mass Damper System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../tutorialsBilinearDynamics/bilinear1.html" class="btn btn-neutral float-right" title="Example 1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html" class="btn btn-neutral float-left" title="Point Mass in a Rotating Tube" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html" class="btn btn-neutral float-right" title="Point Mass in a Rotating Tube" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
