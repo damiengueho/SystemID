@@ -1,0 +1,7 @@
+Plotting
+========
+
+.. image:: ../images/under-construction.png
+  :align: center
+  :width: 600
+  :alt: Alternative text

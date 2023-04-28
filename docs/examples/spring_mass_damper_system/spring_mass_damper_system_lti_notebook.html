@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring Mass Damper System &mdash; systemID 24.21 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DC Motor System" href="../dc_motor_system/dc_motor_system_lti_notebook.html" />
+    <link rel="prev" title="Plotting" href="../../documentation/plotting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            systemID
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/relatedPackages.html">Requirements &amp; Related Packages</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/plotting.html">Plotting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spring Mass Damper System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Description-of-the-problem">Description of the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear1.html">Example 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear2.html">Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear3.html">Example 3: Mass-spring-damper system with varying stifness</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Nonlinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsNonlinearDynamics/nonlinearDynamics.html">Example 1:</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../background/aboutSystemID.html">About systemID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/problemsAndSuggestions.html">Problems and Suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">systemID</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Spring Mass Damper System</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/damiengueho/SystemID/blob/examples/spring_mass_damper_system/spring_mass_damper_system_lti_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Spring-Mass-Damper-System">
+<h1>Spring Mass Damper System<a class="headerlink" href="#Spring-Mass-Damper-System" title="Permalink to this heading"></a></h1>
+<section id="Description-of-the-problem">
+<h2>Description of the problem<a class="headerlink" href="#Description-of-the-problem" title="Permalink to this heading"></a></h2>
+<p><img alt="d04f92bb47da4ebbad7bdaa4a772bbe8" class="center no-scaled-link" src="../../_images/smdd.png" style="width: 400px;" /></p>
+<p>Consider the dynamics of a damped spring mass system governed by a second order differential equation given by</p>
+<p><span class="math">\begin{align}
+m\ddot{x}(t) + c\dot{x}(t) + kx(t) = F(t)
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(m, c\)</span> and <span class="math notranslate nohighlight">\(k\)</span> are the mass, damping and spring constants. Variable <span class="math notranslate nohighlight">\(x(t)\)</span> represents the displacement of the mass from the equilibrium and the external forcing is denoted by <span class="math notranslate nohighlight">\(F(t)\)</span>. In a first-order state-space form with <span class="math notranslate nohighlight">\(x_1 = x\)</span> and <span class="math notranslate nohighlight">\(x_2 = \dot{x}\)</span>, the continuous-time model (including its measurement equation) becomes</p>
+<p><span class="math">\begin{align}
+\dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t) \end{bmatrix} =
+\begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}
+\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} +
+\begin{bmatrix} 0 \\ 1 \end{bmatrix}F(t) =
+A_c\boldsymbol{x}(t) + B_cu(t),\\
+\boldsymbol{y}(t) &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} =
+C\boldsymbol{x}(t) + Du(t),\\
+\end{align}</span> where <span class="math">\begin{align}
+A_c = \begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}, \quad
+B_c = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+C = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad
+D = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
+\end{align}</span> Assuming that <span class="math notranslate nohighlight">\(u(\tau)\)</span> is constant between sample times, i.e. <span class="math notranslate nohighlight">\(u(\tau) = u(k\Delta t)\)</span> for <span class="math notranslate nohighlight">\(k\Delta t\leq \tau &lt; (k+1)\Delta t\)</span>, let’s define the discrete-time model <span class="math">\begin{align}
+\boldsymbol{x}_{k+1} &= A\boldsymbol{x}_{k} + Bu_k,\\
+\boldsymbol{y}_{k} &= C\boldsymbol{x}_{k} + Du_k,
+\end{align}</span> where <span class="math">\begin{align}
+A = e^{A_c\Delta t}, \quad
+B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
+\end{align}</span> Given a time-history of <span class="math notranslate nohighlight">\(\boldsymbol{x}(t_k)\)</span> and <span class="math notranslate nohighlight">\(u(t_k)\)</span>, the objective is to find a realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{B}, \hat{C}, \hat{D})\)</span> of the discrete-time linear model.</p>
+</section>
+<section id="Code">
+<h2>Code<a class="headerlink" href="#Code" title="Permalink to this heading"></a></h2>
+<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the damped spring mass system.</p>
+<p>First, import all necessary packages.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">systemID</span> <span class="k">as</span> <span class="nn">sysID</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">LA</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span> <span class="s2">&quot;font.serif&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Computer Modern Roman&quot;</span><span class="p">]})</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.latex.preamble&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\usepackage</span><span class="si">{amsmath}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Define the parameters of the study. Data is collected at a frequency of 10Hz.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">input_dimension</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">output_dimension</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">frequency</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">frequency</span>
+</pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Create the continuous and then discrete-time system matrices. Create the associated discrete linear model.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">m</span><span class="p">]])</span>
+<span class="n">Bc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="p">(</span><span class="n">Ad</span><span class="p">,</span> <span class="n">Bd</span><span class="p">)</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">continuous_to_discrete_matrices</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">Ac</span><span class="p">,</span> <span class="n">Bc</span><span class="o">=</span><span class="n">Bc</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Ad</span>
+<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Bd</span>
+<span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">output_dimension</span><span class="p">,</span> <span class="n">input_dimension</span><span class="p">])</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="n">true_system</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Generate an input signal for 5 seconds.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_time_training</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">number_steps_training</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_training</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">input_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">number_steps_training</span><span class="p">))</span>
+<span class="n">output_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_training</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Identification. The observer order is chosen to be 10. Parameters <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> for the Hankel matrix are chosen to be <span class="math notranslate nohighlight">\(p=q=20\)</span>. The number of Markov parameters calculated is chosen to be 50, enough to populate the Hankel matrix. Singular values are plotted to determine the order of the system.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">okid_</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">okid_with_observer</span><span class="p">([</span><span class="n">input_training</span><span class="p">],</span> <span class="p">[</span><span class="n">output_training</span><span class="p">],</span> <span class="n">observer_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">number_of_parameters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">p</span>
+<span class="n">era_</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">era</span><span class="p">(</span><span class="n">okid_</span><span class="o">.</span><span class="n">markov_parameters</span><span class="p">,</span> <span class="n">state_dimension</span><span class="o">=</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">q</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">era_</span><span class="o">.</span><span class="n">Sigma</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">253</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">127</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">35</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Amplitude of singular values&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Singular value index&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Singular value plot from ERA&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">x0_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="n">identified_system</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">x0_id</span><span class="p">,</span> <span class="n">era_</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">era_</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">era_</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">era_</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Error OKID = 2.8876338787766992e-15
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_10_1.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_10_1.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Testing is accomplished using a sinusoidal signal for 20 seconds.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_time_testing</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">number_steps_testing</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_testing</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">tspan_testing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">)</span>
+
+<span class="n">input_testing</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">tspan_testing</span><span class="p">))</span>
+<span class="n">output_testing_true</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">output_testing_identified</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">identified_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Plotting.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Position $x$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Comparison True vs. Identified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Velocity $\dot</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;2-norm error&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Error True vs. Identified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_14_0.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_14_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_14_1.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_14_1.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Eigenvalues of the true and identified models are compared.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ev_true</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ev_identified</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">era_</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;True eigenvalues:&#39;</span><span class="p">,</span> <span class="n">ev_true</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Identified eigenvalues:&#39;</span><span class="p">,</span> <span class="n">ev_identified</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ev_true</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">ev_true</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ev_identified</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">ev_identified</span><span class="p">),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Imaginary part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Real part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvalues of the system matrix $A$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True eigenvalues: [0.99005398+0.09921166j 0.99005398-0.09921166j]
+Identified eigenvalues: [0.99005398+0.09921166j 0.99005398-0.09921166j]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_16_1.png" src="../../_images/examples_spring_mass_damper_system_spring_mass_damper_system_lti_notebook_16_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../documentation/plotting.html" class="btn btn-neutral float-left" title="Plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../dc_motor_system/dc_motor_system_lti_notebook.html" class="btn btn-neutral float-right" title="DC Motor System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Damien Guého.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-XXXXXXX-1', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pendulum on a Cart &mdash; systemID 24.21 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            systemID
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/relatedPackages.html">Requirements &amp; Related Packages</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/plotting.html">Plotting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear1.html">Example 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear2.html">Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear3.html">Example 3: Mass-spring-damper system with varying stifness</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Nonlinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsNonlinearDynamics/nonlinearDynamics.html">Example 1:</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../background/aboutSystemID.html">About systemID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/problemsAndSuggestions.html">Problems and Suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">systemID</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Pendulum on a Cart</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/damiengueho/SystemID/blob/examples/pendulum_cart_system/pendulum_cart_system_lti_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Pendulum-on-a-Cart">
+<h1>Pendulum on a Cart<a class="headerlink" href="#Pendulum-on-a-Cart" title="Permalink to this heading"></a></h1>
+<section id="Description-of-the-problem">
+<h2>Description of the problem<a class="headerlink" href="#Description-of-the-problem" title="Permalink to this heading"></a></h2>
+<p><img alt="5a47c037193f468682a26f9c86dde481" class="center no-scaled-link" src="../../_images/pendulum_cart_image.png" style="width: 400px;" /></p>
+<p>Consider the dynamics of an inverted pendulum mounted to a motorized cart. The inverted pendulum system is a well-known example in control system literature due to its instability without control. In other words, the pendulum will fall over if the cart isn’t moved to keep it balanced. This system has practical applications, such as the attitude control of a booster rocket during takeoff.</p>
+<p><span class="math">\begin{align}
+m\ddot{x}(t) + c\dot{x}(t) + kx(t) = F(t)
+\end{align}</span></p>
+<p>where <span class="math notranslate nohighlight">\(m, c\)</span> and <span class="math notranslate nohighlight">\(k\)</span> are the mass, damping and spring constants. Variable <span class="math notranslate nohighlight">\(x(t)\)</span> represents the displacement of the mass from the equilibrium and the external forcing is denoted by <span class="math notranslate nohighlight">\(F(t)\)</span>. In a first-order state-space form with <span class="math notranslate nohighlight">\(x_1 = x\)</span> and <span class="math notranslate nohighlight">\(x_2 = \dot{x}\)</span>, the continuous-time model (including its measurement equation) becomes</p>
+<p><span class="math">\begin{align}
+\dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t) \end{bmatrix} =
+\begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}
+\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} +
+\begin{bmatrix} 0 \\ 1 \end{bmatrix}F(t) =
+A_c\boldsymbol{x}(t) + B_cu(t),\\
+\boldsymbol{y}(t) &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t) \end{bmatrix} =
+C\boldsymbol{x}(t) + Du(t),\\
+\end{align}</span> where <span class="math">\begin{align}
+A_c = \begin{bmatrix} 0 & 1\\ -\dfrac{k}{m} & -\dfrac{c}{m} \end{bmatrix}, \quad
+B_c = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+C = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \quad
+D = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
+\end{align}</span> Assuming that <span class="math notranslate nohighlight">\(u(\tau)\)</span> is constant between sample times, i.e. <span class="math notranslate nohighlight">\(u(\tau) = u(k\Delta t)\)</span> for <span class="math notranslate nohighlight">\(k\Delta t\leq \tau &lt; (k+1)\Delta t\)</span>, let’s define the discrete-time model <span class="math">\begin{align}
+\boldsymbol{x}_{k+1} &= A\boldsymbol{x}_{k} + Bu_k,\\
+\boldsymbol{y}_{k} &= C\boldsymbol{x}_{k} + Du_k,
+\end{align}</span> where <span class="math">\begin{align}
+A = e^{A_c\Delta t}, \quad
+B_c = \int_{0}^{\Delta t}e^{A_ct}\mathrm{d}tB_c.
+\end{align}</span> Given a time-history of <span class="math notranslate nohighlight">\(\boldsymbol{x}(t_k)\)</span> and <span class="math notranslate nohighlight">\(u(t_k)\)</span>, the objective is to find a realization <span class="math notranslate nohighlight">\((\hat{A}, \hat{B}, \hat{C}, \hat{D})\)</span> of the discrete-time linear model.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Damien Guého.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-XXXXXXX-1', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

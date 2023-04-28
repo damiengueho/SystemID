@@ -1,0 +1,461 @@
+Functions
+=========
+
+.. |br| raw:: html
+
+   <br />
+
+:mod:`calculateNaturalFrequenciesAndDampingRatios`
+--------------------------------------------------
+.. py:function:: natural_frequencies, damping_ratios = calculateNaturalFrequenciesAndDampingRatios(systems)
+.. automodule:: SystemIDAlgorithms.CalculateNaturalFrequenciesAndDampingRatios.calculateNaturalFrequenciesAndDampingRatios
+
+   |br|
+   |br|
+
+---------------------------------------
+
+:mod:`correctSystemForEigenvaluesCheck`
+---------------------------------------
+.. py:function:: corrected_system = correctSystemForEigenvaluesCheck(system, number_steps, p)
+.. automodule:: SystemIDAlgorithms.CorrectSystemForEigenvaluesCheck.correctSystemForEigenvaluesCheck
+
+   |br|
+   |br|
+
+----------------------------------------------------
+
+:mod:`createAugmentedSignalPolynomialBasisFunctions`
+----------------------------------------------------
+.. py:function:: augmented_signal = createAugmentedSignalPolynomialBasisFunctions(original_signal, order, post_treatment, max_order)
+.. automodule:: SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalPolynomialBasisFunctions
+
+   |br|
+   |br|
+
+----------------------------------------------
+
+:mod:`createAugmentedSignalWithGivenFunctions`
+----------------------------------------------
+.. py:function:: augmented_signal = createAugmentedSignalWithGivenFunctions(original_signal, given_functions)
+.. automodule:: SystemIDAlgorithms.CreateAugmentedSignal.createAugmentedSignalWithGivenFunctions
+
+   |br|
+   |br|
+
+----------------------------------------------------
+
+:mod:`departureDynamicsFromInitialConditionResponse`
+----------------------------------------------------
+.. py:function:: free_decay_experiments, free_decay_experiments_deviated = departureDynamicsFromInitialConditionResponse(nominal_system, tspan, deviations_dx0)
+.. automodule:: SystemIDAlgorithms.DepartureDynamics.departureDynamicsFromInitialConditionResponse
+
+   |br|
+   |br|
+
+--------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithm`
+--------------------------------------
+.. py:function:: A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithm(markov_parameters, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithm.eigenSystemRealizationAlgorithm
+
+   |br|
+   |br|
+
+------------------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmFromInitialConditionResponse`
+------------------------------------------------------------------
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmFromInitialConditionResponse(output_signals, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmFromInitialConditionResponse.eigenSystemRealizationAlgorithmFromInitialConditionResponse
+
+   |br|
+   |br|
+
+---------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmWithDataCorrelation`
+---------------------------------------------------------
+.. py:function:: A, B, C, D, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelation(markov_parameters, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelation.eigenSystemRealizationAlgorithmWithDataCorrelation
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
+-------------------------------------------------------------------------------------
+.. py:function:: A, B, C, D, X0, H0, H1, R, Sigma, St, Rn, Sigman, Snt, Op, Rq, MAC, MSV = eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(output_signals, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.EigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.eigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`generatePolynomialBasisFunctions`
+-------------------------------------------------------------------------------------
+.. py:function:: basis_functions = generatePolynomialBasisFunctions(index)
+.. automodule:: SparseIDAlgorithms.GeneratePolynomialBasisFunctions.generatePolynomialBasisFunctions
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------------------------
+
+:mod:`generatePolynomialIndex`
+-------------------------------------------------------------------------------------
+.. py:function:: index = generatePolynomialIndex(dimension, order, **kwargs)
+.. automodule:: SparseIDAlgorithms.GeneratePolynomialIndex.generatePolynomialIndex
+
+   |br|
+   |br|
+
+------------------------------------
+
+:mod:`getCovarianceMarkovParameters`
+------------------------------------
+.. py:function:: covariance_markov_parameters = getCovarianceMarkovParameters(output_signal, p)
+.. automodule:: SystemIDAlgorithms.GetCovarianceMarkovParameters.getCovarianceMarkovParameters
+
+   |br|
+   |br|
+
+---------------------
+
+:mod:`getDeltaMatrix`
+---------------------
+.. py:function:: Delta = getDeltaMatrix(A, B, C, D, tk, dt, number_steps)
+.. automodule:: SystemIDAlgorithms.GetDeltaMatrix.getDeltaMatrix
+
+   |br|
+   |br|
+
+--------------------------------------------------
+
+:mod:`getInitialConditionResponseMarkovParameters`
+--------------------------------------------------
+.. py:function:: markov_parameters = getInitialConditionResponseMarkovParameters(A, C, number_steps)
+.. automodule:: SystemIDAlgorithms.GetInitialConditionResponseMarkovParameters.getInitialConditionResponseMarkovParameters
+
+   |br|
+   |br|
+
+-------------------
+
+:mod:`getMACandMSV`
+-------------------
+.. py:function:: MAC, MSV = getMACandMSV(A_id, B_id, C_id, Rq, q)
+.. automodule:: SystemIDAlgorithms.GetMACandMSV.getMACandMSV
+
+   |br|
+   |br|
+
+--------------------------
+
+:mod:`getMarkovParameters`
+--------------------------
+.. py:function:: markov_parameters = getMarkovParameters(A, B, C, D, number_steps)
+.. automodule:: SystemIDAlgorithms.GetMarkovParameters.getMarkovParameters
+
+   |br|
+   |br|
+
+--------------------------------------------------------
+
+:mod:`getMarkovParametersFromFrequencyResponseFunctions`
+--------------------------------------------------------
+.. py:function:: DFT_u, DFT_y, Suu, Suy, Syu, Syy, Suu_averaged, Suy_averaged, Syu_averaged, Syy_averaged, transfer_function1, transfer_function2, markov_parameters1, markov_parameters2 = getMarkovParametersFromFrequencyResponseFunctions(experiments)
+.. automodule:: SystemIDAlgorithms.GetMarkovParametersFromFrequencyResponseFunctions.getMarkovParametersFromFrequencyResponseFunctions
+
+   |br|
+   |br|
+
+----------------------------------------------------------------
+
+:mod:`getMarkovParametersFromObserverControllerMarkovParameters`
+----------------------------------------------------------------
+.. py:function:: markov_parameters = getMarkovParametersFromObserverControllerMarkovParameters(observer_controller_markov_parameters, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetMarkovParametersFromObserverControllerMarkovParameters.getMarkovParametersFromObserverControllerMarkovParameters
+
+   |br|
+   |br|
+
+------------------------------------------------------
+
+:mod:`getMarkovParametersFromObserverMarkovParameters`
+------------------------------------------------------
+.. py:function:: markov_parameters = getMarkovParametersFromObserverMarkovParameters(observer_markov_parameters, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetMarkovParametersFromObserverMarkovParameters.getMarkovParametersFromObserverMarkovParameters
+
+   |br|
+   |br|
+
+-----------------------------
+
+:mod:`getObservabilityMatrix`
+-----------------------------
+.. py:function:: O = getObservabilityMatrix(A, C, number_steps, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetObservabilityMatrix.getObservabilityMatrix
+
+   |br|
+   |br|
+
+------------------------------------------------------------------
+
+:mod:`getObserverGainMarkovParametersFromObserverMarkovParameters`
+------------------------------------------------------------------
+.. py:function:: observer_gain_markov_parameters = getObserverGainMarkovParametersFromObserverMarkovParameters(observer_markov_parameters, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetObserverGainMarkovParametersFromObserverMarkovParameters.getObserverGainMarkovParametersFromObserverMarkovParameters
+
+   |br|
+   |br|
+
+----------------------------
+
+:mod:`getObserverGainMatrix`
+----------------------------
+.. py:function:: G, O, Yo = getObserverGainMatrix(A, C, observer_gain_markov_parameters, tk, dt, order)
+.. automodule:: SystemIDAlgorithms.GetObserverGainMatrix.getObserverGainMatrix
+
+   |br|
+   |br|
+
+----------------------------------
+
+:mod:`getObserverMarkovParameters`
+----------------------------------
+.. py:function:: observer_markov_parameters = getObserverMarkovParameters(A, B, C, D, G, number_steps)
+.. automodule:: SystemIDAlgorithms.GetObserverMarkovParameters.getObserverMarkovParameters
+
+   |br|
+   |br|
+
+-----------------------------------
+
+:mod:`getOptimizedHankelMatrixSize`
+-----------------------------------
+.. py:function:: p, q = getOptimizedHankelMatrixSize(assumed_order, output_dimension, input_dimension)
+.. automodule:: SystemIDAlgorithms.GetOptimizedHankelMatrixSize.getOptimizedHankelMatrixSize
+
+   |br|
+   |br|
+
+---------------------------
+
+:mod:`findPreviousPowerOf2`
+---------------------------
+.. py:function:: m = findPreviousPowerOf2(n)
+.. automodule:: SystemIDAlgorithms.GetPowerOf2.findPreviousPowerOf2
+
+   |br|
+   |br|
+
+-----------------------
+
+:mod:`findNextPowerOf2`
+-----------------------
+.. py:function:: m = findNextPowerOf2(n)
+.. automodule:: SystemIDAlgorithms.GetPowerOf2.findNextPowerOf2
+
+   |br|
+   |br|
+
+-------------------------------------
+
+:mod:`getTimeVaryingMarkovParameters`
+-------------------------------------
+.. py:function:: time_varying_markov_parameters = getTimeVaryingMarkovParameters(A, B, C, D, tk, dt, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters
+
+   |br|
+   |br|
+
+--------------------------------------------
+
+:mod:`getTimeVaryingMarkovParameters_matrix`
+--------------------------------------------
+.. py:function:: time_varying_markov_parameters_matrix = getTimeVaryingMarkovParameters_matrix(A, B, C, D, k, **kwargs)
+.. automodule:: SystemIDAlgorithms.GetTimeVaryingMarkovParameters.getTimeVaryingMarkovParameters_matrix
+
+   |br|
+   |br|
+
+---------------------------------------
+
+:mod:`getTimeVaryingObserverGainMatrix`
+---------------------------------------
+.. py:function:: G = getTimeVaryingObserverGainMatrix(A, C, hkio, order, dt)
+.. automodule:: SystemIDAlgorithms.GetTimeVaryingObserverGainMatrix.getTimeVaryingObserverGainMatrix
+
+   |br|
+   |br|
+
+----------------------------------------------------------
+
+:mod:`getTVMarkovParametersFromTVObserverMarkovParameters`
+----------------------------------------------------------
+.. py:function:: hki, h2, r = getTVMarkovParametersFromTVObserverMarkovParameters(D, hki_observer1, hki_observer2, observer_order)
+.. automodule:: SystemIDAlgorithms.GetTVMarkovParametersFromTVObserverMarkovParameters.getTVMarkovParametersFromTVObserverMarkovParameters
+
+   |br|
+   |br|
+
+----------------------------------------------------------------------
+
+:mod:`getTVObserverGainMarkovParametersFromTVObserverMarkovParameters`
+----------------------------------------------------------------------
+.. py:function:: hkio = getTVObserverGainMarkovParametersFromTVObserverMarkovParameters(hki_observer2, observer_order)
+.. automodule:: SystemIDAlgorithms.GetTVObserverGainMarkovParametersFromTVObserverMarkovParameters.getTVObserverGainMarkovParametersFromTVObserverMarkovParameters
+
+   |br|
+   |br|
+
+---------------------------------------------------
+
+:mod:`higherOrderStateTransitionTensorsPropagation`
+---------------------------------------------------
+.. py:function:: A_vec = higherOrderStateTransitionTensorsPropagation(sensitivities, F, u, x0, tspan)
+.. automodule:: SystemIDAlgorithms.HigherOrderStateTransitionTensorsPropagation.higherOrderStateTransitionTensorsPropagation
+
+   |br|
+   |br|
+
+-------------------------------------
+
+:mod:`identificationInitialCondition`
+-------------------------------------
+.. py:function:: x0 = identificationInitialCondition(input_signal, output_signal, A, B, C, D, tk, number_steps)
+.. automodule:: SystemIDAlgorithms.IdentificationInitialCondition.identificationInitialCondition
+
+   |br|
+   |br|
+
+----------------
+
+:mod:`integrate`
+----------------
+.. py:function:: output = integrate(dynamics, x0, tspan, integration_step, **kwargs)
+.. automodule:: SystemIDAlgorithms.Integrate.integrate
+
+   |br|
+   |br|
+
+------------------------------------------------------------------
+
+:mod:`observerControllerKalmanIdentificationAlgorithmWithObserver`
+------------------------------------------------------------------
+.. py:function:: observer_controller_markov_parameters, y, U = observerControllerKalmanIdentificationAlgorithmWithObserver(input_signal, feedback_signal, output_signal, **kwargs)
+.. automodule:: SystemIDAlgorithms.ObserverControllerKalmanIdentificationAlgorithmWithObserver.observerControllerKalmanIdentificationAlgorithmWithObserver
+
+   |br|
+   |br|
+
+--------------------------------------------
+
+:mod:`observerKalmanIdentificationAlgorithm`
+--------------------------------------------
+.. py:function:: markov_parameters = observerKalmanIdentificationAlgorithm(input_signal, output_signal, **kwargs)
+.. automodule:: SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithm.observerKalmanIdentificationAlgorithm
+
+   |br|
+   |br|
+
+--------------------------------------------------------
+
+:mod:`observerKalmanIdentificationAlgorithmWithObserver`
+--------------------------------------------------------
+.. py:function:: observer_markov_parameters = observerKalmanIdentificationAlgorithmWithObserver(input_signal, output_signal, **kwargs)
+.. automodule:: SystemIDAlgorithms.ObserverKalmanIdentificationAlgorithmWithObserver.observerKalmanIdentificationAlgorithmWithObserver
+
+   |br|
+   |br|
+
+-----------------
+
+:mod:`prediction`
+-----------------
+.. py:function:: selected_for_propagation, output_signal_predicted = prediction(nominal_reference, system_reference, nominal, system, input_signal, starting_step, **kwargs)
+.. automodule:: SystemIDAlgorithms.Prediction.prediction
+
+   |br|
+   |br|
+
+------------------
+
+:mod:`propagation`
+------------------
+.. py:function:: y, x = propagation(signal, system, **kwargs)
+.. automodule:: SystemIDAlgorithms.Propagation.propagation
+
+   |br|
+   |br|
+
+-------------------
+
+:mod:`qMarkovCover`
+-------------------
+.. py:function:: A_id, B_id, C_id, D_id = qMarkovCover(markov_parameters, covariance_parameters, Q, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.QMarkovCover.qMarkovCover
+
+   |br|
+   |br|
+
+-------------------------------------------------
+
+:mod:`timeVaryingEigenSystemRealizationAlgorithm`
+-------------------------------------------------
+.. py:function:: A, B, C, D, Ok, Ok1, sigma, A_id, B_id, C_id, D_id = timeVaryingEigenSystemRealizationAlgorithm(free_decay_experiments, hki, D, state_dimension, p, q, **kwargs)
+.. automodule:: SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithm.timeVaryingEigenSystemRealizationAlgorithm
+
+   |br|
+   |br|
+
+-----------------------------------------------------------------------------
+
+:mod:`timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse`
+-----------------------------------------------------------------------------
+.. py:function:: A, B, C, D, Ok, Ok1, Sigma, X0, A_id, B_id, C_id, D_id, MAC, MSV = timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse(free_decay_experiments, state_dimension, p, **kwargs)
+.. automodule:: SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse.timeVaryingEigenSystemRealizationAlgorithmFromInitialConditionResponse
+
+   |br|
+   |br|
+
+--------------------------------------------------------------------
+
+:mod:`timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation`
+--------------------------------------------------------------------
+.. py:function:: A, B, C, D, x0, xq, Ok, Ok1, sigma, Hpnt, Rkt, Hkxzt, Hkxz, Rk = timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation(free_decay_experiments, hki, D, full_experiment, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation.timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelation
+
+   |br|
+   |br|
+
+------------------------------------------------------------------------------------------------
+
+:mod:`timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse`
+------------------------------------------------------------------------------------------------
+.. py:function:: A, B, C, D, x0, Ok, Ok1, sigma, Hpnt, Hkxzt, Rkt = timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse(free_decay_experiments, full_experiment, state_dimension, **kwargs)
+.. automodule:: SystemIDAlgorithms.TimeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse.timeVaryingEigenSystemRealizationAlgorithmWithDataCorrelationFromInitialConditionResponse
+
+   |br|
+   |br|
+
+-------------------------------------------------------------------
+
+:mod:`timeVaryingObserverKalmanIdentificationAlgorithmWithObserver`
+-------------------------------------------------------------------
+.. py:function:: D, hki, hkio = timeVaryingObserverKalmanIdentificationAlgorithmWithObserver(forced_experiments, **kwargs)
+.. automodule:: SystemIDAlgorithms.TimeVaryingObserverKalmanIdentificationAlgorithmWithObserver.timeVaryingObserverKalmanIdentificationAlgorithmWithObserver
+
+   |br|
+   |br|
+
+-----------------------------------
+
+:mod:`weightingSequenceDescription`
+-----------------------------------
+.. py:function:: output_signal = weightingSequenceDescription(input_signal, markov_parameters, **kwargs)
+.. automodule:: SystemIDAlgorithms.WeightingSequenceDescription.weightingSequenceDescription

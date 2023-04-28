@@ -8,3 +8,10 @@
 .wy-nav-content {
    max-width: 2000px !important;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DC Motor System &mdash; systemID 24.21 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            systemID
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingStarted/relatedPackages.html">Requirements &amp; Related Packages</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation/plotting.html">Plotting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear1.html">Example 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear2.html">Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsBilinearDynamics/bilinear3.html">Example 3: Mass-spring-damper system with varying stifness</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials Nonlinear Systems</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorialsNonlinearDynamics/nonlinearDynamics.html">Example 1:</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../background/aboutSystemID.html">About systemID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/problemsAndSuggestions.html">Problems and Suggestions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../background/references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">systemID</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">DC Motor System</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/damiengueho/SystemID/blob/examples/dc_motor_system/dc_motor_system_ltv_notebook.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="DC-Motor-System">
+<h1>DC Motor System<a class="headerlink" href="#DC-Motor-System" title="Permalink to this heading"></a></h1>
+<section id="Description-of-the-problem">
+<h2>Description of the problem<a class="headerlink" href="#Description-of-the-problem" title="Permalink to this heading"></a></h2>
+<p><img alt="9e4ae41e4dbf4cd797b38f57cb377262" class="center no-scaled-link" src="../../_images/dc_motor_image.png" style="width: 600px;" /></p>
+<p>The DC motor is a frequently used actuator that delivers immediate rotational movement. By pairing it with components such as wheels, drums, or cables, it can also generate linear motion. The input of the system is the voltage source (<span class="math notranslate nohighlight">\(V\)</span>) applied to the motor’s armature, while the output is the position of the shaft (<span class="math notranslate nohighlight">\(\theta\)</span>). The rotor and shaft are assumed to be rigid. We further assume a viscous friction model, that is, the friction torque is proportional to shaft angular
+velocity.</p>
+<p>The differential equations, in state-space form, by choosing the motor position <span class="math notranslate nohighlight">\(x_1=\theta\)</span>, motor speed <span class="math notranslate nohighlight">\(x_2 = \dot{\theta}\)</span> and armature current <span class="math notranslate nohighlight">\(x_3=i\)</span> as the state variables, are</p>
+<p><span class="math">\begin{align}
+\dot{\boldsymbol{x}}(t) &= \begin{bmatrix} \dot{x}_1(t)\\ \dot{x}_2(t)\\ \dot{x}_3(t) \end{bmatrix} =
+\begin{bmatrix} 0 & 1 & 0\\ 0 & -\dfrac{b}{J} & \dfrac{K}{J}\\ 0 & -\dfrac{K}{L} & -\dfrac{R}{L} \end{bmatrix}
+\begin{bmatrix} x_1(t)\\ x_2(t)\\ x_3(t) \end{bmatrix} +
+\begin{bmatrix} 0 \\ 0\\ \dfrac{1}{L} \end{bmatrix}V(t) =
+A_c\boldsymbol{x}(t) + B_cu(t),\\
+\boldsymbol{y}(t) &= \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}\begin{bmatrix} x_1(t)\\ x_2(t)\\ x_3(t) \end{bmatrix} =
+C\boldsymbol{x}(t) + Du(t),\\
+\end{align}</span> where <span class="math">\begin{align}
+A_c = \begin{bmatrix} 0 & 1 & 0\\ 0 & -\dfrac{b}{J} & \dfrac{K}{J}\\ 0 & -\dfrac{K}{L} & -\dfrac{R}{L} \end{bmatrix}, \quad
+B_c = \begin{bmatrix} 0 \\ 0\\ \dfrac{1}{L} \end{bmatrix}, \quad
+C = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}, \quad
+D = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
+\end{align}</span></p>
+<p>To compare with the identified models, analytical discrete-time models are generated by computing the state transition matrix (equivalent <span class="math notranslate nohighlight">\(A_k\)</span>) and the convolution integrals (equivalent <span class="math notranslate nohighlight">\(B_k\)</span> with a zero order hold assumption on the inputs). Because the system matrices are time varying, matrix differential equations are given by <span class="math">\begin{align}
+\dot{\Phi}(t, t_k) = A(t)\Phi(t, t_k), \quad \dot{\Psi}(t, t_k) = A(t)\Psi(t, t_k) + I,
+\end{align}</span> <span class="math notranslate nohighlight">\(\forall \ t \in [t_k, t_{k+1}]\)</span>, with initial conditions <span class="math">\begin{align}
+\Phi(t_k, t_k) = \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}, \quad
+\Psi(t_k, t_k) = \begin{bmatrix} 0 & 0\\ 0 & 0 \end{bmatrix}
+\end{align}</span> such that <span class="math">\begin{align}
+A_k = \Phi(t_{k+1}, t_k), \quad B_k = \Psi(t_{k+1}, t_k)B,
+\end{align}</span> would represent the equivalent discrete-time varying system (true model). For the current investigation, the time variation profiles for the resistance and inductance are <span class="math">\begin{align}
+R(t) &= 4(1-\exp(-0.1t)),\\
+L(t) &= 2.75e-6 + 1e-6sin(t).
+\end{align}</span></p>
+<p>The time interval of interest is 20 seconds, with the discretization sampling frequency set to be 10.</p>
+<p>Given a time-history of <span class="math notranslate nohighlight">\(\boldsymbol{x}(t_k)\)</span> and <span class="math notranslate nohighlight">\(u(t_k)\)</span>, the objective is to find a realization <span class="math notranslate nohighlight">\((\hat{A}_k, \hat{B}_k, \hat{C}_k, \hat{D}_k)\)</span> of the discrete-time linear model.</p>
+</section>
+<section id="Code">
+<h2>Code<a class="headerlink" href="#Code" title="Permalink to this heading"></a></h2>
+<p>The code below shows how to use the python systemID package to find a linear representation of the dynamics of the DC motor system.</p>
+<p>First, import all necessary packages.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">systemID</span> <span class="k">as</span> <span class="nn">sysID</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">LA</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span> <span class="s2">&quot;font.serif&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Computer Modern Roman&quot;</span><span class="p">]})</span>
+<span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.latex.preamble&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\usepackage</span><span class="si">{amsmath}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Define the parameters of the study. Data is collected at a frequency of 10Hz.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">J</span> <span class="o">=</span> <span class="mf">3.2284e-6</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">3.5077e-6</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mf">0.0274</span>
+<span class="k">def</span> <span class="nf">R</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">L</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">2.75e-6</span> <span class="o">+</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">state_dimension</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">input_dimension</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">output_dimension</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">frequency</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">frequency</span>
+</pre></div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Create the continuous and then discrete-time system matrices. Create the associated discrete linear model.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Ac</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">b</span><span class="o">/</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="o">/</span><span class="n">J</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">K</span><span class="o">/</span><span class="n">L</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="o">-</span><span class="n">R</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">L</span><span class="p">(</span><span class="n">t</span><span class="p">)]])</span>
+
+<span class="k">def</span> <span class="nf">dPhi</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Ac</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">Phi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">dPhi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tk</span><span class="p">,</span> <span class="n">tk</span> <span class="o">+</span> <span class="n">dt</span><span class="p">]),</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">Bc</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">L</span><span class="p">(</span><span class="n">t</span><span class="p">)]])</span>
+
+<span class="k">def</span> <span class="nf">dPsi</span><span class="p">(</span><span class="n">Psi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Ac</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">Psi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">dPsi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tk</span><span class="p">,</span> <span class="n">tk</span> <span class="o">+</span> <span class="n">dt</span><span class="p">]),</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">),</span> <span class="n">Bc</span><span class="p">(</span><span class="n">tk</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">D</span><span class="p">(</span><span class="n">tk</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">output_dimension</span><span class="p">,</span> <span class="n">input_dimension</span><span class="p">])</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="n">true_system</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.9/site-packages/scipy/integrate/_odepack_py.py:248: ODEintWarning: Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
+  warnings.warn(warning_msg, ODEintWarning)
+</pre></div></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Generate an input signal for 5 seconds.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_experiments</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">total_time_training</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">number_steps_training</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_training</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">forced_inputs_training</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">forced_outputs_training</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_experiments</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">forced_input_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">number_steps_training</span><span class="p">))</span>
+    <span class="n">forced_output_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">forced_input_training</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">forced_inputs_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">forced_input_training</span><span class="p">)</span>
+    <span class="n">forced_outputs_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">forced_output_training</span><span class="p">)</span>
+
+<span class="n">free_outputs_training</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">free_x0_training</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">,</span> <span class="n">number_experiments</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_experiments</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">model_free_response</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">free_x0_training</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">)</span>
+    <span class="n">free_output_training</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">input_dimension</span><span class="p">,</span> <span class="n">number_steps_training</span><span class="p">])),</span> <span class="n">model_free_response</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">free_outputs_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">free_output_training</span><span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></div></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Identification. The observer order is chosen to be 10. Parameters <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> for the Hankel matrix are chosen to be <span class="math notranslate nohighlight">\(p=q=10\)</span>. The number of Markov parameters calculated is chosen to be 50, enough to populate the Hankel matrix. Singular values are plotted to determine the order of the system.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tvokid_</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">tvokid</span><span class="p">(</span><span class="n">forced_inputs_training</span><span class="p">,</span> <span class="n">forced_outputs_training</span><span class="p">,</span> <span class="n">observer_order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">number_of_parameters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">p</span>
+<span class="n">tvera_</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">tvera</span><span class="p">(</span><span class="n">tvokid_</span><span class="o">.</span><span class="n">hki</span><span class="p">,</span> <span class="n">tvokid_</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="n">free_outputs_training</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">apply_transformation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">concatenated_singular_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">arr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">tvera_</span><span class="o">.</span><span class="n">Sigma</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">concatenated_singular_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">concatenated_singular_values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">253</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">127</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">35</span><span class="o">/</span><span class="mi">255</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Amplitude of singular values&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time steps&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Singular value plot from TVERA&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">x0_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">)</span>
+<span class="n">identified_system</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_linear_model</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">x0_id</span><span class="p">,</span> <span class="n">tvera_</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">tvera_</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">tvera_</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">tvera_</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_10_0.png" src="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_10_0.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Testing is accomplished using a sinusoidal signal for just under 10 seconds.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_time_testing</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">-</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+<span class="n">number_steps_testing</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_time_testing</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">tspan_testing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time_testing</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">)</span>
+
+<span class="n">input_testing</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">discrete_signal</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">tspan_testing</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">output_testing_true</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">true_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">output_testing_identified</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">input_testing</span><span class="p">,</span> <span class="n">identified_system</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.9/site-packages/scipy/integrate/_odepack_py.py:248: ODEintWarning: Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
+  warnings.warn(warning_msg, ODEintWarning)
+</pre></div></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Plotting.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Position $\theta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Comparison True vs. Identified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">output_testing_true</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">output_testing_identified</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">145</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;2-norm error&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Error True vs. Identified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.18</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_14_0.png" src="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_14_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_14_1.png" src="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_14_1.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Eigenvalues of the true and raw identified models are compared. They don’t match.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ev_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">])</span>
+<span class="n">ev_identified</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">number_steps_testing</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_steps_testing</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">):</span>
+        <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Real part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvalue 1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvalue 2&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Imaginary part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">,</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.9/site-packages/scipy/integrate/_odepack_py.py:248: ODEintWarning: Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
+  warnings.warn(warning_msg, ODEintWarning)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_16_1.png" src="../../_images/examples_dc_motor_system_dc_motor_system_ltv_notebook_16_1.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">  Eigenvalues of the true and corrected identified models are compared. They now match.</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ev_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">number_steps_testing</span> <span class="o">-</span> <span class="n">p</span><span class="p">])</span>
+<span class="n">ev_identified</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">state_dimension</span><span class="p">,</span> <span class="n">number_steps_testing</span> <span class="o">-</span> <span class="n">p</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_steps_testing</span> <span class="o">-</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">state_dimension</span><span class="p">):</span>
+        <span class="n">O1_true</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">observability_matrix</span><span class="p">(</span><span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">true_system</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">tk</span><span class="o">=</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">O2_true</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">observability_matrix</span><span class="p">(</span><span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">true_system</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">tk</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">O1_true</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">O2_true</span><span class="p">,</span> <span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">O1_true</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">O2_true</span><span class="p">,</span> <span class="n">true_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="n">O1_identified</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">observability_matrix</span><span class="p">(</span><span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">identified_system</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">tk</span><span class="o">=</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">O2_identified</span> <span class="o">=</span> <span class="n">sysID</span><span class="o">.</span><span class="n">observability_matrix</span><span class="p">(</span><span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">identified_system</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">tk</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">O1_identified</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">O2_identified</span><span class="p">,</span> <span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">O1_identified</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">O2_identified</span><span class="p">,</span> <span class="n">identified_system</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">dt</span><span class="p">))))[</span><span class="mi">0</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Real part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvalue 1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvalue 2&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Imaginary part&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_true</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">36</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">251</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tspan_testing</span><span class="p">[:</span><span class="o">-</span><span class="n">p</span><span class="p">],</span> <span class="n">ev_identified</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">221</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">10</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">22</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Identified&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.9/site-packages/scipy/integrate/_odepack_py.py:248: ODEintWarning: Excess work done on this call (perhaps wrong Dfun type). Run with full_output = 1 to get quantitative information.
+  warnings.warn(warning_msg, ODEintWarning)
+
+KeyboardInterrupt
+
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Damien Guého.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-XXXXXXX-1', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

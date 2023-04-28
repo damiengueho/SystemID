@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About systemID &mdash; systemID 0.23.1 documentation</title>
+  <title>About systemID &mdash; systemID 24.21 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> systemID
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            systemID
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,11 +58,14 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTIDynamics/linearTimeInvariantDynamics.html">Example 1:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTVDynamics/PointMassInRotatingTube1.html">Example 1: Point Mass in a Rotating Tube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
 <ul>
@@ -93,8 +103,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>About systemID</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">About systemID</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/damiengueho/SystemID/blob/background/aboutSystemID.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -105,22 +115,22 @@
            <div itemprop="articleBody">
              
   <section id="about-systemid">
-<h1>About systemID<a class="headerlink" href="#about-systemid" title="Permalink to this headline"></a></h1>
+<h1>About systemID<a class="headerlink" href="#about-systemid" title="Permalink to this heading"></a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
 <p><strong>systemID</strong> is an open source collection of Python subroutines for linear and nonlinear system identification.
 <strong>systemID</strong> combines mature and well established system identification algorithms with young, newly developed
 techniques to provide a user friendly API for solving system identification problems.</p>
 </section>
 <section id="history">
-<h2>History<a class="headerlink" href="#history" title="Permalink to this headline"></a></h2>
+<h2>History<a class="headerlink" href="#history" title="Permalink to this heading"></a></h2>
 <p>This work started during my PhD at Penn State while I was investigating how to combine existing system identification
 techniques with more advanced and newly develped methods. I started implementing the basic algorithms for class
 projects and as the number of algorithms was growing I decided to build a Python package that would contain everything
 I need to move forward with data-driven modeling in general.</p>
 </section>
 <section id="future-ideas">
-<h2>Future Ideas<a class="headerlink" href="#future-ideas" title="Permalink to this headline"></a></h2>
+<h2>Future Ideas<a class="headerlink" href="#future-ideas" title="Permalink to this heading"></a></h2>
 <p><strong>systemID</strong> has been historically focused on time-domain system identification, and we would like to improve robustness and velocity of execution.
 In general, we would like to stabilize the API and release a 1.0 version at some point!
 <strong>systemID</strong> represents the first stepping stone of a larger project to build a computationally fast, robust and accurate

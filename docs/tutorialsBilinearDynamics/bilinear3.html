@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example 3: Mass-spring-damper system with varying stifness &mdash; systemID 0.23.1 documentation</title>
+  <title>Example 3: Mass-spring-damper system with varying stifness &mdash; systemID 24.21 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -29,11 +33,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> systemID
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            systemID
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,11 +60,14 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTI Systems</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTIDynamics/linearTimeInvariantDynamics.html">Example 1:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/spring_mass_damper_system/spring_mass_damper_system_lti_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/dc_motor_system/dc_motor_system_lti_notebook.html">DC Motor System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_lti_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials LTV Systems</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorialsLTVDynamics/PointMassInRotatingTube1.html">Example 1: Point Mass in a Rotating Tube</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/spring_mass_damper_system/spring_mass_damper_system_ltv_notebook.html">Spring Mass Damper System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/point_mass_rotating_tube_system/point_mass_rotating_tube_system_ltv_notebook.html">Point Mass in a Rotating Tube</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorials Bilinear Systems</span></p>
 <ul class="current">
@@ -94,8 +105,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Example 3: Mass-spring-damper system with varying stifness</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example 3: Mass-spring-damper system with varying stifness</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/damiengueho/SystemID/blob/tutorialsBilinearDynamics/bilinear3.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -106,9 +117,9 @@
            <div itemprop="articleBody">
              
   <section id="example-3-mass-spring-damper-system-with-varying-stifness">
-<h1>Example 3: Mass-spring-damper system with varying stifness<a class="headerlink" href="#example-3-mass-spring-damper-system-with-varying-stifness" title="Permalink to this headline"></a></h1>
+<h1>Example 3: Mass-spring-damper system with varying stifness<a class="headerlink" href="#example-3-mass-spring-damper-system-with-varying-stifness" title="Permalink to this heading"></a></h1>
 <section id="description-of-the-problem">
-<h2>Description of the problem<a class="headerlink" href="#description-of-the-problem" title="Permalink to this headline"></a></h2>
+<h2>Description of the problem<a class="headerlink" href="#description-of-the-problem" title="Permalink to this heading"></a></h2>
 <p>Consider a mass-spring-damper system with one degree of freedom with no forcing input and a time-varying stifness <span class="math notranslate nohighlight">\(k(t)\)</span> :</p>
 <div class="math notranslate nohighlight">
 \[m\ddot{x} + c\dot{x} + k(t)x = 0.\]</div>
@@ -147,7 +158,7 @@ was performed. The test input applied to the plant is</p>
 \[k(t) = 5 + 4\cos(2t).\]</div>
 </section>
 <section id="code-using-systemid">
-<h2>Code using systemID<a class="headerlink" href="#code-using-systemid" title="Permalink to this headline"></a></h2>
+<h2>Code using systemID<a class="headerlink" href="#code-using-systemid" title="Permalink to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
@@ -235,7 +246,7 @@ was performed. The test input applied to the plant is</p>
 </div>
 </section>
 <section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
 <p>Output profiles obtained from the true and identified systems are compared below.</p>
 <a class="reference internal image-reference" href="../_images/propagation2.png"><img alt="Alternative text" class="align-center" src="../_images/propagation2.png" style="width: 800px;" /></a>
 <p>The singular value decomposition plot is displayed at different time instants.</p>
