@@ -12,8 +12,8 @@ from systemID.functions.time_varying_eigensystem_realization_algorithm_from_init
 
 
 class tvera:
-    def __init__(self, hki, D, frequency, state_dimension, p, q, **kwargs):
-        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0, self.A_id, self.B_id, self.C_id, self.D_id = time_varying_eigensystem_realization_algorithm(hki, D, frequency, state_dimension, p, q, **kwargs)
+    def __init__(self, hki, D, free_response_signals, state_dimension, p, q, **kwargs):
+        self.A, self.B, self.C, self.D, self.Ok, self.Ok1, self.Sigma, self.X0, self.A_id, self.B_id, self.C_id, self.D_id = time_varying_eigensystem_realization_algorithm(hki, D, free_response_signals, state_dimension, p, q, **kwargs)
 
 
 class tvera_ic:

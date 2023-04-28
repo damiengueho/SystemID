@@ -9,6 +9,7 @@ Version: 24
 
 import numpy as np
 import scipy.linalg as LA
+from scipy.integrate import quad
 
 def continuous_to_discrete_matrices(dt, Ac, **kwargs):
     """
@@ -20,6 +21,7 @@ def continuous_to_discrete_matrices(dt, Ac, **kwargs):
             - **dt** (``float``): the discretization time step.
             - **Ac** (``ndarray``): the continuous time-invariant state matrix.
             - **Bc** (``ndarray``, optional): the continuous time-invariant input influence matrix.
+            - **expansion** (``bool``, optional):
 
         Returns:
             - **discrete_matrices** (``list``): a list containing the discrete time-invariant state matrices.
@@ -51,7 +53,21 @@ def continuous_to_discrete_matrices(dt, Ac, **kwargs):
 
     Bc = kwargs.get('Bc', False)
     if (isinstance(Bc, np.ndarray) and Bc.ndim == 2):
-        discrete_matrices.append(np.matmul(A - np.eye(A.shape[0]), np.matmul(LA.pinv(Ac), Bc)))
+        expansion = kwargs.get('expansion', False)
+        if expansion:
+            def func(t):
+                return LA.expm(t * Ac)
+            def integrand(t, row, col):
+                return func(t)[row, col]
+            rows, cols = func(0).shape
+            result_matrix = np.zeros((rows, cols))
+            for row in range(rows):
+                for col in range(cols):
+                    result, _ = quad(integrand, 0, dt, args=(row, col))
+                    result_matrix[row, col] = result
+            discrete_matrices.append(np.matmul(result_matrix, Bc))
+        else:
+            discrete_matrices.append(np.matmul(A - np.eye(A.shape[0]), np.matmul(LA.pinv(Ac), Bc)))
     else:
         raise ValueError("Matrix Bc must be a 2D NumPy ndarray.")
 

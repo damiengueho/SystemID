@@ -8,6 +8,7 @@ from .interpolate import *
 from .mac_and_msv import *
 from .markov_parameters_from_observer_markov_parameters import *
 from .moments_propagation import *
+from .observability_matrix import *
 from .observer_gain_markov_parameters_from_observer_markov_parameters import *
 from .observer_kalman_identification_algorithm import *
 from .observer_kalman_identification_algorithm_with_observer import *
