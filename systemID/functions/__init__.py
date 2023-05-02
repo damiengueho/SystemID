@@ -17,6 +17,7 @@ from .polynomial_index import *
 from .propagate import *
 from .runge_kutta_45 import *
 from .scaling import *
+from .sparse_representation_1st_order import sparse_representation_1st_order
 from .state_transition_tensor_propagation import *
 from .time_invariant_koopman_operator import *
 from .time_varying_eigensystem_realization_algorithm import *

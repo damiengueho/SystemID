@@ -10,8 +10,7 @@ from systemID.functions.eigensystem_realization_algorithm import eigensystem_rea
 from systemID.functions.eigensystem_realization_algorithm_from_initial_condition_response import eigensystem_realization_algorithm_from_initial_condition_response
 from systemID.functions.eigensystem_realization_algorithm_with_data_correlation import eigensystem_realization_algorithm_with_data_correlation
 from systemID.functions.eigensystem_realization_algorithm_with_data_correlation_from_initial_condition_response import eigensystem_realization_algorithm_with_data_correlation_from_initial_condition_response
-
-# from systemID.SystemIDAlgorithms.DynamicModeDecompositionAlgorithm import dynamicModeDecompositionAlgorithm
+from systemID.functions.sparse_representation_1st_order import sparse_representation_1st_order
 
 
 class era:
@@ -33,6 +32,10 @@ class eradc_ic:
     def __init__(self, output_signals, state_dimension, **kwargs):
         self.A, self.C, self.X0, self.H0, self.H1, self.R, self.Sigma, self.St, self.Rn, self.Sigman, self.Snt, self.Op, self.Rq, self.MAC, self.MSV = eigensystem_realization_algorithm_with_data_correlation_from_initial_condition_response(output_signals, state_dimension, **kwargs)
 
+
+class sparse_1st_order:
+    def __init__(self, input_signals, output_signals, basis_functions, lambda1, relax_coefficient, threshold, max_iterations, **kwargs):
+        self.coefficients_least_squares, self.coefficients_sparse = sparse_representation_1st_order(input_signals, output_signals, basis_functions, lambda1, relax_coefficient, threshold, max_iterations, **kwargs)
 
 # class tiko:
 #     def __init__(self,):
