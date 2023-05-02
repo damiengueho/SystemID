@@ -66,7 +66,8 @@ Find Github code source: `systemID <https://github.com/damiengueho/SystemID>`_.
    :hidden:
    :caption: Tutorials Nonlinear Systems
 
-   tutorialsNonlinearDynamics/nonlinearDynamics
+   examples/lorenz_oscillator/lorenz_oscillator_sparse_notebook.ipynb
+   examples/duffing_oscillator/duffing_oscillator_sparse_notebook.ipynb
 
 
 .. toctree::
