@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '24.22.1'
+VERSION = '25.0'
 DESCRIPTION = 'Package for time domain system identification. LTI and LTV systems, bilinear systems and nonlinear systems.'
 LONG_DESCRIPTION = 'Package for time domain system identification. Supports linear time-invariant (LTI) and linear time-varying (LTV) dynamics, bilinear dynamics and nonlinear dynamics.'
 
@@ -14,6 +14,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     packages=[
         "systemID",
+        "systemID.core",
         "systemID.signals",
         "systemID.state_space_model",
         "systemID.input_output_model",
@@ -29,7 +30,7 @@ setup(
         "systemID.SparseIDAlgorithms",
         "systemID.SystemIDAlgorithms"
     ],
-    install_requires=['numpy', 'scipy', 'matplotlib'],
+    install_requires=['numpy', 'scipy', 'matplotlib', 'cvxpy'],
     keywords=['python', 'system identification'],
     classifiers=[
         "Development Status :: 3 - Alpha",
